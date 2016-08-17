@@ -51,7 +51,7 @@
                     <!-- default value -->
                     <sourcePath>${project.basedir}/src/main/java</sourcePath>
                     <!-- default value -->
-                    <d>${project.build.directory}/j2objc</d>
+                    <d>${project.build.directory}/j2objc/src</d>
                 </configuration>
             </plugin>
         </plugins>

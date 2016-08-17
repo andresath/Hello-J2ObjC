@@ -27,11 +27,13 @@ The first part is to get a plain Java project with J2ObjC support working (no XC
 * Clone this repo. (note you cannot have spaces in path name. Kayla stop being lazy and just fork & patch the plugin...)
 * Import this project into IDEA (the main project is plain Java), import EXTERNAL MODEL -> MAVEN.
 * Edit local.properties and set j2objc.home to the correct path (your local install).
-* Once you have the Hello-J2OBJC project in IDEA, and local.properties, run ```mvn j2objc:convert```!
+* Once you have the Hello-J2OBJC project in IDEA, and local.properties, run ```mvn j2objc:convert``` or ```mvn j2objc:convert -DJ2OBJC_HOME='path/to/j2objc-version'```!
 
-This should succeed and create *build/j2objcOutputs* and *build/binaries* and *build/packedBinaries*, etc.
+This should succeed and create *target/j2objc/src* and *target/j2objc/binaries* (TODO) etc.
 
-Examine the transpiled Objective-C files at *build/j2objcOutputs/src/main/objc*.
+Examine the transpiled Objective-C files at *target/j2objc/src.
+
+Original Java source is at *api/src/main/java*.
 
 Original Java source is at *src/main/java*.
 
