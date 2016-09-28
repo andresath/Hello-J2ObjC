@@ -46,6 +46,7 @@ public class JSON {
         this.apiClient = apiClient;
 
         gson = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(Date.class, new DateAdapter(apiClient))
             {{^java8}}
             .registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter())
