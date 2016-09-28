@@ -67,16 +67,6 @@ public class ApiClient {
     private HttpClient httpClient;
     private JSON json;
 
-    private HttpLoggingInterceptor loggingInterceptor;
-
-    <R> Observable<ApiResponse> get(String endpoint, Map<String, String> headers);
-
-    <R> Observable<ApiResponse> post(String endpoint, Map<String, String> headers, Object postBody, Map<String, Object> formParams);
-
-    <R> Observable<ApiResponse> put(String endpoint, Map<String, String> headers, Object postBody, Map<String, Object> formParams);
-
-    <R> Observable<ApiResponse> delete(String endpoint, Map<String, String> headers);
-
     /*
      * Constructor for ApiClient
      */
@@ -86,10 +76,6 @@ public class ApiClient {
         verifyingSsl = true;
 
         json = new JSON(this);
-
-        // Be lenient on datetime formats when parsing datetime from string.
-        // See <code>parseDatetime</code>.
-        this.lenientDatetimeFormat = true;
 
         // Set default User-Agent.
         setUserAgent("{{#httpUserAgent}}{{{.}}}{{/httpUserAgent}}{{^httpUserAgent}}Swagger-Codegen/{{{artifactVersion}}}/java{{/httpUserAgent}}");
@@ -205,39 +191,6 @@ public class ApiClient {
     public ApiClient setSslCaCert(InputStream sslCaCert) {
         this.sslCaCert = sslCaCert;
         applySslSettings();
-        return this;
-    }
-
-    public DateFormat getDateFormat() {
-        return dateFormat;
-    }
-
-    public ApiClient setDateFormat(DateFormat dateFormat) {
-        this.dateFormat = dateFormat;
-        this.dateLength = this.dateFormat.format(new Date()).length();
-        return this;
-    }
-
-    public DateFormat getDatetimeFormat() {
-        return datetimeFormat;
-    }
-
-    public ApiClient setDatetimeFormat(DateFormat datetimeFormat) {
-        this.datetimeFormat = datetimeFormat;
-        return this;
-    }
-
-    /**
-     * Whether to allow various ISO 8601 datetime formats when parsing a datetime string.
-     * @see #parseDatetime(String)
-     * @return True if lenientDatetimeFormat flag is set to true
-     */
-    public boolean isLenientDatetimeFormat() {
-        return lenientDatetimeFormat;
-    }
-
-    public ApiClient setLenientDatetimeFormat(boolean lenientDatetimeFormat) {
-        this.lenientDatetimeFormat = lenientDatetimeFormat;
         return this;
     }
 
@@ -461,7 +414,7 @@ public class ApiClient {
             // ensuring a default content type
             contentType = "application/json";
         }
-        if (isJsonMime(contentType)) {
+        if (HttpUtils.isJsonMime(contentType)) {
             return json.deserialize(respBody, returnType);
         } else if (returnType.equals(String.class)) {
             // Expecting string, return the raw response body.
@@ -491,7 +444,7 @@ public class ApiClient {
         } else if (obj instanceof File) {
             // File body parameter support.
             return RequestBody.create(MediaType.parse(contentType), (File) obj);
-        } else if (isJsonMime(contentType)) {
+        } else if (HttpUtils.isJsonMime(contentType)) {
             String content;
             if (obj != null) {
                 content = json.serialize(obj);
