@@ -1,0 +1,103 @@
+{{>licenseInfo}}
+
+package {{package}};
+
+import {{invokerPackage}}.ApiCallback;
+import {{invokerPackage}}.ApiClient;
+import {{invokerPackage}}.ApiException;
+import {{invokerPackage}}.ApiResponse;
+import {{invokerPackage}}.Configuration;
+import {{invokerPackage}}.Pair;
+import {{invokerPackage}}.ProgressRequestBody;
+import {{invokerPackage}}.ProgressResponseBody;
+
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+
+{{#imports}}import {{import}};
+{{/imports}}
+
+import java.lang.reflect.Type;
+{{^fullJavaUtil}}
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+{{/fullJavaUtil}}
+
+{{#operations}}
+public class {{classname}} {
+    private ApiClient {{localVariablePrefix}}apiClient;
+
+    public {{classname}}() {
+        this(Configuration.getDefaultApiClient());
+    }
+
+    public {{classname}}(ApiClient apiClient) {
+        this.{{localVariablePrefix}}apiClient = apiClient;
+    }
+
+    public ApiClient getApiClient() {
+        return {{localVariablePrefix}}apiClient;
+    }
+
+    public void setApiClient(ApiClient apiClient) {
+        this.{{localVariablePrefix}}apiClient = apiClient;
+    }
+
+    {{#operation}}
+    public Observable<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Object{{/returnType}}> {{operationId}}({{#allParams}}{{{dataType}}} {{paramName}}{{/allParams}}) {
+        Object {{localVariablePrefix}}localVarPostBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
+        {{#allParams}}{{#required}}
+        // verify the required parameter '{{paramName}}' is set
+        // TODO OnError instead of Throw
+        if ({{paramName}} == null) {
+            throw new ApiException("Missing the required parameter '{{paramName}}' when calling {{operationId}}(Async)");
+        }
+        {{/required}}{{/allParams}}
+
+        // create path and map variables
+        String {{localVariablePrefix}}localVarPath = "{{path}}".replaceAll("\\{format\\}","json"){{#pathParams}}
+        .replaceAll("\\{" + "{{baseName}}" + "\\}", {{localVariablePrefix}}apiClient.escapeString({{{paramName}}}.toString())){{/pathParams}};
+
+        // Turn Query Params into Pairs
+        {{javaUtilPrefix}}List<Pair> {{localVariablePrefix}}localVarQueryParams = new {{javaUtilPrefix}}ArrayList<Pair>();{{#queryParams}}
+        if ({{paramName}} != null)
+        {{localVariablePrefix}}localVarQueryParams.addAll({{localVariablePrefix}}apiClient.parameterToPairs("{{#collectionFormat}}{{{collectionFormat}}}{{/collectionFormat}}", "{{baseName}}", {{paramName}}));{{/queryParams}}
+
+        // Add all generic header params
+        {{javaUtilPrefix}}Map<String, String> {{localVariablePrefix}}localVarHeaderParams = new {{javaUtilPrefix}}HashMap<String, String>();{{#headerParams}}
+        if ({{paramName}} != null)
+        {{localVariablePrefix}}localVarHeaderParams.put("{{baseName}}", {{localVariablePrefix}}apiClient.parameterToString({{paramName}}));{{/headerParams}}
+
+        // Setup Form Params
+        {{javaUtilPrefix}}Map<String, Object> {{localVariablePrefix}}localVarFormParams = new {{javaUtilPrefix}}HashMap<String, Object>();{{#formParams}}
+        if ({{paramName}} != null)
+        {{localVariablePrefix}}localVarFormParams.put("{{baseName}}", {{paramName}});{{/formParams}}
+
+        // Add Accept Header(s) (if provided)
+        final String[] {{localVariablePrefix}}localVarAccepts = {
+            {{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}}
+        };
+        final String {{localVariablePrefix}}localVarAccept = {{localVariablePrefix}}apiClient.selectHeaderAccept({{localVariablePrefix}}localVarAccepts);
+        if ({{localVariablePrefix}}localVarAccept != null) {{localVariablePrefix}}localVarHeaderParams.put("Accept", {{localVariablePrefix}}localVarAccept);
+
+        // Add Content-Type Header(s) (if provided)
+        final String[] {{localVariablePrefix}}localVarContentTypes = {
+            {{#consumes}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/consumes}}
+        };
+        final String {{localVariablePrefix}}localVarContentType = {{localVariablePrefix}}apiClient.selectHeaderContentType({{localVariablePrefix}}localVarContentTypes);
+        {{localVariablePrefix}}localVarHeaderParams.put("Content-Type", {{localVariablePrefix}}localVarContentType);
+
+        String endpointWithQuery = apiClient.buildUrl({{localVariablePrefix}}localVarPath, localVarQueryParams);
+
+        {{#returnType}}Type {{localVariablePrefix}}localVarReturnType = new TypeToken<{{{returnType}}}>(){}.getType();{{/returnType}}
+        return apiClient.{{#lowercase}}{{httpMethod}}{{/lowercase}}(endpointWithQuery, localVarHeaderParams, localVarPostBody, localVarFormParams)
+           .map( response -> apiClient.handleResponse(response, localVarReturnType) );
+
+    }
+
+    {{/operation}}
+}
+{{/operations}}
