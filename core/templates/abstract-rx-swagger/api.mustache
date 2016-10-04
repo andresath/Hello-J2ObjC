@@ -90,11 +90,14 @@ public class {{classname}} {
         final String {{localVariablePrefix}}localVarContentType = {{localVariablePrefix}}apiClient.selectHeaderContentType({{localVariablePrefix}}localVarContentTypes);
         {{localVariablePrefix}}localVarHeaderParams.put("Content-Type", {{localVariablePrefix}}localVarContentType);
 
-        String endpointWithQuery = apiClient.buildUrl({{localVariablePrefix}}localVarPath, localVarQueryParams);
+        String {{localVariablePrefix}}endpointWithQuery = apiClient.buildUrl({{localVariablePrefix}}localVarPath, localVarQueryParams);
 
         {{#returnType}}Type {{localVariablePrefix}}localVarReturnType = new TypeToken<{{{returnType}}}>(){}.getType();{{/returnType}}
-        return apiClient.{{#lowercase}}{{httpMethod}}{{/lowercase}}(endpointWithQuery, localVarHeaderParams, localVarPostBody, localVarFormParams)
-           .map( response -> apiClient.handleResponse(response, localVarReturnType) );
+
+		ApiRequest {{localVariablePrefix}}apiRequest = new ApiRequest("{{httpMethod}}", {{localVariablePrefix}}localVarHeaderParams, {{localVariablePrefix}}localVarPostBody, {{localVariablePrefix}}localVarFormParams, {{localVariablePrefix}}localVarQueryParams);
+        apiRequest = apiClient.prepareRequestForCall(apiRequest);
+		return apiClient.{{#lowercase}}{{httpMethod}}{{/lowercase}}({{localVariablePrefix}}endpointWithQuery, {{localVariablePrefix}}apiRequest)
+		   .map( {{localVariablePrefix}}response -> {{localVariablePrefix}}apiClient.handleResponse(response, {{localVariablePrefix}}localVarReturnType) );
 
     }
 

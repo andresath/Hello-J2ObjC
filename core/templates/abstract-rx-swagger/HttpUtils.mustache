@@ -76,6 +76,47 @@ public final class HttpClientUtils {
             return String.valueOf(param);
         }
     }
+    /**
+     * Build a form-encoding request body with the given form parameters.
+     *
+     * @param formParams Form parameters in the form of Map
+     * @return String
+     */
+    public String buildRequestBodyFormEncoding(Map<String, Object> formParams) {
+        // URL encoded string from form parameters
+        String formParamStr = null;
+        StringBuilder formParamBuilder = new StringBuilder();
+
+        // encode the form params
+        for (String key : formParams.keySet()) {
+            String value = formParams.get(key);
+            if (value != null && !"".equals(value.trim())) {
+                if (formParamBuilder.length() > 0) {
+                    formParamBuilder.append("&");
+                }
+                try {
+                    formParamBuilder.append(URLEncoder.encode(key, "utf8"))
+                        .append("=")
+                        .append(URLEncoder.encode(value, "utf8"));
+                } catch (Exception e) {
+                    // move on to next
+                }
+            }
+        }
+        formParamStr = formParamBuilder.toString();
+        return formParamStr;
+    }
+
+    /**
+     * Build a multipart (file uploading) request body with the given form parameters,
+     * which could contain text fields and file fields.
+     *
+     * @param formParams Form parameters in the form of Map
+     * @return RequestBody
+     */
+    // public String buildRequestBodyMultipart(Map<String, Object> formParams) {
+    //    // TODO Implement Multi-Part Form Encoding
+    // }
 
     /**
      * Format to {@code Pair} objects.
@@ -145,11 +186,35 @@ public final class HttpClientUtils {
      *   application/json; charset=UTF8
      *   APPLICATION/JSON
      *
-     * @param mime MIME (Multipurpose Internet Mail Extensions)
+     * @param mime MIME
      * @return True if the given MIME is JSON, false otherwise.
      */
     public static boolean isJsonMime(String mime) {
         return mime != null && mime.matches("(?i)application\\/json(;.*)?");
+    }
+
+    /**
+     * Check if the given MIME is a encoded MIME.
+     * Form MIME Example:
+     *   application/x-www-form-urlencoded
+     *
+     * @param mime MIME (Multipurpose Internet Mail Extensions)
+     * @return True if the given MIME is encoded form
+     */
+    public static boolean isEncodedFormMime(String mime) {
+        return mime != null && mime.matches("(?i)application\\/x\-www\-form\-urlencoded(;.*)?");
+    }
+
+    /**
+     * Check if the given MIME is a multi-part form MIME.
+     * Multi-Part MIME Example:
+     *   multipart/form-data
+     *
+     * @param mime MIME (Multipurpose Internet Mail Extensions)
+     * @return True if the given MIME is multi-part form
+     */
+    public static boolean isMultipartFormMime(String mime) {
+        return mime != null && mime.matches("(?i)multipart\\/form\-data(;.*)?");
     }
 
     /**
@@ -205,6 +270,21 @@ public final class HttpClientUtils {
             return URLEncoder.encode(str, "utf8").replaceAll("\\+", "%20");
         } catch (UnsupportedEncodingException e) {
             return str;
+        }
+    }
+
+    /**
+     * Guess Content-Type header from the given file (defaults to "application/octet-stream").
+     *
+     * @param file The given file
+     * @return The guessed Content-Type
+     */
+    public static String guessContentTypeFromFile(File file) {
+        String contentType = URLConnection.guessContentTypeFromName(file.getName());
+        if (contentType == null) {
+            return "application/octet-stream";
+        } else {
+            return contentType;
         }
     }
 }

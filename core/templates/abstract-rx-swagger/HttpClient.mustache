@@ -2,60 +2,45 @@
 
 package {{invokerPackage}};
 
-import java.io.IOException;
-
-import java.util.Map;
-import java.util.List;
+import rx.Observable;
 
 /**
  * Observable Generic HTTP Client.
- *
- * @param <T> The return type
  */
 public interface HttpClient {
-    <R> Observable<R> get(String endpoint, Map<String, String> headers, Object postBody, Map<String, Object> formParams);
-
-    <R> Observable<R> post(String endpoint, Map<String, String> headers, Object postBody, Map<String, Object> formParams);
-
-    <R> Observable<R> put(String endpoint, Map<String, String> headers, Object postBody, Map<String, Object> formParams);
-
-    <R> Observable<R> delete(String endpoint, Map<String, String> headers, Object postBody, Map<String, Object> formParams);
-
-    <R> Observable<R> delete(String endpoint, Map<String, String> headers, Object postBody, Map<String, Object> formParams);
-
-    /**
-     * This is called when the API call fails.
+	/**
+     * This method makes an HTTP GET request and return response as ApiResponse of Observable.
      *
-     * @param e The exception causing the failure
-     * @param statusCode Status code of the response if available, otherwise it would be 0
-     * @param responseHeaders Headers of the response if available, otherwise it would be null
+     * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+     * @param request 		  ApiRequest that will be used to build the final Request
+     * @return Observable with ApiResponse value
      */
-    void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders);
+     Observable<ApiResponse> get(String endpoint, ApiRequest request);
 
-    /**
-     * This is called when the API call succeeded.
+	/**
+     * This method makes an HTTP POST request and return response as ApiResponse of Observable.
      *
-     * @param result The result deserialized from response
-     * @param statusCode Status code of the response
-     * @param responseHeaders Headers of the response
+     * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+     * @param request 		  ApiRequest that will be used to build the final Request
+     * @return Observable with ApiResponse value
      */
-    void onSuccess(T result, int statusCode, Map<String, List<String>> responseHeaders);
+    Observable<ApiResponse> post(String endpoint, ApiRequest request);
 
-    /**
-     * This is called when the API upload processing.
+	/**
+     * This method makes an HTTP PUT request and return response as ApiResponse of Observable.
      *
-     * @param bytesWritten bytes Written
-     * @param contentLength content length of request body
-     * @param done write end
+     * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+     * @param request 		  ApiRequest that will be used to build the final Request
+     * @return Observable with ApiResponse value
      */
-    void onUploadProgress(long bytesWritten, long contentLength, boolean done);
+    Observable<ApiResponse> put(String endpoint, ApiRequest request);
 
-    /**
-     * This is called when the API downlond processing.
+	/**
+     * This method makes an HTTP DELETE request and return response as ApiResponse of Observable.
      *
-     * @param bytesRead bytes Read
-     * @param contentLength content lenngth of the response
-     * @param done Read end
+     * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+     * @param request 		  ApiRequest that will be used to build the final Request
+     * @return Observable with ApiResponse value
      */
-    void onDownloadProgress(long bytesRead, long contentLength, boolean done);
+    Observable<ApiResponse> delete(String endpoint, ApiRequest request);
 }

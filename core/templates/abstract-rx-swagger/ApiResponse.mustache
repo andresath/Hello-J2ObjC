@@ -50,4 +50,17 @@ public class ApiResponse<T> {
         return statusCode >= 200 && statusCode < 300;
     }
 
+	public boolean isJsonContentType() {
+		return HttpUtils.isJsonMime(getContentType());
+	}
+
+	public String getContentType() {
+		String contentType = response.getHeaders().get("Content-Type");
+		if (contentType == null) {
+			// ensuring a default content type
+			contentType = "application/json";
+		}
+		return contentType;
+	}
+
 }
