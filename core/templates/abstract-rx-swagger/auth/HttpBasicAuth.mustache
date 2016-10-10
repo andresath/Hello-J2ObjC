@@ -2,9 +2,12 @@
 
 package {{invokerPackage}}.auth;
 
+import {{invokerPackage}}.auth.Authentication;
 import {{invokerPackage}}.Pair;
-
-import com.squareup.okhttp.Credentials;
+import {{invokerPackage}}.ApiException;
+import {{invokerPackage}}.ApiResponse;
+import {{invokerPackage}}.ApiRequest;
+import {{invokerPackage}}.HttpClientUtils;
 
 import java.util.Map;
 import java.util.List;
@@ -32,12 +35,14 @@ public class HttpBasicAuth implements Authentication {
     }
 
     @Override
-    public void applyToParams(List<Pair> queryParams, Map<String, String> headerParams) {
+    public ApiRequest applyToRequest(ApiRequest request) throws ApiException {
         if (username == null && password == null) {
-            return;
+            return request;
         }
-        headerParams.put("Authorization", Credentials.basic(
-            username == null ? "" : username,
-            password == null ? "" : password));
+        throw new ApiException("HttpBasicAuth Authentication Not Implemented");
+        // return request;
+        //headerParams.put("Authorization", Credentials.basic(
+        //    username == null ? "" : username,
+        //    password == null ? "" : password));
     }
 }

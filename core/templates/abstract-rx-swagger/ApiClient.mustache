@@ -4,78 +4,48 @@ package {{invokerPackage}};
 
 import java.lang.reflect.Type;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import java.net.URLEncoder;
-import java.net.URLConnection;
+import rx.Observable;
 
-import java.io.File;
-import java.io.InputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
-import java.security.GeneralSecurityException;
-import java.security.KeyStore;
-import java.security.SecureRandom;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
+import {{invokerPackage}}.ApiException;
+import {{invokerPackage}}.ApiResponse;
+import {{invokerPackage}}.ApiRequest;
+import {{invokerPackage}}.HttpClient;
+import {{invokerPackage}}.HttpClientUtils;
+import {{invokerPackage}}.JSONSerializer;
 
 import {{invokerPackage}}.auth.Authentication;
 import {{invokerPackage}}.auth.HttpBasicAuth;
 import {{invokerPackage}}.auth.ApiKeyAuth;
 import {{invokerPackage}}.auth.OAuth;
 
+{{>generatedAnnotation}}
 public class ApiClient {
 
     private String basePath = "{{{basePath}}}";
     private boolean lenientOnJson = false;
-    private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
-    private String tempFolderPath = null;
 
     private Map<String, Authentication> authentications;
 
-    private InputStream sslCaCert;
-    private boolean verifyingSsl;
-
     private HttpClient httpClient;
-    private JSON json;
+    private JSONSerializer json;
 
     /*
      * Constructor for ApiClient
      */
     public ApiClient(HttpClient httpClientImpl) {
+        // HTTP Client Dependency
         httpClient = httpClientImpl;
 
-        verifyingSsl = true;
-
-        json = new JSON(this);
+        // JSON Serialization/Deserialization
+        json = new JSONSerializer(this);
 
         // Set default User-Agent.
         setUserAgent("{{#httpUserAgent}}{{{.}}}{{/httpUserAgent}}{{^httpUserAgent}}Swagger-Codegen/{{{artifactVersion}}}/java{{/httpUserAgent}}");
@@ -92,7 +62,7 @@ public class ApiClient {
     /**
      * Get base path
      *
-     * @return Baes path
+     * @return Base path
      */
     public String getBasePath() {
         return basePath;
@@ -102,7 +72,7 @@ public class ApiClient {
      * Set base path
      *
      * @param basePath Base path of the URL (e.g {{{basePath}}}
-     * @return An instance of OkHttpClient
+     * @return An instance of ApiClient
      */
     public ApiClient setBasePath(String basePath) {
         this.basePath = basePath;
@@ -122,7 +92,7 @@ public class ApiClient {
      * Set HTTP client
      *
      * @param httpClient An instance of HttpClient
-     * @return Api Client
+     * @return ApiClient
      */
     public ApiClient setHttpClient(HttpClient httpClient) {
         this.httpClient = httpClient;
@@ -130,85 +100,41 @@ public class ApiClient {
     }
 
     /**
-     * Get JSON
+     * Get JSON Serializer
      *
      * @return JSON object
      */
-    public JSON getJSON() {
+    public JSONSerializer getJSON() {
         return json;
     }
 
     /**
-     * Set JSON
+     * Set JSON Serializer
      *
      * @param json JSON object
-     * @return Api client
+     * @return ApiClient client
      */
-    public ApiClient setJSON(JSON json) {
+    public ApiClient setJSON(JSONSerializer json) {
         this.json = json;
         return this;
     }
 
-    public Observable<R> get(String endpoint, ApiRequest request) {
-    	return httpClient.get(endpoint, request);
+	// TODO Swagger template language won't generate lowercase http method names, so we have to
+	// use uppercase here for now. Fix this in the future.
+    public Observable<ApiResponse> GET(String endpoint, ApiRequest request) {
+        return httpClient.get(endpoint, request);
     }
 
-    public Observable<R> post(String endpoint, ApiRequest request) {
-    	return httpClient.post(endpoint, request);
+    public Observable<ApiResponse> POST(String endpoint, ApiRequest request) {
+        return httpClient.post(endpoint, request);
     }
 
-    public Observable<R> put(String endpoint, ApiRequest request) {
-    	return httpClient.put(endpoint, request);
+    public Observable<ApiResponse> PUT(String endpoint, ApiRequest request) {
+        return httpClient.put(endpoint, request);
     }
 
-    public Observable<R> delete(String endpoint, ApiRequest request) {
-    	return httpClient.delete(endpoint, request);
-    }
-
-
-    /**
-     * True if isVerifyingSsl flag is on
-     *
-     * @return True if isVerifySsl flag is on
-     */
-    public boolean isVerifyingSsl() {
-        return verifyingSsl;
-    }
-
-    /**
-     * Configure whether to verify certificate and hostname when making https requests.
-     * Default to true.
-     * NOTE: Do NOT set to false in production code, otherwise you would face multiple types of cryptographic attacks.
-     *
-     * @param verifyingSsl True to verify TLS/SSL connection
-     * @return ApiClient
-     */
-    public ApiClient setVerifyingSsl(boolean verifyingSsl) {
-        this.verifyingSsl = verifyingSsl;
-        applySslSettings();
-        return this;
-    }
-
-    /**
-     * Get SSL CA cert.
-     *
-     * @return Input stream to the SSL CA cert
-     */
-    public InputStream getSslCaCert() {
-        return sslCaCert;
-    }
-
-    /**
-     * Configure the CA certificate to be trusted when making https requests.
-     * Use null to reset to default.
-     *
-     * @param sslCaCert input stream for SSL CA cert
-     * @return ApiClient
-     */
-    public ApiClient setSslCaCert(InputStream sslCaCert) {
-        this.sslCaCert = sslCaCert;
-        applySslSettings();
-        return this;
+    public Observable<ApiResponse> DELETE(String endpoint, ApiRequest request) {
+        return httpClient.delete(endpoint, request);
     }
 
     /**
@@ -366,13 +292,10 @@ public class ApiClient {
         }
 
         String respBody;
-        try {
-            if (response.getData() != null)
-                respBody = response.getData().string();
-            else
-                respBody = null;
-        } catch (IOException e) {
-            throw new ApiException(e);
+        if (response.getData() != null) {
+            respBody = response.getData().toString();
+        } else {
+            respBody = null;
         }
 
         if (respBody == null || "".equals(respBody)) {
@@ -380,7 +303,7 @@ public class ApiClient {
         }
 
         if (response.isJsonContentType()) {
-        	// De-Serialize to DTO
+            // De-Serialize to DTO
             return json.deserialize(respBody, returnType);
         } else if (returnType.equals(String.class)) {
             // Expecting string, return the raw response body.
@@ -389,7 +312,7 @@ public class ApiClient {
             throw new ApiException(
                     "Content type \"" + response.getContentType() + "\" is not supported for type: " + returnType,
                     response.getStatusCode(),
-                    response.getHeaders().toMultimap(),
+                    response.getHeaders(),
                     respBody);
         }
     }
@@ -403,24 +326,16 @@ public class ApiClient {
      * @throws ApiException If fail to serialize the given object
      */
     public ApiRequest serialize(ApiRequest request) throws ApiException {
+        // TODO This is a VERY naive implementation
         String content;
-        if (request != null && request.getData() != nul) {
-			if (request.isJsonContentType()) {
-				content = json.serialize(request.getData());
-				request.setSerializedBody(content);
-			} else if (data instanceof byte[]) {
-				// TODO Implement File Serialization or provide Interface
-				// this was from original OkHttp Swagger Impl
-				throw new ApiException("Serializing Byte array not Supported");
-			} else if (data instanceof File) {
-				// TODO Implement File Serialization or provide Interface
-				// this was from original OkHttp Swagger Impl
-				throw new ApiException("File Type is not Supported");
-			} else {
-				request.setSerializedBody(request.getData().string());
-			}
-        } else {
-            throw new ApiException("No ApiRequest passed to serialize");
+        if (request != null && request.getData() != null) {
+            if (request.isJsonContentType()) {
+                content = json.serialize(request.getData());
+                request.setSerializedBody(content);
+            } else {
+            	// TODO Implement File Serialization of Binary Data, Forms, Multi-Part etc.
+                request.setSerializedBody(request.getData().toString());
+            }
         }
         return request;
     }
@@ -433,12 +348,11 @@ public class ApiClient {
      */
     public ApiRequest prepareRequestForCall(ApiRequest request) throws ApiException {
         if (request != null) {
-			request = request.addHeaders(defaultHeaderMap);
-			request = authenticateRequest(authNames, request);
-			request = serialize(request);
-        } else {
-            throw new ApiException("No Request Provided");
+            request = request.addHeaders(defaultHeaderMap);
+            request = authenticateRequest(request);
+            request = serialize(request);
         }
+        return request;
     }
 
     /**
@@ -463,13 +377,9 @@ public class ApiClient {
         } else {
             String respBody = null;
             if (response.getData() != null) {
-                try {
-                    respBody = response.getData().string();
-                } catch (IOException e) {
-                    throw new ApiException(response.getData().string(), e, response.getStatusCode(), response.getHeaders().toMultimap());
-                }
+                    respBody = response.getData().toString();
             }
-            throw new ApiException(response.getData().string(), response.getStatusCode(), response.getHeaders().toMultimap(), respBody);
+            throw new ApiException(response.getData().toString(), response.getStatusCode(), response.getHeaders(), respBody);
         }
     }
 
@@ -481,7 +391,7 @@ public class ApiClient {
      * @return String The full URL
      */
     public String buildUrl(String path, List<Pair> queryParams) {
-        return HttpUtils.buildUrl(basePath, path, queryParams)
+        return HttpClientUtils.buildUrl(basePath, path, queryParams);
     }
 
     /**
@@ -490,525 +400,17 @@ public class ApiClient {
      * @param ApiRequest request
      * @param ApiRequest request
      */
-    public ApiRequest authenticateRequest(String[] authNames, ApiRequest request) {
-    	request = request.addHeaders(defaultHeaderMap);
-    	for (String authName : authNames) {
-			Authentication auth = authentications.get(authName);
-			if (auth == null) throw new RuntimeException("Authentication undefined: " + authName);
-			// auth.applyToRequest(request);
-		}
-    	return request;
-    }
-
-    /**
-     * Apply SSL related settings to httpClient according to the current values of
-     * verifyingSsl and sslCaCert.
-     */
-    private void applySslSettings() {
-        try {
-            KeyManager[] keyManagers = null;
-            TrustManager[] trustManagers = null;
-            HostnameVerifier hostnameVerifier = null;
-            if (!verifyingSsl) {
-                TrustManager trustAll = new X509TrustManager() {
-                    @Override
-                    public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
-                    @Override
-                    public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
-                    @Override
-                    public X509Certificate[] getAcceptedIssuers() { return null; }
-                };
-                SSLContext sslContext = SSLContext.getInstance("TLS");
-                trustManagers = new TrustManager[]{ trustAll };
-                hostnameVerifier = new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) { return true; }
-                };
-            } else if (sslCaCert != null) {
-                char[] password = null; // Any password will work.
-                CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-                Collection<? extends Certificate> certificates = certificateFactory.generateCertificates(sslCaCert);
-                if (certificates.isEmpty()) {
-                    throw new IllegalArgumentException("expected non-empty set of trusted certificates");
-                }
-                KeyStore caKeyStore = newEmptyKeyStore(password);
-                int index = 0;
-                for (Certificate certificate : certificates) {
-                    String certificateAlias = "ca" + Integer.toString(index++);
-                    caKeyStore.setCertificateEntry(certificateAlias, certificate);
-                }
-                TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-                trustManagerFactory.init(caKeyStore);
-                trustManagers = trustManagerFactory.getTrustManagers();
-            }
-
-            if (keyManagers != null || trustManagers != null) {
-                SSLContext sslContext = SSLContext.getInstance("TLS");
-                sslContext.init(keyManagers, trustManagers, new SecureRandom());
-                httpClient.setSslSocketFactory(sslContext.getSocketFactory());
-            } else {
-                httpClient.setSslSocketFactory(null);
-            }
-            httpClient.setHostnameVerifier(hostnameVerifier);
-        } catch (GeneralSecurityException e) {
-            throw new RuntimeException(e);
+    public ApiRequest authenticateRequest(ApiRequest request) throws ApiException {
+        request = request.addHeaders(defaultHeaderMap);
+        String[] authTypes = request.getAuthTypes();
+        if (authTypes != null) {
+			for (String authType : request.getAuthTypes()) {
+				Authentication auth = authentications.get(authType);
+				if (auth == null) throw new RuntimeException("Authentication undefined: " + authType);
+				auth.applyToRequest(request);
+			}
         }
-    }
-
-    private KeyStore newEmptyKeyStore(char[] password) throws GeneralSecurityException {
-        try {
-            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-            keyStore.load(null, password);
-            return keyStore;
-        } catch (IOException e) {
-            throw new AssertionError(e);
-        }
+        return request;
     }
 }
 
-
-{{>licenseInfo}}
-
-package {{invokerPackage}};
-
-import rx.Observable;
-
-/**
- * Observable Generic HTTP Client.
- */
-public interface HttpClient {
-	/**
-     * This method makes an HTTP GET request and return response as ApiResponse of Observable.
-     *
-     * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
-     * @param request 		  ApiRequest that will be used to build the final Request
-     * @return Observable with ApiResponse value
-     */
-     Observable<ApiResponse> get(String endpoint, ApiRequest request);
-
-	/**
-     * This method makes an HTTP POST request and return response as ApiResponse of Observable.
-     *
-     * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
-     * @param request 		  ApiRequest that will be used to build the final Request
-     * @return Observable with ApiResponse value
-     */
-    Observable<ApiResponse> post(String endpoint, ApiRequest request);
-
-	/**
-     * This method makes an HTTP PUT request and return response as ApiResponse of Observable.
-     *
-     * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
-     * @param request 		  ApiRequest that will be used to build the final Request
-     * @return Observable with ApiResponse value
-     */
-    Observable<ApiResponse> put(String endpoint, ApiRequest request);
-
-	/**
-     * This method makes an HTTP DELETE request and return response as ApiResponse of Observable.
-     *
-     * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
-     * @param request 		  ApiRequest that will be used to build the final Request
-     * @return Observable with ApiResponse value
-     */
-    Observable<ApiResponse> delete(String endpoint, ApiRequest request);
-}
-
-
-{{>licenseInfo}}
-
-package {{invokerPackage}};
-
-import java.util.List;
-import java.util.Map;
-
-/**
- * API response returned by API call.
- *
- * @param T The type of data that is deserialized from response body
- */
-public class ApiRequest {
-	final private String method;
-    final private T data;
-    final private Map<String, List<String>> headers;
-    final private Map<String, Object> formParams;
-    final private Map<String, Object> rawQueryParams;
-
-    /**
-     * @param method The method of the HTTP Request
-     * @param headers The headers of HTTP Request
-     * @param data The body of the HTTP Request
-     */
-    public ApiRequest(String method, Map<String, List<String>> headers, T data) {
-        this(method, headers, data, null, null);
-    }
-
-    /**
-	 * @param method The method of the HTTP Request
-     * @param headers The headers of HTTP Request
-     * @param data The body of the HTTP Request
-     * @param formParams The (optional) Form Params (multipart, etc.)
-     */
-    public ApiRequest(String method, Map<String, List<String>> headers, T data, Map<String, Object> formParams) {
-        this(method, headers, data formParams, null);
-    }
-
-    /**
-     * @param method The method of the HTTP Request
-     * @param headers The headers of HTTP Request
-     * @param data The body of the HTTP Request
-     * @param formParams The (optional) Form Params (multipart, etc.)
-     * @param rawQueryParams The (pre-tanslated) Query Params (NOTE this is typically for debugging purposes)
-     */
-    public ApiRequest(String method, Map<String, List<String>> headers, T data, Map<String, Object> formParams, Map<String, Object> rawQueryParams) {
-        this.method = method;
-        this.headers = headers;
-        this.data = data;
-        this.formParams = formParams;
-		this.rawQueryParams = rawQueryParams;
-    }
-
-	public boolean getMethod() {
-		return method;
-	}
-
-	public T getData() {
-		return data;
-	}
-
-	public Map<String, List<String>> getHeaders() {
-		return headers;
-	}
-
-    public ApiRequest addHeaders(Map<String, List<String>> additionalHeaders) {
-        if (additionalHeaders != null) {
-            for (Entry<String, String> header : additionalHeaders.entrySet()) {
-                if (!headers.containsKey(header.getKey())) {
-                    headers.add(header.getKey(), parameterToString(header.getValue()));
-                }
-            }
-        }
-        return this;
-    }
-
-	public Map<String, Object> getFormParams() {
-		return formParams;
-	}
-
-	public Map<String, Object> getRawQueryParams() {
-		return rawQueryParams;
-	}
-
-	public boolean isJsonContentType() {
-		return HttpUtils.isJsonMime(getContentType());
-	}
-
-	public String getContentType() {
-		String contentType = response.getHeaders().get("Content-Type");
-		if (contentType == null) {
-			// ensuring a default content type
-			contentType = "application/json";
-		}
-		return contentType;
-	}
-
-    public void setSerializedBody(String bodyContent) {
-        body = bodyContent;
-    }
-
-    public String getSerializedBody() {
-        return body;
-    }
-}
-
-
-{{>licenseInfo}}
-
-package {{invokerPackage}};
-
-import java.io.IOException;
-
-import java.util.Map;
-import java.util.List;
-import java.net.URLEncoder;
-import com.google.common.collect.ListMultimap;
-import com.google.common.escape.Escaper;
-import com.google.common.net.UrlEscapers;
-
-/**
- * Generic HTTP Utils.
- */
-public final class HttpClientUtils {
-
-    private HttpClientUtils() {
-
-    }
-
-    /**
-     * Build full URL by concatenating base path, the given sub path, and query parameters.
-     *
-     * @param path The base path
-     * @param path The sub path
-     * @param queryParams The query parameters
-     * @return The full URL
-     */
-    public static String buildUrl(String basePath, String path, List<Pair> queryParams) {
-        final StringBuilder url = new StringBuilder();
-        url.append(basePath).append(path);
-
-        if (queryParams != null && !queryParams.isEmpty()) {
-            // support (constant) query string in `path`, e.g. "/posts?draft=1"
-            String prefix = path.contains("?") ? "&" : "?";
-            for (Pair param : queryParams) {
-                if (param.getValue() != null) {
-                    if (prefix != null) {
-                        url.append(prefix);
-                        prefix = null;
-                    } else {
-                        url.append("&");
-                    }
-                    String value = parameterToString(param.getValue());
-                    url.append(escapeString(param.getName())).append("=").append(escapeString(value));
-                }
-            }
-        }
-
-        return url.toString();
-    }
-
-    /**
-     * Format the given parameter object into string.
-     *
-     * @param param Parameter
-     * @return String representation of the parameter
-     */
-    public static String parameterToString(Object param) {
-        if (param == null) {
-            return "";
-        } else if (param instanceof Date) {
-            return formatDatetime((Date) param);
-        } else if (param instanceof Collection) {
-            StringBuilder b = new StringBuilder();
-            for (Object o : (Collection)param) {
-                if (b.length() > 0) {
-                    b.append(",");
-                }
-                b.append(String.valueOf(o));
-            }
-            return b.toString();
-        } else {
-            return String.valueOf(param);
-        }
-    }
-    /**
-     * Build a form-encoding request body with the given form parameters.
-     *
-     * @param formParams Form parameters in the form of Map
-     * @return String
-     */
-    public String buildRequestBodyFormEncoding(Map<String, Object> formParams) {
-        // URL encoded string from form parameters
-        String formParamStr = null;
-        StringBuilder formParamBuilder = new StringBuilder();
-
-        // encode the form params
-        for (String key : formParams.keySet()) {
-            String value = formParams.get(key);
-            if (value != null && !"".equals(value.trim())) {
-                if (formParamBuilder.length() > 0) {
-                    formParamBuilder.append("&");
-                }
-                try {
-                    formParamBuilder.append(URLEncoder.encode(key, "utf8"))
-                        .append("=")
-                        .append(URLEncoder.encode(value, "utf8"));
-                } catch (Exception e) {
-                    // move on to next
-                }
-            }
-        }
-        formParamStr = formParamBuilder.toString();
-        return formParamStr;
-    }
-
-    /**
-     * Build a multipart (file uploading) request body with the given form parameters,
-     * which could contain text fields and file fields.
-     *
-     * @param formParams Form parameters in the form of Map
-     * @return RequestBody
-     */
-    // public String buildRequestBodyMultipart(Map<String, Object> formParams) {
-    //    // TODO Implement Multi-Part Form Encoding
-    // }
-
-    /**
-     * Format to {@code Pair} objects.
-     *
-     * @param collectionFormat collection format (e.g. csv, tsv)
-     * @param name Name
-     * @param value Value
-     * @return A list of Pair objects
-     */
-    public static List<Pair> parameterToPairs(String collectionFormat, String name, Object value){
-        List<Pair> params = new ArrayList<Pair>();
-
-        // preconditions
-        if (name == null || name.isEmpty() || value == null) return params;
-
-        Collection valueCollection = null;
-        if (value instanceof Collection) {
-            valueCollection = (Collection) value;
-        } else {
-            params.add(new Pair(name, parameterToString(value)));
-            return params;
-        }
-
-        if (valueCollection.isEmpty()){
-            return params;
-        }
-
-        // get the collection format
-        collectionFormat = (collectionFormat == null || collectionFormat.isEmpty() ? "csv" : collectionFormat); // default: csv
-
-        // create the params based on the collection format
-        if (collectionFormat.equals("multi")) {
-            for (Object item : valueCollection) {
-                params.add(new Pair(name, parameterToString(item)));
-            }
-
-            return params;
-        }
-
-        String delimiter = ",";
-
-        if (collectionFormat.equals("csv")) {
-            delimiter = ",";
-        } else if (collectionFormat.equals("ssv")) {
-            delimiter = " ";
-        } else if (collectionFormat.equals("tsv")) {
-            delimiter = "\t";
-        } else if (collectionFormat.equals("pipes")) {
-            delimiter = "|";
-        }
-
-        StringBuilder sb = new StringBuilder() ;
-        for (Object item : valueCollection) {
-            sb.append(delimiter);
-            sb.append(parameterToString(item));
-        }
-
-        params.add(new Pair(name, sb.substring(1)));
-
-        return params;
-    }
-
-    /**
-     * Check if the given MIME is a JSON MIME.
-     * JSON MIME examples:
-     *   application/json
-     *   application/json; charset=UTF8
-     *   APPLICATION/JSON
-     *
-     * @param mime MIME
-     * @return True if the given MIME is JSON, false otherwise.
-     */
-    public static boolean isJsonMime(String mime) {
-        return mime != null && mime.matches("(?i)application\\/json(;.*)?");
-    }
-
-    /**
-     * Check if the given MIME is a encoded MIME.
-     * Form MIME Example:
-     *   application/x-www-form-urlencoded
-     *
-     * @param mime MIME (Multipurpose Internet Mail Extensions)
-     * @return True if the given MIME is encoded form
-     */
-    public static boolean isEncodedFormMime(String mime) {
-        return mime != null && mime.matches("(?i)application\\/x\-www\-form\-urlencoded(;.*)?");
-    }
-
-    /**
-     * Check if the given MIME is a multi-part form MIME.
-     * Multi-Part MIME Example:
-     *   multipart/form-data
-     *
-     * @param mime MIME (Multipurpose Internet Mail Extensions)
-     * @return True if the given MIME is multi-part form
-     */
-    public static boolean isMultipartFormMime(String mime) {
-        return mime != null && mime.matches("(?i)multipart\\/form\-data(;.*)?");
-    }
-
-    /**
-     * Select the Accept header's value from the given accepts array:
-     *   if JSON exists in the given array, use it;
-     *   otherwise use all of them (joining into a string)
-     *
-     * @param accepts The accepts array to select from
-     * @return The Accept header to use. If the given array is empty,
-     *   null will be returned (not to set the Accept header explicitly).
-     */
-    public static String selectHeaderAccept(String[] accepts) {
-        if (accepts.length == 0) {
-            return null;
-        }
-        for (String accept : accepts) {
-            if (isJsonMime(accept)) {
-                return accept;
-            }
-        }
-        return StringUtil.join(accepts, ",");
-    }
-
-    /**
-     * Select the Content-Type header's value from the given array:
-     *   if JSON exists in the given array, use it;
-     *   otherwise use the first one of the array.
-     *
-     * @param contentTypes The Content-Type array to select from
-     * @return The Content-Type header to use. If the given array is empty,
-     *   JSON will be used.
-     */
-    public static String selectHeaderContentType(String[] contentTypes) {
-        if (contentTypes.length == 0) {
-            return "application/json";
-        }
-        for (String contentType : contentTypes) {
-            if (isJsonMime(contentType)) {
-                return contentType;
-            }
-        }
-        return contentTypes[0];
-    }
-
-    /**
-     * Escape the given string to be used as URL query value.
-     *
-     * @param str String to be escaped
-     * @return Escaped string
-     */
-    public static String escapeString(String str) {
-        try {
-            return URLEncoder.encode(str, "utf8").replaceAll("\\+", "%20");
-        } catch (UnsupportedEncodingException e) {
-            return str;
-        }
-    }
-
-    /**
-     * Guess Content-Type header from the given file (defaults to "application/octet-stream").
-     *
-     * @param file The given file
-     * @return The guessed Content-Type
-     */
-    public static String guessContentTypeFromFile(File file) {
-        String contentType = URLConnection.guessContentTypeFromName(file.getName());
-        if (contentType == null) {
-            return "application/octet-stream";
-        } else {
-            return contentType;
-        }
-    }
-}

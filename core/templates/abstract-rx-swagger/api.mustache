@@ -2,23 +2,23 @@
 
 package {{package}};
 
-import {{invokerPackage}}.ApiCallback;
 import {{invokerPackage}}.ApiClient;
 import {{invokerPackage}}.ApiException;
 import {{invokerPackage}}.ApiResponse;
-import {{invokerPackage}}.Configuration;
+import {{invokerPackage}}.ApiRequest;
+import {{invokerPackage}}.HttpClientUtils;
 import {{invokerPackage}}.Pair;
-import {{invokerPackage}}.ProgressRequestBody;
-import {{invokerPackage}}.ProgressResponseBody;
-
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
+import rx.Observable;
+import rx.Observer;
+import rx.functions.*;
+import rx.exceptions.Exceptions;
 
 {{#imports}}import {{import}};
 {{/imports}}
 
 import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
+
 {{^fullJavaUtil}}
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,10 +29,6 @@ import java.util.Map;
 {{#operations}}
 public class {{classname}} {
     private ApiClient {{localVariablePrefix}}apiClient;
-
-    public {{classname}}() {
-        this(Configuration.getDefaultApiClient());
-    }
 
     public {{classname}}(ApiClient apiClient) {
         this.{{localVariablePrefix}}apiClient = apiClient;
@@ -47,29 +43,28 @@ public class {{classname}} {
     }
 
     {{#operation}}
-    public Observable<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Object{{/returnType}}> {{operationId}}({{#allParams}}{{{dataType}}} {{paramName}}{{/allParams}}) {
+    public Observable<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Object{{/returnType}}> {{operationId}}({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
         Object {{localVariablePrefix}}localVarPostBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
         {{#allParams}}{{#required}}
         // verify the required parameter '{{paramName}}' is set
-        // TODO OnError instead of Throw
         if ({{paramName}} == null) {
-            throw new ApiException("Missing the required parameter '{{paramName}}' when calling {{operationId}}(Async)");
+            return Observable.error(new ApiException("Missing the required parameter '{{paramName}}' when calling {{operationId}}"));
         }
         {{/required}}{{/allParams}}
 
         // create path and map variables
         String {{localVariablePrefix}}localVarPath = "{{path}}".replaceAll("\\{format\\}","json"){{#pathParams}}
-        .replaceAll("\\{" + "{{baseName}}" + "\\}", {{localVariablePrefix}}apiClient.escapeString({{{paramName}}}.toString())){{/pathParams}};
+        .replaceAll("\\{" + "{{baseName}}" + "\\}", {{localVariablePrefix}}HttpClientUtils.escapeString({{{paramName}}}.toString())){{/pathParams}};
 
         // Turn Query Params into Pairs
         {{javaUtilPrefix}}List<Pair> {{localVariablePrefix}}localVarQueryParams = new {{javaUtilPrefix}}ArrayList<Pair>();{{#queryParams}}
         if ({{paramName}} != null)
-        {{localVariablePrefix}}localVarQueryParams.addAll({{localVariablePrefix}}apiClient.parameterToPairs("{{#collectionFormat}}{{{collectionFormat}}}{{/collectionFormat}}", "{{baseName}}", {{paramName}}));{{/queryParams}}
+        {{localVariablePrefix}}localVarQueryParams.addAll(HttpClientUtils.parameterToPairs("{{#collectionFormat}}{{{collectionFormat}}}{{/collectionFormat}}", "{{baseName}}", {{paramName}}));{{/queryParams}}
 
         // Add all generic header params
         {{javaUtilPrefix}}Map<String, String> {{localVariablePrefix}}localVarHeaderParams = new {{javaUtilPrefix}}HashMap<String, String>();{{#headerParams}}
         if ({{paramName}} != null)
-        {{localVariablePrefix}}localVarHeaderParams.put("{{baseName}}", {{localVariablePrefix}}apiClient.parameterToString({{paramName}}));{{/headerParams}}
+        {{localVariablePrefix}}localVarHeaderParams.put("{{baseName}}", HttpClientUtils.parameterToString({{paramName}}));{{/headerParams}}
 
         // Setup Form Params
         {{javaUtilPrefix}}Map<String, Object> {{localVariablePrefix}}localVarFormParams = new {{javaUtilPrefix}}HashMap<String, Object>();{{#formParams}}
@@ -80,24 +75,69 @@ public class {{classname}} {
         final String[] {{localVariablePrefix}}localVarAccepts = {
             {{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}}
         };
-        final String {{localVariablePrefix}}localVarAccept = {{localVariablePrefix}}apiClient.selectHeaderAccept({{localVariablePrefix}}localVarAccepts);
+        final String {{localVariablePrefix}}localVarAccept = {{localVariablePrefix}}HttpClientUtils.selectHeaderAccept({{localVariablePrefix}}localVarAccepts);
         if ({{localVariablePrefix}}localVarAccept != null) {{localVariablePrefix}}localVarHeaderParams.put("Accept", {{localVariablePrefix}}localVarAccept);
 
         // Add Content-Type Header(s) (if provided)
         final String[] {{localVariablePrefix}}localVarContentTypes = {
             {{#consumes}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/consumes}}
         };
-        final String {{localVariablePrefix}}localVarContentType = {{localVariablePrefix}}apiClient.selectHeaderContentType({{localVariablePrefix}}localVarContentTypes);
+        final String {{localVariablePrefix}}localVarContentType = {{localVariablePrefix}}HttpClientUtils.selectHeaderContentType({{localVariablePrefix}}localVarContentTypes);
         {{localVariablePrefix}}localVarHeaderParams.put("Content-Type", {{localVariablePrefix}}localVarContentType);
 
+        String[] {{localVariablePrefix}}localVarAuthNames = new String[] { {{#authMethods}}"{{name}}"{{#hasMore}}, {{/hasMore}}{{/authMethods}} };
+
+        // Build final URL for Call
         String {{localVariablePrefix}}endpointWithQuery = apiClient.buildUrl({{localVariablePrefix}}localVarPath, localVarQueryParams);
 
-        {{#returnType}}Type {{localVariablePrefix}}localVarReturnType = new TypeToken<{{{returnType}}}>(){}.getType();{{/returnType}}
+        // Build Request
+		ApiRequest {{localVariablePrefix}}apiRequest = new ApiRequest("{{httpMethod}}", {{localVariablePrefix}}localVarHeaderParams, {{localVariablePrefix}}localVarPostBody, {{localVariablePrefix}}localVarFormParams, {{localVariablePrefix}}localVarQueryParams, {{localVariablePrefix}}localVarAuthNames);
+        try {
+			apiRequest = apiClient.prepareRequestForCall(apiRequest);
+        } catch (ApiException e) {
+        	return Observable.error(e);
+        }
 
-		ApiRequest {{localVariablePrefix}}apiRequest = new ApiRequest("{{httpMethod}}", {{localVariablePrefix}}localVarHeaderParams, {{localVariablePrefix}}localVarPostBody, {{localVariablePrefix}}localVarFormParams, {{localVariablePrefix}}localVarQueryParams);
-        apiRequest = apiClient.prepareRequestForCall(apiRequest);
-		return apiClient.{{#lowercase}}{{httpMethod}}{{/lowercase}}({{localVariablePrefix}}endpointWithQuery, {{localVariablePrefix}}apiRequest)
-		   .map( {{localVariablePrefix}}response -> {{localVariablePrefix}}apiClient.handleResponse(response, {{localVariablePrefix}}localVarReturnType) );
+
+        {{#java8}}
+        {{#returnType}}
+        // Setup Response mapping to DTO Type
+        Type {{localVariablePrefix}}localVarReturnType = new TypeToken<{{{returnType}}}>(){}.getType();
+        {{/returnType}}
+        {{^returnType}}
+        // Setup Response mapping to generic DTO Type
+        final Type {{localVariablePrefix}}localVarReturnType = new TypeToken<Object>(){}.getType();
+        {{/returnType}}
+        return apiClient.{{httpMethod}}({{localVariablePrefix}}endpointWithQuery, {{localVariablePrefix}}apiRequest)
+		   .map( {{localVariablePrefix}}response -> {
+                try {
+                    return {{localVariablePrefix}}apiClient.handleResponse(response, {{localVariablePrefix}}localVarReturnType);
+                } catch (ApiException e) {
+                    throw Exceptions.propagate(e);
+                }
+            });
+        {{/java8}}
+        {{^java8}}
+
+        {{#returnType}}
+        // Setup Response mapping to DTO Type
+        final Type {{localVariablePrefix}}localVarReturnType = new TypeToken<{{{returnType}}}>(){}.getType();
+        {{/returnType}}
+        {{^returnType}}
+        // Setup Response mapping to generic DTO Type
+        final Type {{localVariablePrefix}}localVarReturnType = new TypeToken<Object>(){}.getType();
+        {{/returnType}}
+        return apiClient.{{httpMethod}}({{localVariablePrefix}}endpointWithQuery, {{localVariablePrefix}}apiRequest)
+            .map(new Func1<ApiResponse, {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Object{{/returnType}}>() {
+                @Override public {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Object{{/returnType}} call(ApiResponse {{localVariablePrefix}}response) {
+                    try {
+                        return {{localVariablePrefix}}apiClient.handleResponse(response, {{localVariablePrefix}}localVarReturnType);
+                    } catch (ApiException e) {
+                        throw Exceptions.propagate(e);
+                    }
+                }
+            });
+        {{/java8}}
 
     }
 

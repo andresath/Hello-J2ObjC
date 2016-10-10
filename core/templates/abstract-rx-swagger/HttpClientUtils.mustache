@@ -2,23 +2,28 @@
 
 package {{invokerPackage}};
 
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.List;
+import java.util.Date;
+import java.util.ArrayList;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import java.net.URLEncoder;
-import com.google.common.collect.ListMultimap;
-import com.google.common.escape.Escaper;
-import com.google.common.net.UrlEscapers;
+import java.net.URLConnection;
 
 /**
  * Generic HTTP Utils.
  */
+{{>generatedAnnotation}}
 public final class HttpClientUtils {
-
-    private HttpClientUtils() {
-
-    }
+    private static final DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
     /**
      * Build full URL by concatenating base path, the given sub path, and query parameters.
@@ -62,7 +67,7 @@ public final class HttpClientUtils {
         if (param == null) {
             return "";
         } else if (param instanceof Date) {
-            return formatDatetime((Date) param);
+            return formatter.format((Date) param);
         } else if (param instanceof Collection) {
             StringBuilder b = new StringBuilder();
             for (Object o : (Collection)param) {
@@ -89,7 +94,7 @@ public final class HttpClientUtils {
 
         // encode the form params
         for (String key : formParams.keySet()) {
-            String value = formParams.get(key);
+            String value = (String) formParams.get(key);
             if (value != null && !"".equals(value.trim())) {
                 if (formParamBuilder.length() > 0) {
                     formParamBuilder.append("&");
@@ -202,7 +207,7 @@ public final class HttpClientUtils {
      * @return True if the given MIME is encoded form
      */
     public static boolean isEncodedFormMime(String mime) {
-        return mime != null && mime.matches("(?i)application\\/x\-www\-form\-urlencoded(;.*)?");
+        return mime != null && mime.matches("(?i)application\\/x-www-form-urlencoded(;.*)?");
     }
 
     /**
@@ -214,7 +219,7 @@ public final class HttpClientUtils {
      * @return True if the given MIME is multi-part form
      */
     public static boolean isMultipartFormMime(String mime) {
-        return mime != null && mime.matches("(?i)multipart\\/form\-data(;.*)?");
+        return mime != null && mime.matches("(?i)multipart\\/form-data(;.*)?");
     }
 
     /**

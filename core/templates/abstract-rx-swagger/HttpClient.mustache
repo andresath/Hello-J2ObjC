@@ -3,44 +3,57 @@
 package {{invokerPackage}};
 
 import rx.Observable;
+import {{invokerPackage}}.ApiException;
+import {{invokerPackage}}.ApiResponse;
+import {{invokerPackage}}.ApiRequest;
 
 /**
- * Observable Generic HTTP Client.
- */
+* Observable Generic HTTP Client.
+*
+* This should be a Native Implementation of an generic HTTP Client. The client is responsible for
+* implementing SSL/Certificate Functionality, as well as any other typical HTTP Client functionality.
+* All other logic that this specific to this API will be contained in the ApiClient class.
+*
+* All actions on the HTTP Client should correctly return observables that properly trigger onError
+* when a call fails.
+*
+* // TODO or onNextError
+*/
+{{>generatedAnnotation}}
 public interface HttpClient {
-	/**
-     * This method makes an HTTP GET request and return response as ApiResponse of Observable.
-     *
-     * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
-     * @param request 		  ApiRequest that will be used to build the final Request
-     * @return Observable with ApiResponse value
-     */
-     Observable<ApiResponse> get(String endpoint, ApiRequest request);
+    /**
+    * This method makes an HTTP GET request and return response as ApiResponse of Observable.
+    *
+    * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+    * @param request 		  ApiRequest that will be used to build the final Request
+    * @return Observable with ApiResponse value
+    */
+    Observable<ApiResponse> get(String endpoint, ApiRequest request);
 
-	/**
-     * This method makes an HTTP POST request and return response as ApiResponse of Observable.
-     *
-     * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
-     * @param request 		  ApiRequest that will be used to build the final Request
-     * @return Observable with ApiResponse value
-     */
+    /**
+    * This method makes an HTTP POST request and return response as ApiResponse of Observable.
+    *
+    * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+    * @param request 		  ApiRequest that will be used to build the final Request
+    * @return Observable with ApiResponse value
+    */
     Observable<ApiResponse> post(String endpoint, ApiRequest request);
 
-	/**
-     * This method makes an HTTP PUT request and return response as ApiResponse of Observable.
-     *
-     * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
-     * @param request 		  ApiRequest that will be used to build the final Request
-     * @return Observable with ApiResponse value
-     */
+    /**
+    * This method makes an HTTP PUT request and return response as ApiResponse of Observable.
+    *
+    * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+    * @param request 		  ApiRequest that will be used to build the final Request
+    * @return Observable with ApiResponse value
+    */
     Observable<ApiResponse> put(String endpoint, ApiRequest request);
 
-	/**
-     * This method makes an HTTP DELETE request and return response as ApiResponse of Observable.
-     *
-     * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
-     * @param request 		  ApiRequest that will be used to build the final Request
-     * @return Observable with ApiResponse value
-     */
+    /**
+    * This method makes an HTTP DELETE request and return response as ApiResponse of Observable.
+    *
+    * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+    * @param request 		  ApiRequest that will be used to build the final Request
+    * @return Observable with ApiResponse value
+    */
     Observable<ApiResponse> delete(String endpoint, ApiRequest request);
 }
