@@ -310,10 +310,8 @@ public class ApiClient {
             return (T) respBody;
         } else {
             throw new ApiException(
-                    "Content type \"" + response.getContentType() + "\" is not supported for type: " + returnType,
-                    response.getStatusCode(),
-                    response.getHeaders(),
-                    respBody);
+                    "De-Serializing Content type \"" + response.getContentType() + "\" is not supported for type: " + returnType,
+                    response);
         }
     }
 
@@ -375,11 +373,7 @@ public class ApiClient {
                 return deserialize(response, returnType);
             }
         } else {
-            String respBody = null;
-            if (response.getData() != null) {
-                    respBody = response.getData().toString();
-            }
-            throw new ApiException(response.getData().toString(), response.getStatusCode(), response.getHeaders(), respBody);
+            throw new ApiException("Bypassed Post-Processing of Unsuccessful response.", response);
         }
     }
 
