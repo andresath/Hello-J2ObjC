@@ -1,0 +1,232 @@
+{{>licenseInfo}}
+
+package {{invokerPackage}};
+
+import rx.Observable;
+import rx.Subscriber;
+import okhttp3.Headers;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okhttp3.Call;
+import java.util.HashMap;
+import java.util.Map;
+import java.io.IOException;
+
+/**
+* Observable Generic HTTP Client.
+*
+* This should be a Native Implementation of an generic HTTP Client. The client is responsible for
+* implementing SSL/Certificate Functionality, as well as any other typical HTTP Client functionality.
+* All other logic that this specific to this API will be contained in the ApiClient class.
+*
+* All actions on the HTTP Client should correctly return observables that properly trigger onError
+* with an ApiException when a call fails.
+*/
+{{>generatedAnnotation}}
+public class OkHttpServiceClient implements HttpClient {
+
+    private final OkHttpClient client;
+    private boolean debugging;
+    private String certificatePath;
+
+    public OkHttpServiceClient() {
+        debugging = true;
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        configureClient(clientBuilder);
+        client = clientBuilder.build();
+    }
+
+    private void configureClient(OkHttpClient.Builder clientBuilder) {
+        clientBuilder.followRedirects(true);
+        clientBuilder.followSslRedirects(true);
+        clientBuilder.retryOnConnectionFailure(true);
+//        if (certificatePath) {
+//            clientBuilder.sslSocketFactory(new SslCertificates(certificatePath.get()).sslContext().getSocketFactory());
+//        }
+
+        if (debugging) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+            clientBuilder.addInterceptor(logging);
+        }
+    }
+
+    public boolean isDebugging() {
+        return debugging;
+    }
+
+    public void setDebugging(boolean debugging) {
+        this.debugging = debugging;
+    }
+
+    /**
+    * This method makes an HTTP GET request and return response as ApiResponse of Observable.
+    *
+    * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+    * @param request 		  ApiRequest that will be used to build the final Request
+    * @return Observable with ApiResponse value
+    */
+    public Observable<ApiResponse> get(final String endpoint, final ApiRequest request) {
+        return Observable.create(new Observable.OnSubscribe<ApiResponse>() {
+            @Override
+            public void call(Subscriber subscriber) {
+                try {
+                    Response response = buildGetRequest(endpoint, request);
+                    Headers responseHeaders = response.headers();
+                    Map<String, String>headers = new HashMap<String, String>();
+                    for (int i = 0; i < responseHeaders.size(); i++) {
+                        headers.put(responseHeaders.name(i), responseHeaders.value(i));
+                    }
+                    ApiResponse<String> apiResponse = new ApiResponse<String>(response.code(), headers, response.body().string());
+                    if (response.isSuccessful() && !subscriber.isUnsubscribed()) {
+                        subscriber.onNext(apiResponse);
+                        subscriber.onCompleted();
+                    } else {
+                        String errorMsg = String.format("Unsuccessful response returned from: %s. Code: %d, Message: %s", endpoint, response.code(), response.message());
+                        ApiException error = new ApiException(errorMsg, response.code(), request, apiResponse);
+                        subscriber.onError(error);
+                    }
+                } catch (IOException e) {
+                    String error = String.format("Error occurred during HTTP call to: %s. Message: %s", endpoint, e.getLocalizedMessage());
+                    subscriber.onError(new ApiException(error, e.getCause(), request));
+                }
+            }
+        });
+    }
+
+    /**
+    * This method makes an HTTP POST request and return response as ApiResponse of Observable.
+    *
+    * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+    * @param request 		  ApiRequest that will be used to build the final Request
+    * @return Observable with ApiResponse value
+    */
+    public Observable<ApiResponse> post(final String endpoint, final ApiRequest request) {
+        return Observable.create(new Observable.OnSubscribe<ApiResponse>() {
+            @Override
+            public void call(Subscriber subscriber) {
+                try {
+                    Response response = buildGetRequest(endpoint, request);
+                    Headers responseHeaders = response.headers();
+                    Map<String, String>headers = new HashMap<String, String>();
+                    for (int i = 0; i < responseHeaders.size(); i++) {
+                        headers.put(responseHeaders.name(i), responseHeaders.value(i));
+                    }
+                    ApiResponse<ResponseBody> apiResponse = new ApiResponse<ResponseBody>(response.code(), headers, response.body());
+                    if (response.isSuccessful() && !subscriber.isUnsubscribed()) {
+                        subscriber.onNext(apiResponse);
+                        subscriber.onCompleted();
+                    } else {
+                        String errorMsg = String.format("Unsuccessful response returned from: %s. Code: %d, Message: %s", endpoint, response.code(), response.message());
+                        ApiException error = new ApiException(errorMsg, response.code(), request, apiResponse);
+                        subscriber.onError(error);
+                    }
+                } catch (IOException e) {
+                    String error = String.format("Error occurred during HTTP call to: %s. Message: %s", endpoint, e.getLocalizedMessage());
+                    subscriber.onError(new ApiException(error, e.getCause(), request));
+                }
+            }
+        });
+    }
+
+    /**
+    * This method makes an HTTP PUT request and return response as ApiResponse of Observable.
+    *
+    * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+    * @param request 		  ApiRequest that will be used to build the final Request
+    * @return Observable with ApiResponse value
+    */
+    public Observable<ApiResponse> put(final String endpoint, final ApiRequest request) {
+        return Observable.create(new Observable.OnSubscribe<ApiResponse>() {
+            @Override
+            public void call(Subscriber subscriber) {
+                try {
+                    Response response = buildGetRequest(endpoint, request);
+                    Headers responseHeaders = response.headers();
+                    Map<String, String>headers = new HashMap<String, String>();
+                    for (int i = 0; i < responseHeaders.size(); i++) {
+                        headers.put(responseHeaders.name(i), responseHeaders.value(i));
+                    }
+                    ApiResponse<ResponseBody> apiResponse = new ApiResponse<ResponseBody>(response.code(), headers, response.body());
+                    if (response.isSuccessful() && !subscriber.isUnsubscribed()) {
+                        subscriber.onNext(apiResponse);
+                        subscriber.onCompleted();
+                    } else {
+                        String errorMsg = String.format("Unsuccessful response returned from: %s. Code: %d, Message: %s", endpoint, response.code(), response.message());
+                        ApiException error = new ApiException(errorMsg, response.code(), request, apiResponse);
+                        subscriber.onError(error);
+                    }
+                } catch (IOException e) {
+                    String error = String.format("Error occurred during HTTP call to: %s. Message: %s", endpoint, e.getLocalizedMessage());
+                    subscriber.onError(new ApiException(error, e.getCause(), request));
+                }
+            }
+        });
+    }
+
+    /**
+    * This method makes an HTTP DELETE request and return response as ApiResponse of Observable.
+    *
+    * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+    * @param request 		  ApiRequest that will be used to build the final Request
+    * @return Observable with ApiResponse value
+    */
+    public Observable<ApiResponse> delete(final String endpoint, final ApiRequest request) {
+        return Observable.create(new Observable.OnSubscribe<ApiResponse>() {
+            @Override
+            public void call(Subscriber subscriber) {
+                try {
+                    Response response = buildGetRequest(endpoint, request);
+                    Headers responseHeaders = response.headers();
+                    Map<String, String>headers = new HashMap<String, String>();
+                    for (int i = 0; i < responseHeaders.size(); i++) {
+                        headers.put(responseHeaders.name(i), responseHeaders.value(i));
+                    }
+                    ApiResponse<ResponseBody> apiResponse = new ApiResponse<ResponseBody>(response.code(), headers, response.body());
+                    if (response.isSuccessful() && !subscriber.isUnsubscribed()) {
+                        subscriber.onNext(apiResponse);
+                        subscriber.onCompleted();
+                    } else {
+                        String errorMsg = String.format("Unsuccessful response returned from: %s. Code: %d, Message: %s", endpoint, response.code(), response.message());
+                        ApiException error = new ApiException(errorMsg, response.code(), request, apiResponse);
+                        subscriber.onError(error);
+                    }
+                } catch (IOException e) {
+                    String error = String.format("Error occurred during HTTP call to: %s. Message: %s", endpoint, e.getLocalizedMessage());
+                    subscriber.onError(new ApiException(error, e.getCause(), request));
+                }
+            }
+        });
+    }
+
+    private Response buildGetRequest(String fullEndpointUrl, ApiRequest request) throws IOException {
+        Request getHttpRequest = new Request.Builder()
+                .url(fullEndpointUrl)
+                .headers(Headers.of(request.getHeaders()))
+                .build();
+//        client.newCall(getHttpRequest).enqueue(new Callback() {
+//            @Override public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override public void onResponse(Call call, Response response) throws IOException {
+//                if (!response.isSuccessful()) throw new ApiException("Unexpected code " + response);
+//                ApiResponse<Response> apiResponse = new ApiResponse<Response>(response.code(), response.headers().toMultimap(), response.body());
+//                Headers responseHeaders = response.headers();
+//                for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+//                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
+//                }
+//
+//                System.out.println(response.body().string());
+//            }
+//        });
+        Call call = client.newCall(getHttpRequest);
+        Response response = call.execute();
+
+        return response;
+    }
+
+}

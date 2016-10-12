@@ -3,10 +3,18 @@ package {{package}};
 import {{invokerPackage}}.ApiClient;
 import {{invokerPackage}}.HttpClient;
 
+{{#generateDefaultHttpClient}}
+import {{invokerPackage}}.OkHttpServiceClient;
+{{/generateDefaultHttpClient}}
+
 {{#imports}}import {{import}};
 {{/imports}}
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Assert;
+import rx.Subscriber;
+import rx.Observer;
+import rx.Observable;
 
 {{^fullJavaUtil}}
 import java.util.ArrayList;
@@ -26,7 +34,12 @@ public class {{classname}}Test {
 
     @Before
     public void setup() {
+        {{#generateDefaultHttpClient}}
+        httpClient = new OkHttpServiceClient();
+		{{/generateDefaultHttpClient}}
+        {{^generateDefaultHttpClient}}
         httpClient = null;
+		{{/generateDefaultHttpClient}}
         apiClient = new ApiClient(httpClient);
         api = new {{classname}}(apiClient);
     }
@@ -42,9 +55,27 @@ public class {{classname}}Test {
         {{#allParams}}
         {{{dataType}}} {{paramName}} = null;
         {{/allParams}}
-        // {{#returnType}}{{{returnType}}} response = {{/returnType}}api.{{operationId}}({{#allParams}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
+        // rx.Observable<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Object{{/returnType}}> apiObservable = api.{{operationId}}({{#allParams}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
+        // Subscriber<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Object{{/returnType}}> apiSubscriber = new Subscriber<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Object{{/returnType}}>() {
+        //    @Override
+        //    public void onNext({{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Object{{/returnType}} dtoResponse) {
+        //        // TODO: test validations
+        //        Assert.assertNotNull("DTO Response should not be Null", dtoResponse);
+        //    }
 
-        // TODO: test validations
+        //    @Override
+        //    public void onCompleted() {
+        //       // TODO: test any post-processing
+        //        System.out.println("Api Call Complete");
+        //    }
+
+        //    @Override
+        //    public void onError(Throwable e) {
+        //        // TODO: handle error scenario
+        //        System.out.println(e.getMessage());
+        //    }
+        // };
+        // apiObservable.subscribe(apiSubscriber);
     }
     {{/operation}}{{/operations}}
 }
