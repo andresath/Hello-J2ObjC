@@ -19,6 +19,10 @@ but for a clear understanding and clean path this project favors the static libr
 
 Auto-Generated Service Clients
 --------
+
+*TODO* Instead of using a fork, we should be using a custom generator module, but the Java generator is pretty complex,
+so we would have to port a decent ammount of the abstract generator code any way. For now, just use a fork.
+
 This project uses a forked version of Swagger Codegen that generates a custom
 Reactive Service Client from any valid Open Api spec. This code has minimal 3rd party dependencies,
 and NO platform specific dependencies, and is designed to be highly platform independent (read: able to be translated by J2Objc).
