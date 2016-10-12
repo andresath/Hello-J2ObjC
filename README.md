@@ -74,7 +74,7 @@ java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
 -DuseRxJava=true -DgenerateDefaultHttpClient=true
 ```
 
-The following templates are included in the Swagger Fork:
+The [following templates](https://github.com/kaylarose/swagger-codegen/tree/rx-abstract-http-client-generator/modules/swagger-codegen/src/main/resources/Java/libraries/rx-abstract-httpclient-gson) are included in the Swagger Fork:
 - api.mustache
 - api_test.mustache
 - ApiClient.mustache
