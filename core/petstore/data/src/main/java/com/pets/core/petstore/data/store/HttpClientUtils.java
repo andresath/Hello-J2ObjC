@@ -44,7 +44,7 @@ import java.net.URLConnection;
 /**
  * Generic HTTP Utils.
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-12T16:32:29.271-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-12T19:25:29.318-04:00")
 public final class HttpClientUtils {
     private static final DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 

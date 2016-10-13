@@ -109,9 +109,22 @@ java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
 
 Using Make to Transpile Dependencies
 --------
+The following will transpile any *-sources directory in ./deps/libs/local_src into Objective C, and then into a Static Library in the ./deps/build directory.
+```
+cd ./deps
+make
+```
+To download new dependency sources jars, you can run:
+Reccomended to download the *-sources.jar from maven via: ```mvn dependency:sources``` and grab the jar from M2_HOME.
+Paste into raw_src_jars/ and then unzip into a folder with the same name in local_src.
+NOTE: Originally this was scripted, but because we should not be adding dependencies often, the overhead of scripting a stable/flexible solution was not worth it.
 
 Using Make to Transpile Core Code
 --------
+```
+cd ./core/petstore/data
+make
+```
 
 Setup JAVA Project and run J2ObjC
 ----------------------------------

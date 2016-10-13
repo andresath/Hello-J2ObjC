@@ -107,28 +107,29 @@ public class PetApiTest {
      */
     @Test
     public void findPetsByStatusTest() {
-        List<String> status = null;
-        // rx.Observable<List<Pet>> apiObservable = api.findPetsByStatus(status);
-        // Subscriber<List<Pet>> apiSubscriber = new Subscriber<List<Pet>>() {
-        //    @Override
-        //    public void onNext(List<Pet> dtoResponse) {
-        //        // TODO: test validations
-        //        Assert.assertNotNull("DTO Response should not be Null", dtoResponse);
-        //    }
+        List<String> status = new ArrayList<String>();
+        status.add("available");
+         rx.Observable<List<Pet>> apiObservable = api.findPetsByStatus(status);
+         Subscriber<List<Pet>> apiSubscriber = new Subscriber<List<Pet>>() {
+            @Override
+            public void onNext(List<Pet> dtoResponse) {
+                // TODO: test validations
+                Assert.assertNotNull("DTO Response should not be Null", dtoResponse);
+            }
 
-        //    @Override
-        //    public void onCompleted() {
-        //       // TODO: test any post-processing
-        //        System.out.println("Api Call Complete");
-        //    }
+            @Override
+            public void onCompleted() {
+               // TODO: test any post-processing
+                System.out.println("Api Call Complete");
+            }
 
-        //    @Override
-        //    public void onError(Throwable e) {
-        //        // TODO: handle error scenario
-        //        System.out.println(e.getMessage());
-        //    }
-        // };
-        // apiObservable.subscribe(apiSubscriber);
+            @Override
+            public void onError(Throwable e) {
+                // TODO: handle error scenario
+                System.out.println(e.getMessage());
+            }
+         };
+         apiObservable.subscribe(apiSubscriber);
     }
     
     /**

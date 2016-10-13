@@ -63,6 +63,14 @@ public class PetApi {
         this.apiClient = apiClient;
     }
 
+    /**
+     * Add a new pet to the store (Observable)
+     * 
+     * @param body Pet object that needs to be added to the store (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return Observable<Object> Observable service call
+     * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
+     */
     public Observable<Object> addPet(Pet body) {
         Object localVarPostBody = body;
         
@@ -128,6 +136,15 @@ public class PetApi {
 
     }
 
+    /**
+     * Deletes a pet (Observable)
+     * 
+     * @param petId Pet id to delete (required)
+     * @param apiKey  (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return Observable<Object> Observable service call
+     * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
+     */
     public Observable<Object> deletePet(Long petId, String apiKey) {
         Object localVarPostBody = null;
         
@@ -196,6 +213,14 @@ public class PetApi {
 
     }
 
+    /**
+     * Finds Pets by status (Observable)
+     * Multiple status values can be provided with comma separated strings
+     * @param status Status values that need to be considered for filter (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return Observable<List<Pet>> Observable service call
+     * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
+     */
     public Observable<List<Pet>> findPetsByStatus(List<String> status) {
         Object localVarPostBody = null;
         
@@ -263,6 +288,14 @@ public class PetApi {
 
     }
 
+    /**
+     * Finds Pets by tags (Observable)
+     * Muliple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+     * @param tags Tags to filter by (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return Observable<List<Pet>> Observable service call
+     * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
+     */
     public Observable<List<Pet>> findPetsByTags(List<String> tags) {
         Object localVarPostBody = null;
         
@@ -330,6 +363,14 @@ public class PetApi {
 
     }
 
+    /**
+     * Find pet by ID (Observable)
+     * Returns a single pet
+     * @param petId ID of pet to return (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return Observable<Pet> Observable service call
+     * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
+     */
     public Observable<Pet> getPetById(Long petId) {
         Object localVarPostBody = null;
         
@@ -396,6 +437,14 @@ public class PetApi {
 
     }
 
+    /**
+     * Update an existing pet (Observable)
+     * 
+     * @param body Pet object that needs to be added to the store (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return Observable<Object> Observable service call
+     * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
+     */
     public Observable<Object> updatePet(Pet body) {
         Object localVarPostBody = body;
         
@@ -461,6 +510,16 @@ public class PetApi {
 
     }
 
+    /**
+     * Updates a pet in the store with form data (Observable)
+     * 
+     * @param petId ID of pet that needs to be updated (required)
+     * @param name Updated name of the pet (optional)
+     * @param status Updated status of the pet (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return Observable<Object> Observable service call
+     * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
+     */
     public Observable<Object> updatePetWithForm(Long petId, String name, String status) {
         Object localVarPostBody = null;
         
@@ -531,6 +590,16 @@ public class PetApi {
 
     }
 
+    /**
+     * uploads an image (Observable)
+     * 
+     * @param petId ID of pet to update (required)
+     * @param additionalMetadata Additional data to pass to server (optional)
+     * @param file file to upload (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return Observable<ModelApiResponse> Observable service call
+     * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
+     */
     public Observable<ModelApiResponse> uploadFile(Long petId, String additionalMetadata, File file) {
         Object localVarPostBody = null;
         
