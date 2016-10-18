@@ -66,12 +66,13 @@ mvn clean package
 3 Generate Code
 Then you can use the new generator via the following command:
 ```
-java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
--i http://petstore.swagger.io/v2/swagger.json -l java \
--o ../petstore-swagger-output --library=rx-abstract-httpclient-gson \
+java -DuseRxJava=true,generateDefaultHttpClient=false \
+-jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar \
+generate -i http://petstore.swagger.io/v2/swagger.json -l java \
+-o Hello-J2ObjC/core/petstore/data --library=rx-abstract-httpclient-gson \
 --model-package com.pets.core.petstore.data.models \
---api-package com.pets.core.petstore.data.store.api \
--DuseRxJava=true -DgenerateDefaultHttpClient=true
+--api-package com.pets.core.petstore.data.store.api
+
 ```
 
 The [following templates](https://github.com/kaylarose/swagger-codegen/tree/rx-abstract-http-client-generator/modules/swagger-codegen/src/main/resources/Java/libraries/rx-abstract-httpclient-gson) are included in the Swagger Fork:
@@ -128,6 +129,7 @@ make
 
 Setup JAVA Project and run J2ObjC
 ----------------------------------
+* IN PROGRESS *
 
 The first part is to get a plain Java project with J2ObjC support working (no XCode involved, yet).
 
@@ -147,7 +149,7 @@ Original Java source is at *src/main/java*.
 
 Setup Xcode and Include Static Library
 ---------------------------------------
-
+* TODO *
 The second part is to use the static library you created in Xcode with an iOS project.
 
 See the [ios/README.md](./ios/README.md).
