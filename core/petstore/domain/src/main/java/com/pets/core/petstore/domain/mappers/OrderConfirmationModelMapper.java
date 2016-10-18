@@ -21,28 +21,23 @@ import com.pets.core.petstore.domain.models.PetModel;
 import com.pets.core.petstore.domain.models.OrderConfirmationModel;
 import com.pets.core.petstore.data.models.Pet;
 import com.pets.core.petstore.data.models.Order;
+import com.pets.core.petstore.data.models.Tag;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.base.Function;
 
 public final class OrderConfirmationModelMapper {
 
-    public static OrderConfirmationModel transform(Order order, Pet pet) {
-        if (pet == null) {
-            return pet;
+    public static OrderConfirmationModel transform(Order order, PetModel pet) {
+        if (order == null) {
+            return null;
         }
-        PetModel petModel = new PetModel(pet.getId());
-        final List<String> tagNames =
-                Lists.newArrayList(Iterables.transform(pet.getTags(), new Function<Tag, String>() {
-                    @Override
-                    public String apply(final Tag tag) {
-                        return tag.getName();
-                    }
-                }));
+        OrderConfirmationModel orderConfirmation = new OrderConfirmationModel();
+        orderConfirmation.setPetModel(pet)
+                .setOrderId(order.getId())
+                .setOrderQuantity(order.getQuantity());
+                //.setOrderShipDate(order.getShipDate().toString());
 
-        petModel.setName(pet.getName())
-                .setStatus(pet.getStatus().toString())
-                .setCategoryName(pet.getCategory().getName())
-                .setTagNames(tagNames)
-                .setPhotoUrls(pet.getPhotoUrls());
-
-        return petModel;
+        return orderConfirmation;
     }
 }

@@ -1,16 +1,17 @@
 package com.pets.core.petstore.domain.store;
 
-import com.pets.core.petstore.data.models.Pet;
 import com.pets.core.petstore.data.store.ApiClient;
 import com.pets.core.petstore.data.store.HttpClient;
 import com.pets.core.petstore.data.store.OkHttpServiceClient;
+import com.pets.core.petstore.domain.models.OrderConfirmationModel;
+import com.pets.core.petstore.domain.models.PetModel;
+import com.pets.core.petstore.domain.store.PetstoreStore;
+import com.pets.core.
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import rx.Observable;
 import rx.Subscriber;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class PetstoreStoreTest {
     }
 
     public void orderPetTest() {
-        PetModel pet = new PetModel(1475574931);
+        PetModel pet = new PetModel(new Long(1475574931));
         rx.Observable<OrderConfirmationModel> apiObservable = petstore.orderPet(pet, 2);
         Subscriber<OrderConfirmationModel> apiSubscriber = new Subscriber<OrderConfirmationModel>() {
             @Override

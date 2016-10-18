@@ -6,7 +6,7 @@ package com.pets.core.petstore.domain.models;
  */
 public class OrderConfirmationModel {
     private Long orderId = null;
-    private Long orderQuantity = null;
+    private Integer orderQuantity = null;
     private String orderStatus = null;
     private String orderShipDate = null;
     private String petName = null;
@@ -31,11 +31,11 @@ public class OrderConfirmationModel {
         return this;
     }
 
-    public Long getOrderQuantity() {
+    public Integer getOrderQuantity() {
         return orderQuantity;
     }
 
-    public OrderConfirmationModel setOrderQuantity(Long orderQuantity) {
+    public OrderConfirmationModel setOrderQuantity(Integer orderQuantity) {
         this.orderQuantity = orderQuantity;
         return this;
     }

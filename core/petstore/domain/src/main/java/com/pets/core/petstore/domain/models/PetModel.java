@@ -46,7 +46,7 @@ public class PetModel {
         return name;
     }
 
-    public PetModel getPhotoUrls(List<String> photoUrls) {
+    public PetModel setPhotoUrls(List<String> photoUrls) {
         this.photoUrls = photoUrls;
         return this;
     }

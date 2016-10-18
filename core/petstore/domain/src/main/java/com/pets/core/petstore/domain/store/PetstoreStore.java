@@ -3,35 +3,38 @@ package com.pets.core.petstore.domain.store;
 
 import com.pets.core.petstore.data.store.ApiClient;
 import com.pets.core.petstore.data.store.ApiException;
-import com.pets.core.petstore.data.store.ApiResponse;
-import com.pets.core.petstore.data.store.ApiRequest;
-import com.pets.core.petstore.data.store.HttpClientUtils;
-import com.pets.core.petstore.data.store.Pair;
-import rx.Observable;
-import rx.Observer;
-import rx.functions.*;
-import rx.exceptions.Exceptions;
+import com.pets.core.petstore.data.store.api.UserApi;
+import com.pets.core.petstore.data.store.api.PetApi;
+import com.pets.core.petstore.data.store.api.StoreApi;
 
 import com.pets.core.petstore.data.models.Pet;
-import com.pets.core.petstore.data.models.ModelApiResponse;
-import java.io.File;
+import com.pets.core.petstore.data.models.Order;
 
-import java.lang.reflect.Type;
-import com.google.gson.reflect.TypeToken;
+import com.pets.core.petstore.domain.models.PetModel;
+import com.pets.core.petstore.domain.models.OrderConfirmationModel;
+import com.pets.core.petstore.domain.PetstoreException;
+import com.pets.core.petstore.domain.mappers.PetModelMapper;
+import com.pets.core.petstore.domain.mappers.OrderConfirmationModelMapper;
+
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PetstoreStore {
     private ApiClient apiClient;
     private PetApi petApi;
     private UserApi userApi;
-    private OrderApi orderApi;
+    private StoreApi storeApi;
 
     public PetstoreStore(ApiClient apiClient) {
         this.apiClient = apiClient;
+        this.userApi = new UserApi(apiClient);
+        this.petApi = new PetApi(apiClient);
+        this.storeApi = new StoreApi(apiClient);
     }
 
     public ApiClient getApiClient() { return apiClient; }
@@ -53,7 +56,7 @@ public class PetstoreStore {
             @Override
             public void onNext(List<Pet> dtoResponse) {
                 // TODO: test validations
-                Assert.assertNotNull("DTO Response should not be Null", dtoResponse);
+                System.out.println("Got Pet");
             }
 
             @Override
@@ -69,21 +72,21 @@ public class PetstoreStore {
             }
         };
         return petApi.findPetsByStatus(status)
-                .onErrorResumeNext(new Func1<Throwable, Observable<?>>() {
-                    @Override
-                    public Observable<?> call(Throwable throwable) {
-                        // Here simply return an Observable which will emit the Throwable of your liking
-                        return Observable.error(new PetstoreException("Unable to Retrieve available pets at this time.", throwable, throwable));
-                    }
-                })
+//                .onErrorResumeNext(new Func1<Throwable, Observable<?>>() {
+//                    @Override
+//                    public Observable<?> call(Throwable throwable) {
+//                        // Here simply return an Observable which will emit the Throwable of your liking
+//                        return Observable.error(new PetstoreException("Unable to Retrieve available pets at this time.", throwable, throwable));
+//                    }
+//                })
                 .map(new Func1<List<Pet>, List<PetModel>>() {
                     @Override public List<PetModel> call(List<Pet> pets) {
                         return PetModelMapper.transform(pets);
                     }
-                })
-                .retryWhen(
-                    RetryBuilder.anyOf(ApiException.class).max(6).delay(Delay.linear(TimeUnit.SECONDS)).build()
-                );
+                });
+//                .retryWhen(
+//                    TODO create retry example
+//                );
     }
 
     /**
@@ -95,47 +98,48 @@ public class PetstoreStore {
      * @return Observable<OrderConfirmationModel> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */
-    public Observable<OrderConfirmationModel> orderPet(PetModel pet, Long quantity) {
+    public Observable<OrderConfirmationModel> orderPet(final PetModel pet, final Integer quantity) {
         if (pet != null) {
-            Pet petForOrder = null;
-            petApi.getPetById(pet.getId())
-                    .onErrorResumeNext(new Func1<Throwable, Observable<?>>() {
-                        @Override
-                        public Observable<?> call(Throwable throwable) {
-                            // Here simply return an Observable which will emit the Throwable of your liking
-                            return Observable.error(new PetstoreException("Unable to find Pet referenced in the Order", throwable, throwable));
-                        }
-                    })
+            final PetModel petForOrder = null;
+            return petApi.getPetById(pet.getId())
+//                    .onErrorResumeNext(new Func1<Throwable, Observable<?>>() {
+//                        @Override
+//                        public Observable<?> call(Throwable throwable) {
+//                            // Here simply return an Observable which will emit the Throwable of your liking
+//                            return Observable.error(new PetstoreException("Unable to find Pet referenced in the Order", throwable, throwable));
+//                        }
+//                    })
                     .flatMap(new Func1<Pet, Observable<Order>>() {
                         @Override public Observable<Order> call(Pet pet) {
-                            if (pet.status != Pet.StatusEnum.AVAILABLE) {
-                                return Observable.error(new PetstoreException("This Pet is no longer available to order", throwable, throwable));
+                            if (pet.getStatus() != Pet.StatusEnum.AVAILABLE) {
+                                return Observable.error(new PetstoreException("This Pet is no longer available to order"));
                             }
-                            petForOrder = pet;
-                            Order newOrder = new Order();
+                            //petForOrder = pet;
+                            Order order = new Order();
                             order.setPetId(pet.getId());
                             order.setQuantity(quantity);
 
-                            return storeApi.placeOrder(newOrder);
+                            return storeApi.placeOrder(order);
                         }
                     })
-                    .onErrorResumeNext(new Func1<Throwable, Observable<?>>() {
-                        @Override
-                        public Observable<?> call(Throwable throwable) {
-                            // Here simply return an Observable which will emit the Throwable of your liking
-                            return Observable.error(new PetstoreException("Unable to place Order for Pet:" + orderedPet.getId(), throwable, throwable));
-                        }
-                    })
+//                    .onErrorResumeNext(new Func1<Throwable, Observable<?>>() {
+//                        @Override
+//                        public Observable<?> call(Throwable throwable) {
+//                            // Here simply return an Observable which will emit the Throwable of your liking
+//                            return Observable.error(new PetstoreException("Unable to place Order for Pet:" + pet.getId(), throwable, throwable));
+//                        }
+//                    })
                     .map(new Func1<Order, OrderConfirmationModel>() {
                         @Override public OrderConfirmationModel call(Order order) {
-                            PetModel orderedPet = PetModelMapper.transform(petForOrder);
-                            OrderConfirmationModel orderConfirmation = OrderConfirmationModelMapper.transfor(order, orderedPet);
+                            //PetModel orderedPet = PetModelMapper.transform(petForOrder);
+                            OrderConfirmationModel orderConfirmation = OrderConfirmationModelMapper.transform(order, pet);
                             return orderConfirmation;
                         }
-                    })
-                    .retryWhen(
-                            RetryBuilder.anyOf(ApiException.class).max(6).delay(Delay.linear(TimeUnit.SECONDS)).build()
-                    );
+                    });
+
+                    // .retryWhen(
+                    //   TODO Add retry example
+                    //);
         } else {
             return Observable.error(new PetstoreException("A Pet was not included when attempting to place the order."));
         }

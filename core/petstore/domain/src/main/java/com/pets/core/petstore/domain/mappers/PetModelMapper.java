@@ -19,13 +19,19 @@ package com.pets.core.petstore.domain.mappers;
 // and ViewModels can be Foo
 import com.pets.core.petstore.domain.models.PetModel;
 import com.pets.core.petstore.data.models.Pet;
+import com.pets.core.petstore.data.models.Tag;
+import java.util.List;
 import java.util.ArrayList;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.base.Function;
+
 
 public final class PetModelMapper {
 
     public static PetModel transform(Pet pet) {
         if (pet == null) {
-            return pet;
+            return null;
         }
         PetModel petModel = new PetModel(pet.getId());
         final List<String> tagNames =
