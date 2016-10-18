@@ -26,7 +26,7 @@
 package com.pets.core.petstore.data.store;
 
 // TODO this is leftover from Swagger. Refactor pair class
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-12T19:25:29.318-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-18T14:52:38.307-04:00")
 public class Pair {
     private String name = "";
     private String value = "";

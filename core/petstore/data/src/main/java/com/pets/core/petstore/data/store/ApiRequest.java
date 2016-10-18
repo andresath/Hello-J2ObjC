@@ -37,7 +37,7 @@ import java.util.ArrayList;
 /**
  * API Request created for API call.
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-12T19:25:29.318-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-18T14:52:38.307-04:00")
 public class ApiRequest<T> {
     private String[] authTypes;
     private String method;
