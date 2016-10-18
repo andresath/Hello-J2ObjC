@@ -17,6 +17,23 @@ Then AFTER the J2ObjC transpilation works, import the created library into Xcode
 Java files on the fly, or have your Java project create a Cocoapod via j2objc-gradle,
 but for a clear understanding and clean path this project favors the static library approach.)
 
+TODO
+--------
+* Stop using ```--build-closure``` in transpilation process
+    We should transpile a separate framework for every dependency in ```deps```
+    The source jars should be in the transpile commands' classpath
+    When generating the ```data`` or ```domain``` Libraries, the individual ```deps``` libraries should be pointed at via linker
+        Currently the swagger-annotations library is holding this up. It won't compile to a library after transpilation
+* Include a "example" HttpClient for UTs (or mock one) without adding dependencies to Data/Domain - but so that UTs are runnable out of box
+* Create Example iOS Project
+* Create Example Android Project
+* Create ```scripts/``` for adding swagger auto-generation to build process
+* Update swagger-codegen documentation templates
+* Document Example Architecture portions (Data/Domain/etc)
+* Finish Domain contrived example
+
+
+
 Auto-Generated Service Clients
 --------
 
