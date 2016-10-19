@@ -9,8 +9,6 @@ public class OrderConfirmationModel {
     private Integer orderQuantity = null;
     private String orderStatus = null;
     private String orderShipDate = null;
-    private String petName = null;
-    private String petId = null;
     private PetModel petModel = null;
 
     public PetModel getPetModel() {

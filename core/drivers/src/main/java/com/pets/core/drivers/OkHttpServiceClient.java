@@ -132,13 +132,13 @@ public class OkHttpServiceClient implements HttpClient {
             @Override
             public void call(Subscriber subscriber) {
                 try {
-                    Response response = buildGetRequest(endpoint, request);
+                    Response response = buildPostRequest(endpoint, request);
                     Headers responseHeaders = response.headers();
                     Map<String, String>headers = new HashMap<String, String>();
                     for (int i = 0; i < responseHeaders.size(); i++) {
                         headers.put(responseHeaders.name(i), responseHeaders.value(i));
                     }
-                    ApiResponse<ResponseBody> apiResponse = new ApiResponse<ResponseBody>(response.code(), headers, response.body());
+                    ApiResponse<String> apiResponse = new ApiResponse<String>(response.code(), headers, response.body().string());
                     if (response.isSuccessful() && !subscriber.isUnsubscribed()) {
                         subscriber.onNext(apiResponse);
                         subscriber.onCompleted();

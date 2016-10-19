@@ -3,7 +3,6 @@ package com.pets.core.petstore.data.store.api;
 import com.pets.core.petstore.data.store.ApiClient;
 import com.pets.core.petstore.data.store.HttpClient;
 
-import com.pets.core.petstore.data.store.OkHttpServiceClient;
 
 import com.pets.core.petstore.data.models.Order;
 import org.junit.Before;
@@ -29,7 +28,7 @@ public class StoreApiTest {
 
     @Before
     public void setup() {
-        httpClient = new OkHttpServiceClient();
+        httpClient = null;
         apiClient = new ApiClient(httpClient);
         api = new StoreApi(apiClient);
     }

@@ -48,7 +48,7 @@ import com.pets.core.petstore.data.store.auth.HttpBasicAuth;
 import com.pets.core.petstore.data.store.auth.ApiKeyAuth;
 import com.pets.core.petstore.data.store.auth.OAuth;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-19T13:12:40.154-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-19T13:25:14.296-04:00")
 public class ApiClient {
 
     private String basePath = "http://petstore.swagger.io/v2";
