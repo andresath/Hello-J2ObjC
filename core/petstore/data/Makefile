@@ -4,8 +4,8 @@ SHELL=/bin/bash
 
 BUILD_DIR = build
 SRC_DIR = src
-DEPS_DIR = ../../../deps
-LIBS_DIR = ../../../deps/libs
+DEPS_DIR = $(realpath ../../../deps)
+LIBS_DIR = $(realpath ../../../deps/libs)
 APP_DIR = $(SRC_DIR)/main/java
 TEST_DIR = $(SRC_DIR)/test/java
 PREFIX_PROPERTIES = ./prefixes.properties
@@ -19,6 +19,8 @@ APP_JAVA_SRCS = $(shell find $(APP_DIR) -type f -name '*.java')
 TEST_JAVA_SRCS = $(shell find $(TEST_DIR) -type f -name '*.java')
 APP_OBJECTS = $(patsubst $(APP_DIR)/%.java, $(BUILD_DIR)/%.o, $(APP_JAVA_SRCS))
 APP_OBJC_SRCS = $(patsubst %.o,%.m,$(APP_OBJECTS))
+APP_STATIC_LIB_VERSION = "0.0.1"
+APP_STATIC_LIB_NAME = "core-petstore-data"-$(APP_STATIC_LIB_VERSION)
 APP_STATIC_LIB = $(BUILD_DIR)/libs/totspCore.a
 
 
@@ -67,57 +69,6 @@ define assert_not_null
  $(call assert,$($1),The variable "$1" is null)
 endef
 
-define prepare_dependency
-  $(debug_enter)
-	# Translate $1
-  $(eval lib_folder_name=$(notdir $1))
-  $(info "Preparing to translate $(lib_folder_name)...")
-  $(eval lib_dir_src=$1)
-  $(info "Translating $(lib_folder_name)...")
-	# Find all Java Files... (have to use double dollars in sed, which make evals to a single dollar-sign.
-	# GSON has dollar signs in some of their file names ugh....)
-	# Basically we are just escaping magic characters in file names here so that their filepaths don't get mangled
-  $(eval lib_srcs=$(shell find $(lib_dir_src) -type f -name '*.java' | sed -E "s/[$$]+/\\$$\$$/g" | sed "s/.*/'&'/"))
-  $(eval translated_dir=$(TRANSLATED_LIBS_ROOT)/$(lib_folder_name))
-  $(shell mkdir -p $(translated_dir))
-  $(info "Translating $(lib_folder_name) to ... $(translated_dir)")
-  $(call assert_not_null,lib_srcs)
-	# Translate Dependency to ObjC...
-	TRANSLATE:=$(shell $(J2OBJC) -use-arc --swift-friendly --nullability --doc-comments -d $(translated_dir) \
-    -sourcepath $(DEP_LOCAL_LIBS_CLASSPATH):$(DEP_J2OBJC_DIST_LIBS_CLASSPATH) \
-    -classpath $(DEP_LOCAL_LIBS_CLASSPATH):$(DEP_J2OBJC_DIST_LIBS_CLASSPATH):. $(lib_srcs) \
-    >> $(translated_dir)/j2objc.log 2>> $(translated_dir)/j2objc_err.log \
-    && echo "Success" || mv $(translated_dir) $(translated_dir)_error)
-  $(debug_leave)
-endef
-
-define compile_dependency
-  $(debug_enter)
-  $(info "Preparing compilation env ...")
-  $(eval lib_folder_name=$(notdir $1))
-  $(eval static_lib_name=$(subst -sources,, $(lib_folder_name)))
-  $(eval lib_dir_src=$(DEP_LOCAL_LIBS_ROOT)/$(lib_folder_name))
-  $(eval translated_dir=$(TRANSLATED_LIBS_ROOT)/$(lib_folder_name))
-  $(call assert_not_null,translated_dir)
-  $(info "Preparing to Compile $(translated_dir) to Objects...")
-  $(info $(TRANSLATED_LIBS_LIBRARY_SEARCH_PATHS))
-  	# Find all Java Files... (have to use double dollars in sed, which make evals to a single dollar-sign.
-  	# GSON has dollar signs in some of their file names ugh....)
-  	# Basically we are just escaping magic characters in file names here so that their filepaths don't get mangled
-  $(eval translated_source_files=$(shell find $(translated_dir) -type f -name '*.m' | sed -E "s/[$$]+/\\$$\$$/g" | sed "s/.*/'&'/"))
-  $(eval translated_object_files=$(patsubst %.m,%.o, $(translated_source_files)))
-  $(info "Compiling $(translated_dir) to Objects...")
-  $(info "Creating $(translated_dir) as Framework...")
-  $(shell $(J2OBJCC) -fobjc-arc \
-  -o $(translated_dir)/$(static_lib_name).a \
-  -ljre_emul -lguava -ljavax_inject -ljsr305 \
-  $(TRANSLATED_LIBS_LIBRARY_SEARCH_PATHS) \
-  -I$(BUILD_DIR) $(TRANSLATED_LIBS_INCLUDE_ARGS) \
-  $(translated_source_files))
-  $(info "Success Linking $(translated_dir) as Framework...")
-  $(debug_leave)
-endef
-
 default: translate translate_tests
 	@:
 
@@ -126,7 +77,6 @@ translate: $(APP_JAVA_SRCS)
 	$(shell mkdir -p $(translated_dir))
 	# Translating Java to Objective C, with local dependency translation...
 	$(J2OBJC) -use-arc --swift-friendly --nullability --doc-comments \
-	--build-closure \
 	--prefixes $(PREFIX_PROPERTIES) \
 	-d $(translated_dir) \
 	-sourcepath $(APP_DIR):$(DEP_LOCAL_LIBS_CLASSPATH) -classpath $(DEP_LOCAL_LIBS_CLASSPATH):$(DEP_J2OBJC_DIST_LIBS_CLASSPATH):. \
@@ -134,12 +84,22 @@ translate: $(APP_JAVA_SRCS)
 	>> $(translated_dir)/j2objc.log 2>> $(translated_dir)/j2objc_err.log \
 	&& echo "Success" || echo "Error"
 
+	$(eval translated_source_files=$(shell find $(translated_dir) -type f -name '*.m' | sed -E "s/[$$]+/\\$$\$$/g" | sed "s/.*/'&'/"))
+	$(eval translated_source_files_no_root=$(patsubst $(translated_dir)/%, ./%, $(translated_source_files)))
+
+	$(info $(translated_source_files_no_root))
+	cd $(translated_dir) && $(J2OBJCC) -fobjc-arc \
+      -o $(translated_dir)/$(APP_STATIC_LIB_NAME).a \
+      -ljre_emul -lguava -ljavax_inject -ljsr305 \
+      $(TRANSLATED_LIBS_LIBRARY_SEARCH_PATHS) \
+      -I./ $(TRANSLATED_LIBS_INCLUDE_ARGS) \
+      $(shell cd $(translated_dir) && find * -type f -name '*.m')
+
 translate_tests: $(TEST_JAVA_SRCS)
 	$(eval translated_dir=$(BUILD_DIR)/translated/test)
 	$(shell mkdir -p $(translated_dir))
 	# Translating Java to Objective C, with local dependency translation...
 	$(J2OBJC) -use-arc --swift-friendly --nullability --doc-comments \
-	--build-closure \
 	-d $(translated_dir) \
 	--prefixes $(PREFIX_PROPERTIES) \
 	-sourcepath $(APP_DIR):$(DEP_LOCAL_LIBS_CLASSPATH) -classpath $(DEP_LOCAL_LIBS_CLASSPATH):$(DEP_J2OBJC_DIST_TEST_CLASSPATH):. \
