@@ -14,6 +14,7 @@ public class PetModel {
     private String name = null;
     private List<String> photoUrls = new ArrayList<String>();
     private List<String> tagNames = new ArrayList<String>();
+    private String profilePhoto = null;
 
     public PetModel(Long id) {
         this.id = id;
@@ -48,16 +49,29 @@ public class PetModel {
 
     public PetModel setPhotoUrls(List<String> photoUrls) {
         this.photoUrls = photoUrls;
+        refreshProfilePhoto();
         return this;
     }
 
     public PetModel addPhotoUrl(String photoUrl) {
         this.photoUrls.add(photoUrl);
+        refreshProfilePhoto();
         return this;
     }
 
     public List<String> getPhotoUrls() {
         return photoUrls;
+    }
+
+    private void refreshProfilePhoto() {
+        if (photoUrls != null && !photoUrls.isEmpty()) {
+            profilePhoto = photoUrls.get(0);
+        }
+    }
+
+    public String getProfilePhoto() {
+        refreshProfilePhoto();
+        return profilePhoto;
     }
 
     public PetModel setTagNames(List<String> tagNames) {

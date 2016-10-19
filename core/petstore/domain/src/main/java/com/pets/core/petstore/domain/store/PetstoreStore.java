@@ -52,25 +52,6 @@ public class PetstoreStore {
         // TODO we probably want a Pet domain model instead of the DTO
         List<String> status = new ArrayList<String>();
         status.add("available");
-        Subscriber<List<Pet>> apiSubscriber = new Subscriber<List<Pet>>() {
-            @Override
-            public void onNext(List<Pet> dtoResponse) {
-                // TODO: test validations
-                System.out.println("Got Pet");
-            }
-
-            @Override
-            public void onCompleted() {
-                // TODO: test any post-processing
-                System.out.println("Api Call Complete");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                // TODO: handle error scenario
-                System.out.println(e.getMessage());
-            }
-        };
         return petApi.findPetsByStatus(status)
 //                .onErrorResumeNext(new Func1<Throwable, Observable<?>>() {
 //                    @Override
@@ -89,15 +70,30 @@ public class PetstoreStore {
 //                );
     }
 
-    /**
-     * Order N quantity of a Pet (Observable)
-     * Note: This will validate that a Pet is still available to Order, prior to placing the Order.
-     *
-     * @param pet PetModel object that needs to be added to the store (required)
-     * @param quantity Long The number of pets to place an Order for
-     * @return Observable<OrderConfirmationModel> Observable service call
-     * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
-     */
+    public Observable<List<PetModel>> findAvailablePetsWithPhotos() {
+        return this.findAvailablePets()
+                .flatMap(new Func1<List<PetModel>, Observable<PetModel>>() {
+                    @Override
+                    public Observable<PetModel> call(List<PetModel> petModels) {
+                        return Observable.from(petModels);
+                    }
+                }).filter(new Func1<PetModel, Boolean>() {
+                    @Override
+                    public Boolean call(PetModel petModel) {
+                        return (petModel.getProfilePhoto() != null);
+                    }
+                }).toList();
+    }
+
+        /**
+         * Order N quantity of a Pet (Observable)
+         * Note: This will validate that a Pet is still available to Order, prior to placing the Order.
+         *
+         * @param pet PetModel object that needs to be added to the store (required)
+         * @param quantity Long The number of pets to place an Order for
+         * @return Observable<OrderConfirmationModel> Observable service call
+         * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
+         */
     public Observable<OrderConfirmationModel> orderPet(final PetModel pet, final Integer quantity) {
         if (pet != null) {
             final PetModel petForOrder = null;

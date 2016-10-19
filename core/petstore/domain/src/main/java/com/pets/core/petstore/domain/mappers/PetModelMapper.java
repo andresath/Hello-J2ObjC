@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.base.Function;
-
+import com.google.common.base.Predicate;
 
 public final class PetModelMapper {
 
@@ -34,19 +34,37 @@ public final class PetModelMapper {
             return null;
         }
         PetModel petModel = new PetModel(pet.getId());
-        final List<String> tagNames =
-                Lists.newArrayList(Iterables.transform(pet.getTags(), new Function<Tag, String>() {
-                    @Override
-                    public String apply(final Tag tag) {
-                        return tag.getName();
-                    }
-                }));
 
         petModel.setName(pet.getName())
-                .setStatus(pet.getStatus().toString())
-                .setCategoryName(pet.getCategory().getName())
-                .setTagNames(tagNames)
-                .setPhotoUrls(pet.getPhotoUrls());
+                .setStatus(pet.getStatus() == null ? null : pet.getStatus().toString())
+                .setCategoryName(pet.getCategory() == null ? null : pet.getCategory().getName());
+
+        List<Tag>tags = pet.getTags();
+        if (tags != null) {
+            final List<String> tagNames =
+                    Lists.newArrayList(Iterables.transform(pet.getTags(), new Function<Tag, String>() {
+                        @Override
+                        public String apply(final Tag tag) {
+                            return tag.getName();
+                        }
+                    }));
+            petModel.setTagNames(tagNames);
+        }
+
+        // Do some business logic (that should have been on the server side)
+        // and filter out non-valid photo URLs
+        List<String>urls = pet.getPhotoUrls();
+        if (urls != null) {
+            final List<String> photoUrls =
+                    Lists.newArrayList(Iterables.filter(urls, new Predicate<String>() {
+                        @Override
+                        public boolean apply(String url) {
+                            return url.startsWith("http://") || url.startsWith("https://");
+                        }
+                    }));
+            petModel.setPhotoUrls(photoUrls);
+        }
+
 
         return petModel;
     }
@@ -55,9 +73,9 @@ public final class PetModelMapper {
         List<PetModel> petModels = new ArrayList<>();
 
         if (pets != null && !pets.isEmpty()) {
-            petModels = new ArrayList<>();
             for (Pet pet : pets) {
-                petModels.add(transform(pet));
+                PetModel petModel = transform(pet);
+                petModels.add(petModel);
             }
         }
 
