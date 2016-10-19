@@ -56,7 +56,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-19T15:31:15.676-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-19T15:36:50.507-04:00")
 public class JSONSerializer {
     private ApiClient apiClient;
     private Gson gson;

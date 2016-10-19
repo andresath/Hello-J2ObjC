@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 <a name="deleteOrder"></a>
 # **deleteOrder**
-> deleteOrder(orderId)
+> Observable<Object>deleteOrder(orderId)
 
 Delete purchase order by ID
 
@@ -83,7 +83,7 @@ No authorization required
 
 <a name="getInventory"></a>
 # **getInventory**
-> Map&lt;String, Integer&gt; getInventory()
+> Observable<Map<String, Integer>>getInventory()
 
 Returns pet inventories by status
 
@@ -158,7 +158,7 @@ This endpoint does not need any parameter.
 
 <a name="getOrderById"></a>
 # **getOrderById**
-> Order getOrderById(orderId)
+> Observable<Order>getOrderById(orderId)
 
 Find purchase order by ID
 
@@ -229,7 +229,7 @@ No authorization required
 
 <a name="placeOrder"></a>
 # **placeOrder**
-> Order placeOrder(body)
+> Observable<Order>placeOrder(body)
 
 Place an order for a pet
 

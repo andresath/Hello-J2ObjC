@@ -34,7 +34,7 @@ import org.joda.time.DateTime;
 /**
  * Order
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-19T15:31:15.676-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-19T15:36:50.507-04:00")
 public class Order {
   @SerializedName("id")
   private Long id = null;
