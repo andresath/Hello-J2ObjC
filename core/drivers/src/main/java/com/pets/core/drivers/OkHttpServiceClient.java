@@ -88,8 +88,8 @@ public class OkHttpServiceClient implements HttpClient {
     /**
     * This method makes an HTTP GET request and return response as ApiResponse of Observable.
     *
-    * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
-    * @param request 		  ApiRequest that will be used to build the final Request
+    * @param endpoint Endpoint at which to make the GET call (including Query Parameters (i.e. &foo=bar))
+    * @param request ApiRequest that will be used to build the final Request
     * @return Observable with ApiResponse value
     */
     public Observable<ApiResponse> get(final String endpoint, final ApiRequest request) {
@@ -123,8 +123,8 @@ public class OkHttpServiceClient implements HttpClient {
     /**
     * This method makes an HTTP POST request and return response as ApiResponse of Observable.
     *
-    * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
-    * @param request 		  ApiRequest that will be used to build the final Request
+    * @param endpoint Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
+    * @param request ApiRequest that will be used to build the final Request
     * @return Observable with ApiResponse value
     */
     public Observable<ApiResponse> post(final String endpoint, final ApiRequest request) {
@@ -158,8 +158,8 @@ public class OkHttpServiceClient implements HttpClient {
     /**
     * This method makes an HTTP PUT request and return response as ApiResponse of Observable.
     *
-    * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
-    * @param request 		  ApiRequest that will be used to build the final Request
+    * @param endpoint Endpoint at which to make the PUT call (including Query Parameters (i.e. &foo=bar))
+    * @param request ApiRequest that will be used to build the final Request
     * @return Observable with ApiResponse value
     */
     public Observable<ApiResponse> put(final String endpoint, final ApiRequest request) {
@@ -167,7 +167,7 @@ public class OkHttpServiceClient implements HttpClient {
             @Override
             public void call(Subscriber subscriber) {
                 try {
-                    Response response = buildGetRequest(endpoint, request);
+                    Response response = buildPutRequest(endpoint, request);
                     Headers responseHeaders = response.headers();
                     Map<String, String>headers = new HashMap<String, String>();
                     for (int i = 0; i < responseHeaders.size(); i++) {
@@ -193,8 +193,8 @@ public class OkHttpServiceClient implements HttpClient {
     /**
     * This method makes an HTTP DELETE request and return response as ApiResponse of Observable.
     *
-    * @param endpoint        Endpoint at which to make the POST call (including Query Parameters (i.e. &foo=bar))
-    * @param request 		  ApiRequest that will be used to build the final Request
+    * @param endpoint Endpoint at which to make the DELETE call (including Query Parameters (i.e. &foo=bar))
+    * @param request ApiRequest that will be used to build the final Request
     * @return Observable with ApiResponse value
     */
     public Observable<ApiResponse> delete(final String endpoint, final ApiRequest request) {

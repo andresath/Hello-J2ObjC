@@ -65,7 +65,6 @@ public class StoreApi {
      * Delete purchase order by ID (Observable)
      * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
      * @param orderId ID of the order that needs to be deleted (required)
-     * @param callback The callback to be executed when the API call finishes
      * @return Observable<Object> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */
@@ -138,7 +137,6 @@ public class StoreApi {
     /**
      * Returns pet inventories by status (Observable)
      * Returns a map of status codes to quantities
-     * @param callback The callback to be executed when the API call finishes
      * @return Observable<Map<String, Integer>> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */
@@ -206,7 +204,6 @@ public class StoreApi {
      * Find purchase order by ID (Observable)
      * For valid response try integer IDs with value &gt;&#x3D; 1 and &lt;&#x3D; 10. Other values will generated exceptions
      * @param orderId ID of pet that needs to be fetched (required)
-     * @param callback The callback to be executed when the API call finishes
      * @return Observable<Order> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */
@@ -280,7 +277,6 @@ public class StoreApi {
      * Place an order for a pet (Observable)
      * 
      * @param body order placed for purchasing the pet (required)
-     * @param callback The callback to be executed when the API call finishes
      * @return Observable<Order> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */

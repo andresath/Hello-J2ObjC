@@ -65,7 +65,6 @@ public class UserApi {
      * Create user (Observable)
      * This can only be done by the logged in user.
      * @param body Created user object (required)
-     * @param callback The callback to be executed when the API call finishes
      * @return Observable<Object> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */
@@ -138,7 +137,6 @@ public class UserApi {
      * Creates list of users with given input array (Observable)
      * 
      * @param body List of user object (required)
-     * @param callback The callback to be executed when the API call finishes
      * @return Observable<Object> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */
@@ -211,7 +209,6 @@ public class UserApi {
      * Creates list of users with given input array (Observable)
      * 
      * @param body List of user object (required)
-     * @param callback The callback to be executed when the API call finishes
      * @return Observable<Object> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */
@@ -284,7 +281,6 @@ public class UserApi {
      * Delete user (Observable)
      * This can only be done by the logged in user.
      * @param username The name that needs to be deleted (required)
-     * @param callback The callback to be executed when the API call finishes
      * @return Observable<Object> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */
@@ -358,7 +354,6 @@ public class UserApi {
      * Get user by user name (Observable)
      * 
      * @param username The name that needs to be fetched. Use user1 for testing.  (required)
-     * @param callback The callback to be executed when the API call finishes
      * @return Observable<User> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */
@@ -433,7 +428,6 @@ public class UserApi {
      * 
      * @param username The user name for login (required)
      * @param password The password for login in clear text (required)
-     * @param callback The callback to be executed when the API call finishes
      * @return Observable<String> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */
@@ -514,7 +508,6 @@ public class UserApi {
     /**
      * Logs out current logged in user session (Observable)
      * 
-     * @param callback The callback to be executed when the API call finishes
      * @return Observable<Object> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */
@@ -583,7 +576,6 @@ public class UserApi {
      * This can only be done by the logged in user.
      * @param username name that need to be updated (required)
      * @param body Updated user object (required)
-     * @param callback The callback to be executed when the API call finishes
      * @return Observable<Object> Observable service call
      * Observable.onError will be called with an ApiException if anything about the Request fails, or it is an unsuccessful response.
      */
