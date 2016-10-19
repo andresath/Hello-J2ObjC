@@ -25,18 +25,19 @@
 
 package com.pets.core.drivers;
 
+import okhttp3.*;
 import rx.Observable;
 import rx.Subscriber;
-import okhttp3.Headers;
-import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import okhttp3.Call;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.io.IOException;
+import com.pets.core.petstore.data.store.ApiRequest;
+import com.pets.core.petstore.data.store.ApiResponse;
+import com.pets.core.petstore.data.store.ApiException;
+import com.pets.core.petstore.data.store.HttpClient;
+import com.pets.core.petstore.data.store.HttpClientUtils;
 
 /**
 * Observable Generic HTTP Client.
@@ -201,7 +202,7 @@ public class OkHttpServiceClient implements HttpClient {
             @Override
             public void call(Subscriber subscriber) {
                 try {
-                    Response response = buildGetRequest(endpoint, request);
+                    Response response = buildDeleteRequest(endpoint, request);
                     Headers responseHeaders = response.headers();
                     Map<String, String>headers = new HashMap<String, String>();
                     for (int i = 0; i < responseHeaders.size(); i++) {
@@ -251,4 +252,58 @@ public class OkHttpServiceClient implements HttpClient {
         return response;
     }
 
+    private Response buildPostRequest(String fullEndpointUrl, ApiRequest request) throws IOException {
+        MediaType bodyType = MediaType.parse(request.getContentType());
+        RequestBody body = RequestBody.create(bodyType, request.getSerializedBody());
+        Request postHttpRequest = new Request.Builder()
+                .url(fullEndpointUrl)
+                .headers(Headers.of(request.getHeaders()))
+                .post(body)
+                .build();
+
+        Call call = client.newCall(postHttpRequest);
+        Response response = call.execute();
+
+        return response;
+    }
+
+    private Response buildPutRequest(String fullEndpointUrl, ApiRequest request) throws IOException {
+        MediaType bodyType = MediaType.parse(request.getContentType());
+        RequestBody body = RequestBody.create(bodyType, request.getSerializedBody());
+        Request putHttpRequest = new Request.Builder()
+                .url(fullEndpointUrl)
+                .headers(Headers.of(request.getHeaders()))
+                .put(body)
+                .build();
+
+        Call call = client.newCall(putHttpRequest);
+        Response response = call.execute();
+
+        return response;
+    }
+
+    private Response buildDeleteRequest(String fullEndpointUrl, ApiRequest request) throws IOException {
+        MediaType bodyType = MediaType.parse(request.getContentType());
+        Request deleteHttpRequest = null;
+
+        if (request.getSerializedBody() != null) {
+            RequestBody body = RequestBody.create(bodyType, request.getSerializedBody());
+            deleteHttpRequest = new Request.Builder()
+                    .url(fullEndpointUrl)
+                    .headers(Headers.of(request.getHeaders()))
+                    .delete(body)
+                    .build();
+        } else {
+            deleteHttpRequest = new Request.Builder()
+                    .url(fullEndpointUrl)
+                    .headers(Headers.of(request.getHeaders()))
+                    .delete()
+                    .build();
+        }
+
+        Call call = client.newCall(deleteHttpRequest);
+        Response response = call.execute();
+
+        return response;
+    }
 }
