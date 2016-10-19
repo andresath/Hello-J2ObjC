@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 <a name="addPet"></a>
 # **addPet**
-> Observable<Object>addPet(body)
+``` Observable<Object>addPet(body)```
 
 Add a new pet to the store
 
@@ -93,7 +93,7 @@ null (empty response body)
 
 <a name="deletePet"></a>
 # **deletePet**
-> Observable<Object>deletePet(petId, apiKey)
+``` Observable<Object>deletePet(petId, apiKey)```
 
 Deletes a pet
 
@@ -172,7 +172,7 @@ null (empty response body)
 
 <a name="findPetsByStatus"></a>
 # **findPetsByStatus**
-> Observable<List<Pet>>findPetsByStatus(status)
+``` Observable<List<Pet>>findPetsByStatus(status)```
 
 Finds Pets by status
 
@@ -249,7 +249,7 @@ Name | Type | Description  | Notes
 
 <a name="findPetsByTags"></a>
 # **findPetsByTags**
-> Observable<List<Pet>>findPetsByTags(tags)
+``` Observable<List<Pet>>findPetsByTags(tags)```
 
 Finds Pets by tags
 
@@ -326,7 +326,7 @@ Name | Type | Description  | Notes
 
 <a name="getPetById"></a>
 # **getPetById**
-> Observable<Pet>getPetById(petId)
+``` Observable<Pet>getPetById(petId)```
 
 Find pet by ID
 
@@ -405,7 +405,7 @@ Name | Type | Description  | Notes
 
 <a name="updatePet"></a>
 # **updatePet**
-> Observable<Object>updatePet(body)
+``` Observable<Object>updatePet(body)```
 
 Update an existing pet
 
@@ -482,7 +482,7 @@ null (empty response body)
 
 <a name="updatePetWithForm"></a>
 # **updatePetWithForm**
-> Observable<Object>updatePetWithForm(petId, name, status)
+``` Observable<Object>updatePetWithForm(petId, name, status)```
 
 Updates a pet in the store with form data
 
@@ -563,7 +563,7 @@ null (empty response body)
 
 <a name="uploadFile"></a>
 # **uploadFile**
-> Observable<ModelApiResponse>uploadFile(petId, additionalMetadata, file)
+``` Observable<ModelApiResponse>uploadFile(petId, additionalMetadata, file)```
 
 uploads an image
 

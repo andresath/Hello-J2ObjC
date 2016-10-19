@@ -33,7 +33,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Category
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-19T15:36:50.507-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-19T15:39:03.409-04:00")
 public class Category {
   @SerializedName("id")
   private Long id = null;

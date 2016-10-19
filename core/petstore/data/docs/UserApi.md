@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 <a name="createUser"></a>
 # **createUser**
-> Observable<Object>createUser(body)
+``` Observable<Object>createUser(body)```
 
 Create user
 
@@ -87,7 +87,7 @@ No authorization required
 
 <a name="createUsersWithArrayInput"></a>
 # **createUsersWithArrayInput**
-> Observable<Object>createUsersWithArrayInput(body)
+``` Observable<Object>createUsersWithArrayInput(body)```
 
 Creates list of users with given input array
 
@@ -158,7 +158,7 @@ No authorization required
 
 <a name="createUsersWithListInput"></a>
 # **createUsersWithListInput**
-> Observable<Object>createUsersWithListInput(body)
+``` Observable<Object>createUsersWithListInput(body)```
 
 Creates list of users with given input array
 
@@ -229,7 +229,7 @@ No authorization required
 
 <a name="deleteUser"></a>
 # **deleteUser**
-> Observable<Object>deleteUser(username)
+``` Observable<Object>deleteUser(username)```
 
 Delete user
 
@@ -300,7 +300,7 @@ No authorization required
 
 <a name="getUserByName"></a>
 # **getUserByName**
-> Observable<User>getUserByName(username)
+``` Observable<User>getUserByName(username)```
 
 Get user by user name
 
@@ -371,7 +371,7 @@ No authorization required
 
 <a name="loginUser"></a>
 # **loginUser**
-> Observable<String>loginUser(username, password)
+``` Observable<String>loginUser(username, password)```
 
 Logs user into the system
 
@@ -444,7 +444,7 @@ No authorization required
 
 <a name="logoutUser"></a>
 # **logoutUser**
-> Observable<Object>logoutUser()
+``` Observable<Object>logoutUser()```
 
 Logs out current logged in user session
 
@@ -511,7 +511,7 @@ No authorization required
 
 <a name="updateUser"></a>
 # **updateUser**
-> Observable<Object>updateUser(username, body)
+``` Observable<Object>updateUser(username, body)```
 
 Updated user
 
