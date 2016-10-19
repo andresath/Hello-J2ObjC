@@ -15,16 +15,9 @@
  */
 package com.pets.core.petstore.domain.mappers;
 
-// TODO We Should Update the CodeGen Module so it generates FooModel
-// and ViewModels can be Foo
 import com.pets.core.petstore.domain.models.PetModel;
 import com.pets.core.petstore.domain.models.OrderConfirmationModel;
-import com.pets.core.petstore.data.models.Pet;
 import com.pets.core.petstore.data.models.Order;
-import com.pets.core.petstore.data.models.Tag;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.base.Function;
 
 public final class OrderConfirmationModelMapper {
 
