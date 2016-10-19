@@ -4,18 +4,11 @@ Hello J2ObjC
 
 Overview
 --------
-Sample project for getting started with J2ObjC.
+Sample project for getting started using J2ObjC & Swagger to auto-generate and share as much code as possible across Android and iOS.
 
-Uses [IDEA](https://www.jetbrains.com/idea/), [J2ObjC](http://j2objc.org/),
-[j2objc-gradle](https://github.com/j2objc-contrib/j2objc-gradle),
-and [Xcode](https://developer.apple.com/xcode/).
+Uses [J2ObjC](http://j2objc.org/), [Swagger](http://swagger.io/),
+[IDEA](https://www.jetbrains.com/idea/) and [Xcode](https://developer.apple.com/xcode/).
 
-The philosophy here is to create an ObjC STATIC LIBRARY from Java source code.
-Then AFTER the J2ObjC transpilation works, import the created library into Xcode.
---model-package com.pets.core.petstore.data.models --api-package com.pets.core.petstore.data.store.api
-(There are many other ways to work with J2ObjC, you can, for example, have Xcode build your
-Java files on the fly, or have your Java project create a Cocoapod via j2objc-gradle,
-but for a clear understanding and clean path this project favors the static library approach.)
 
 TODO
 --------
@@ -24,17 +17,59 @@ TODO
     The source jars should be in the transpile commands' classpath
     When generating the ```data`` or ```domain``` Libraries, the individual ```deps``` libraries should be pointed at via linker
         Currently the swagger-annotations library is holding this up. It won't compile to a library after transpilation
-* Include a "example" HttpClient for UTs (or mock one) without adding dependencies to Data/Domain - but so that UTs are runnable out of box
 * Create Example iOS Project
 * Create Example Android Project
 * Create ```scripts/``` for adding swagger auto-generation to build process
-* Update swagger-codegen documentation templates
-* Document Example Architecture portions (Data/Domain/etc)
 * Finish Domain contrived example
 
 
+Project Structure
+--------
+* ```core``` - the bulk of our app logic
+    * ```petstore``` Logic/Business Domain Core
+        * Theoretically there is one of these for each Business Domain (Petstore, PetShelter, PetGroomers)
+        * Everything under this package will be transpiled by J2ObjC and shareable with iOS apps
+        * There should be VERY MINIMAL dependencies for any code under this layer.
+            * See ```deps/lib``` (below) folder for dependencies that are compatible with J2ObjC and can be used in sub modules
+        * Domain Module (transpilable)
+            * Reactive APIs
+            * Contains Business Logic, App/View Models, DTO <=> Domain Model Mapping, Consumer facing APIs.
+        * Data Module (transpilable, auto-generated)
+            * NOTE: _EVERYTHING in this layer should be auto-generated_ by Swagger
+                 *  The exception is tests, which swagger will auto-generate a portion of, and you manually flesh
+                 out the rest of test validations.
+            * Reactive APIs
+            * Contains Service Logic, Service DTOs, Request/Response <=> DTO Mapping, Service Unit Tests
+            * Requires the consumer to provide an HTTPClient Driver Implementation
+    * Drivers
+        * Default Native Java Driver Implementations, Driver Integration Tests
+            * OkHttpService client. Super simple service client for use on Android or in Java environments
+* ```deps```
+    * Local distribution of any dependencies that will be used in ```core.domain```,
+    or ```core.data``` and need to be transpiled into Objective-C
+        * Currently:
+            * RxJava 1.1.6
+            * Joda Time 2.9.3
+            * Joda Convert 1.8.1
+            * GSON 2.7
+            * And the following, which have Jars and Pre-Transpiled framework that are distributed with J2ObjC
+                * Guava 19.0
+                * Junit 4.1.2
+                * Hamcrest Core 1.3
+    * ```build``` - transpiled libraries, and the raw transpiled source code
+    * ```Makefile``` Makefile used to transpile all dependencies
+* ```ios```
+    * iOS Example Project
+        * Consumes transpiled dependencies and core libraries
+* ```android```
+    * Android Example Project
+        * Consumes core modules
+* ```misc```
+    * ```templates```
+       * Example Mustache templates for customizing Swagger generated code. (See below)
 
-Auto-Generated Service Clients
+
+Data Module - Auto-Generated Service Clients
 --------
 
 *TODO* Instead of using a fork, we should be using a custom generator module, but the Java generator is pretty complex,
@@ -124,6 +159,22 @@ java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
 -DuseRxJava=true -DgenerateDefaultHttpClient=true \
 -t /Users/kamartin/Desktop/Spikes/j2Objc/Hello-J2ObjC/core/templates/abstract-rx-swagger
 ```
+
+Domain Module - Custom Business/App Logic
+--------
+Contains Business Logic, App/View Models, DTO <=> Domain Model Mapping, Consumer facing APIs.
+
+
+
+Transpiling with J2ObjC
+--------
+The philosophy here is to create an ObjC STATIC LIBRARY from Java source code.
+Then AFTER the J2ObjC transpilation works, import the created library into Xcode.
+--model-package com.pets.core.petstore.data.models --api-package com.pets.core.petstore.data.store.api
+(There are many other ways to work with J2ObjC, you can, for example, have Xcode build your
+Java files on the fly, or have your Java project create a Cocoapod via j2objc-gradle,
+but for a clear understanding and clean path this project favors the static library approach.)
+
 
 Using Make to Transpile Dependencies
 --------
