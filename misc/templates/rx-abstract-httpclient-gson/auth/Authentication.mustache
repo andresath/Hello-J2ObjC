@@ -1,0 +1,21 @@
+{{>licenseInfo}}
+
+package {{invokerPackage}}.auth;
+
+import {{invokerPackage}}.Pair;
+import {{invokerPackage}}.ApiException;
+import {{invokerPackage}}.ApiResponse;
+import {{invokerPackage}}.ApiRequest;
+import {{invokerPackage}}.HttpClientUtils;
+
+import java.util.Map;
+import java.util.List;
+
+public interface Authentication {
+    /**
+     * Apply authentication settings to Request
+     *
+     * @param ApiRequest request to authenticate
+     */
+    ApiRequest applyToRequest(ApiRequest request) throws ApiException;
+}

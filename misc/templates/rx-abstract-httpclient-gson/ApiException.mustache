@@ -1,0 +1,87 @@
+{{>licenseInfo}}
+
+package {{invokerPackage}};
+
+import java.util.Map;
+import java.util.List;
+
+{{>generatedAnnotation}}
+public class ApiException extends Exception {
+    private int code = 0;
+    private Map<String, String> headers;
+    private ApiResponse response;
+    private ApiRequest request;
+
+    public ApiException() {}
+
+    public ApiException(Throwable throwable) {
+        super(throwable);
+    }
+
+    public ApiException(String message) {
+        super(message);
+    }
+
+    public ApiException(String message, Throwable throwable, int code, ApiRequest request, ApiResponse response) {
+        super(message, throwable);
+        this.code = code;
+        this.request = request;
+        this.response = response;
+    }
+
+	public ApiException(String message, Throwable throwable, ApiRequest request) {
+		this(message, throwable, 0, request, null);
+	}
+
+    public ApiException(String message, int code, ApiRequest request, ApiResponse response) {
+        this(message, (Throwable) null, code, request, response);
+    }
+
+    public ApiException(int code, ApiRequest request, ApiResponse response) {
+        this((String) null, (Throwable) null, code, request, response);
+    }
+
+    public ApiException(String message, ApiRequest request) {
+        super(message);
+        this.request = request;
+    }
+
+    public ApiException(String message, ApiRequest request, ApiResponse response) {
+        super(message);
+        this.request = request;
+        this.response = response;
+    }
+
+    public ApiException(String message, ApiResponse response) {
+        super(message);
+        this.response = response;
+    }
+
+    /**
+     * Get the HTTP status code.
+     *
+     * @return HTTP status code
+     */
+    public int getCode() {
+        return code;
+    }
+
+    /**
+     * Get the Api request.
+     *
+     * @return ApiRequest
+     */
+    public ApiRequest getRequest() {
+        return request;
+    }
+
+    /**
+     * Get the Api Response.
+     *
+     * @return ApiResponse
+     */
+    public ApiResponse getResponse() {
+        return response;
+    }
+
+}

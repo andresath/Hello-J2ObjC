@@ -1,0 +1,34 @@
+{{>licenseInfo}}
+
+package {{invokerPackage}}.auth;
+
+import {{invokerPackage}}.auth.Authentication;
+import {{invokerPackage}}.Pair;
+import {{invokerPackage}}.ApiException;
+import {{invokerPackage}}.ApiResponse;
+import {{invokerPackage}}.ApiRequest;
+import {{invokerPackage}}.HttpClientUtils;
+
+import java.util.Map;
+import java.util.List;
+
+{{>generatedAnnotation}}
+public class OAuth implements Authentication {
+  private String accessToken;
+
+  public String getAccessToken() {
+    return accessToken;
+  }
+
+  public void setAccessToken(String accessToken) {
+    this.accessToken = accessToken;
+  }
+
+  @Override
+  public ApiRequest applyToRequest(ApiRequest request) throws ApiException {
+    if (accessToken != null) {
+      request.addHeaderParam("Authorization", "Bearer " + accessToken);
+    }
+    return request;
+  }
+}

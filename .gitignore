@@ -4,3 +4,5 @@ xcuserdata/
 .DS_Store
 .Trashes
 *.swp
+core/data/target
+core/drivers/target

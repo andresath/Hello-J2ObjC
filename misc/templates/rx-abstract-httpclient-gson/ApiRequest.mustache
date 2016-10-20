@@ -1,0 +1,127 @@
+{{>licenseInfo}}
+
+package {{invokerPackage}};
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Date;
+import java.util.ArrayList;
+
+/**
+ * API Request created for API call.
+ */
+{{>generatedAnnotation}}
+public class ApiRequest<T> {
+    private String[] authTypes;
+    private String method;
+    private T data;
+    private String body;
+    private Map<String, String> headers;
+    private Map<String, Object> formParams;
+    private List<Pair> rawQueryParams;
+
+    /**
+     * @param method The method of the HTTP Request
+     * @param headers The headers of HTTP Request
+     * @param data The body of the HTTP Request
+     */
+    public ApiRequest(String method, Map<String, String> headers, T data) {
+        this(method, headers, data, null, null, null);
+    }
+
+    /**
+     * @param method The method of the HTTP Request
+     * @param headers The headers of HTTP Request
+     * @param data The body of the HTTP Request
+     * @param formParams The (optional) Form Params (multipart, etc.)
+     */
+    public ApiRequest(String method, Map<String, String> headers, T data, Map<String, Object> formParams) {
+        this(method, headers, data, formParams, null, null);
+    }
+
+    /**
+     * @param method The method of the HTTP Request
+     * @param headers The headers of HTTP Request
+     * @param data The body of the HTTP Request
+     * @param formParams The (optional) Form Params (multipart, etc.)
+     * @param rawQueryParams The (pre-translated) Query Params (NOTE this is typically for debugging purposes)
+     */
+    public ApiRequest(String method, Map<String, String> headers, T data, Map<String, Object> formParams, List<Pair> rawQueryParams, String[] authTypes) {
+        this.method = method;
+        this.headers = headers;
+        this.data = data;
+        this.formParams = formParams;
+        this.rawQueryParams = rawQueryParams;
+        this.authTypes = authTypes;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public Map<String, String> getHeaders() {
+        return headers;
+    }
+
+    public String[] getAuthTypes() {
+        return authTypes;
+    }
+
+    public ApiRequest addHeaders(Map<String, String> additionalHeaders) {
+        if (additionalHeaders != null) {
+            for (Entry<String, String> header : additionalHeaders.entrySet()) {
+                if (!headers.containsKey(header.getKey())) {
+                    headers.put(header.getKey(), HttpClientUtils.parameterToString(header.getValue()));
+                }
+            }
+        }
+        return this;
+    }
+
+    public ApiRequest addQueryParam(Pair param) {
+        rawQueryParams.add(param);
+        return this;
+    }
+
+	public ApiRequest addHeaderParam(String param, String value) {
+		headers.put(param, HttpClientUtils.parameterToString(value));
+		return this;
+	}
+
+    public Map<String, Object> getFormParams() {
+        return formParams;
+    }
+
+    public List<Pair> getRawQueryParams() {
+        return rawQueryParams;
+    }
+
+    public boolean isJsonContentType() {
+        return HttpClientUtils.isJsonMime(getContentType());
+    }
+
+    public String getContentType() {
+        String contentType = headers.get("Content-Type");
+        if (contentType == null) {
+            // ensuring a default content type
+            contentType = "application/json";
+        }
+        return contentType;
+    }
+
+    public void setSerializedBody(String bodyContent) {
+        body = bodyContent;
+    }
+
+    public String getSerializedBody() {
+        return body;
+    }
+}
