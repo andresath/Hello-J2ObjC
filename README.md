@@ -72,6 +72,10 @@ Project Structure
 Data Module - Auto-Generated Service Clients
 --------
 
+The example project consumes the "Petstore API" - you can view the
+[Petstore OpenAPI (Swagger) Spec](http://petstore.swagger.io/v2/swagger.json)
+on the Swagger Website.
+
 *TODO* Instead of using a fork, we should be using a custom generator module, but the Java generator is pretty complex,
 so we would have to port a decent ammount of the abstract generator code any way. For now, just use a fork.
 
@@ -160,6 +164,7 @@ java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
 -t /Users/kamartin/Desktop/Spikes/j2Objc/Hello-J2ObjC/core/templates/abstract-rx-swagger
 ```
 
+
 Domain Module - Custom Business/App Logic
 --------
 Contains Business Logic, App/View Models, DTO <=> Domain Model Mapping, Consumer facing APIs.
@@ -223,4 +228,19 @@ The second part is to use the static library you created in Xcode with an iOS pr
 See the [ios/README.md](./ios/README.md).
 
 
+Further Technical Documentation
+--------
+*Swagger*
+* [Petstore OpenAPI (Swagger) Spec](http://petstore.swagger.io/v2/swagger.json)
+* [Example YAML OpenAPI (Swagger) Spec](http://editor.swagger.io/#/)
+* [Custom Swagger Generator Fork](https://github.com/kaylarose/swagger-codegen/tree/rx-abstract-http-client-generator)(Client/Codegen Docs are here)
+* [Swagger Website](http://swagger.io/)
+* [Mustache Docs](https://mustache.github.io/mustache.5.html)
 
+*J2Objc*
+*[J2ObjC Github](https://github.com/google/j2objc)
+*[J2ObjC Documentation](http://j2objc.org/)
+
+*Misc*
+* [IDEA](https://www.jetbrains.com/idea/)
+* [Xcode](https://developer.apple.com/xcode/)
