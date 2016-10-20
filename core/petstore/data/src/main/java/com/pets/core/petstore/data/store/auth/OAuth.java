@@ -35,7 +35,7 @@ import com.pets.core.petstore.data.store.HttpClientUtils;
 import java.util.Map;
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-19T15:39:03.409-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-20T13:12:50.637-04:00")
 public class OAuth implements Authentication {
   private String accessToken;
 

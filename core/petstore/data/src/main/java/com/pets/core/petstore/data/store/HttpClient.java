@@ -42,7 +42,7 @@ import com.pets.core.petstore.data.store.ApiRequest;
 *
 * // TODO or onNextError
 */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-19T15:39:03.409-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-20T13:12:50.637-04:00")
 public interface HttpClient {
     /**
     * This method makes an HTTP GET request and return response as ApiResponse of Observable.

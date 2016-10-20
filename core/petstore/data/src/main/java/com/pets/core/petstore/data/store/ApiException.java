@@ -28,7 +28,7 @@ package com.pets.core.petstore.data.store;
 import java.util.Map;
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-19T15:39:03.409-04:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-10-20T13:12:50.637-04:00")
 public class ApiException extends Exception {
     private int code = 0;
     private Map<String, String> headers;
