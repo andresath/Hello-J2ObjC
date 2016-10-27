@@ -23,8 +23,6 @@ DEP_LOCAL_LIBS_ROOT=./libs/local_src
 DEP_LOCAL_LIBS = $(shell find $(DEP_LOCAL_LIBS_ROOT) -name '*-sources')
 DEP_LOCAL_LIBS_CLASSPATH = $(shell find $(DEP_LOCAL_LIBS_ROOT) -name '*-sources' | paste -s -d":" -)
 TRANSLATED_LIBS_ROOT=$(BUILD_DIR)/libs/translated
-TRANSLATED_LIB_OBJECTS = $(patsubst $(APP_DIR)/%.java, $(BUILD_DIR)/%.o, $(APP_JAVA_SRCS))
-TRANSLATED_LIB_SRCS = $(patsubst %.o,%.m,$(APP_OBJECTS))
 TRANSLATED_LIBS = $(shell find $(TRANSLATED_LIBS_ROOT) -name '*-sources')
 TRANSLATED_LIBS_INCLUDE_ARGS = $(addprefix -I,$(shell find $(TRANSLATED_LIBS_ROOT) -name '*-sources'))
 TRANSLATED_LIBS_LIBRARY_SEARCH_PATHS = $(addprefix -L,$(shell find $(TRANSLATED_LIBS_ROOT) -name '*-sources'))
@@ -60,69 +58,85 @@ define assert_not_null
  $(call assert,$($1),The variable "$1" is null)
 endef
 
-define prepare_dependency
+define translate_dependency
   $(debug_enter)
 	# Translate $1
   $(eval lib_folder_name=$(notdir $1))
-  $(info "Preparing to translate $(lib_folder_name)...")
+  $(info "********* Preparing to Transpile $(lib_folder_name) to Objective-C *********")
   $(eval lib_dir_src=$1)
-  $(info "Translating $(lib_folder_name)...")
+  $(info "========== Validating Target & Sources... ========")
 	# Find all Java Files... (have to use double dollars in sed, which make evals to a single dollar-sign.
 	# GSON has dollar signs in some of their file names ugh....)
 	# Basically we are just escaping magic characters in file names here so that their filepaths don't get mangled
   $(eval lib_srcs=$(shell find $(lib_dir_src) -type f -name '*.java' | sed -E "s/[$$]+/\\$$\$$/g" | sed "s/.*/'&'/"))
   $(eval translated_dir=$(TRANSLATED_LIBS_ROOT)/$(lib_folder_name))
   $(shell mkdir -p $(translated_dir))
-  $(info "Translating $(lib_folder_name) to ... $(translated_dir)")
   $(call assert_not_null,lib_srcs)
+  $(info "========== Translating $(lib_folder_name) to: $(translated_dir)... ========")
 	# Translate Dependency to ObjC...
 	TRANSLATE:=$(shell $(J2OBJC) -use-arc --swift-friendly --nullability --doc-comments -d $(translated_dir) \
     -sourcepath $(DEP_LOCAL_LIBS_CLASSPATH):$(DEP_J2OBJC_DIST_LIBS_CLASSPATH) \
     -classpath $(DEP_LOCAL_LIBS_CLASSPATH):$(DEP_J2OBJC_DIST_LIBS_CLASSPATH):. $(lib_srcs) \
     >> $(translated_dir)/j2objc.log 2>> $(translated_dir)/j2objc_err.log \
     && echo "Success" || mv $(translated_dir) $(translated_dir)_error)
+  $(info "========== Translated to: $(translated_dir)... ========")
   $(debug_leave)
 endef
 
 define compile_dependency
   $(debug_enter)
-  $(info "Preparing compilation env ...")
   $(eval lib_folder_name=$(notdir $1))
   $(eval static_lib_name=$(subst -sources,, $(lib_folder_name)))
   $(eval lib_dir_src=$(DEP_LOCAL_LIBS_ROOT)/$(lib_folder_name))
   $(eval translated_dir=$(TRANSLATED_LIBS_ROOT)/$(lib_folder_name))
+  $(info "********* Preparing to Compile $(static_lib_name) Static Library *********")
   $(call assert_not_null,translated_dir)
-  $(info "Preparing to Compile $(translated_dir) to Objects...")
-  $(info $(TRANSLATED_LIBS_LIBRARY_SEARCH_PATHS))
   	# Find all Java Files... (have to use double dollars in sed, which make evals to a single dollar-sign.
   	# GSON has dollar signs in some of their file names ugh....)
   	# Basically we are just escaping magic characters in file names here so that their filepaths don't get mangled
   $(eval translated_source_files=$(shell find $(translated_dir) -type f -name '*.m' | sed -E "s/[$$]+/\\$$\$$/g" | sed "s/.*/'&'/"))
-  $(eval translated_object_files=$(patsubst %.m,%.o, $(translated_source_files)))
-  $(info "Compiling $(translated_dir) to Objects...")
-  $(info "Creating $(translated_dir) as Framework...")
-  $(shell $(J2OBJCC) -fobjc-arc \
-  -o $(translated_dir)/$(static_lib_name).a \
-  -ljre_emul -lguava -ljavax_inject -ljsr305 \
-  $(TRANSLATED_LIBS_LIBRARY_SEARCH_PATHS) \
-  -I$(BUILD_DIR) $(TRANSLATED_LIBS_INCLUDE_ARGS) \
-  $(translated_source_files))
-  $(info "Success Linking $(translated_dir) as Framework...")
+  $(info "======== Compiling $(translated_dir) to Objects ==========")
+#  #$(foreach source_file,$(strip $(translated_source_files)),$(eval$(call compile_file,$(source_file))))
+  $(info "======== Compiled $(translated_dir) to Objects ==========")
+  $(eval translated_object_files=$(shell find $(translated_dir) -type f -name '*.o' | sed -E "s/[$$]+/\\$$\$$/g" | sed "s/.*/'&'/"))
+  $(eval translated_dep_lib_name=$(translated_dir)/lib$(static_lib_name).a)
+  $(info "========Creating $(translated_dep_lib) as Framework from: $(translated_object_files)==========")
+  $(shell libtool -static -o $(translated_dep_lib) $(translated_object_files))
+  $(shell libtool -static -arch arm64 -o $(translated_dir)/lib$(static_lib_name)_x86_64.a $(translated_object_files))
+  $(shell libtool -static -arch armv7s -o $(translated_dir)/lib$(static_lib_name)_armv7s.a $(translated_object_files))
+  $(shell libtool -static -arch armv7 -o $(translated_dir)/lib$(static_lib_name)_armv7.a $(translated_object_files))
+
+  $(eval translated_arch_libs=$(shell find $(translated_dir) -type f -name '*.a' | sed -E "s/[$$]+/\\$$\$$/g" | sed "s/.*/'&'/"))
+  $(shell xcrun lipo -create $(translated_arch_libs) -output $(translated_dep_lib))
+  $(shell xcrun lipo -info $(translated_dep_lib))
+  $(info "========Created $(translated_dep_lib) as Framework...==========")
+
+  #$(shell $(J2OBJCC) -fobjc-arc \
+  #-o $(translated_dir)/$(static_lib_name).a \
+  #-ljre_emul -lguava -ljavax_inject -ljsr305 \
+  #$(TRANSLATED_LIBS_LIBRARY_SEARCH_PATHS) \
+  #-I$(BUILD_DIR) $(TRANSLATED_LIBS_INCLUDE_ARGS) \
+  #$(translated_source_files))
   $(debug_leave)
+endef
+
+define compile_file
+	$(eval input_file=$1)
+	$(eval output_file=$(patsubst '%.m','%.o', $1))
+	$(info "Compile: $(input_file) to $(output_file)...")
+	$(shell $(J2OBJCC) -fobjc-arc \
+	  -Wno-deprecated-declarations \
+	  -c \
+	  -I$(BUILD_DIR) $(TRANSLATED_LIBS_INCLUDE_ARGS) \
+	  $(input_file) -o $(output_file))
 endef
 
 default:
 	@:
 
-translate: $(APP_JAVA_SRCS)
-	# Translating Java to Objective C, with local dependency translation...
-	$(J2OBJC) -use-arc --swift-friendly --nullability --doc-comments --build-closure -d $(BUILD_DIR) \
-	-sourcepath $(APP_DIR):$(DEP_LOCAL_LIBS_CLASSPATH) -classpath $(DEP_LOCAL_LIBS_CLASSPATH):$(DEP_J2OBJC_DIST_LIBS_CLASSPATH):. \
-	$(APP_JAVA_SRCS)
-
 translate_dependencies: $(DEP_LOCAL_LIBS)
     $(info $(DEP_LOCAL_LIBS))
-    $(foreach lib_dir,$(strip $(DEP_LOCAL_LIBS)),$(eval$(call prepare_dependency,$(lib_dir))))
+    $(foreach lib_dir,$(strip $(DEP_LOCAL_LIBS)),$(eval$(call translate_dependency,$(lib_dir))))
 
 compile_dependencies: $(DEP_LOCAL_LIBS)
     $(info $(DEP_LOCAL_LIBS))
@@ -130,22 +144,6 @@ compile_dependencies: $(DEP_LOCAL_LIBS)
 
 clean:
 	@rm -rf $(BUILD_DIR)
-
-vanilla_compile:
-	# Validating vanilla JVM compile...
-	javac -implicit:none -d $(BUILD_DIR) \
-	-Xprefer:newer \
-	-sourcepath $(APP_DIR):$(DEP_LOCAL_LIBS_CLASSPATH)
-	-classpath $(DEP_LOCAL_LIBS_CLASSPATH):$(DEP_J2OBJC_DIST_LIBS_CLASSPATH):. \
-	$(APP_JAVA_SRCS)
-
-compile_objects:
-	echo "Compiling Object Files..."
-	$(BUILD_DIR)/%.m: $(BUILD_DIR)/%.o
-		$(J2OBJCC) -ObjC -I$(BUILD_DIR) -ljre_emul -lguava -ljavax_inject -ljsr305 -o $@
-
-package:
-	libtool -o $(APP_STATIC_LIB) $(APP_OBJECTS) $(APP_STATIC_LIB)
 
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
