@@ -1,0 +1,102 @@
+// WARNING!!!! ALL GRADLE COMMANDS FOR THIS SHARED MODULE
+// MUST BE RUN WITH THE GRADLE WRAPPER (./gradlew) COMMAND
+// See "HACK" notes below for more details.
+
+// File: shared/build.gradle
+// This is only for using "official" version from GH, we are using a modified version.
+//plugins {
+//    id 'java'
+//    id 'com.github.j2objccontrib.j2objcgradle' version '0.5.0-alpha'
+//}
+
+// HACK: Add a task to pull down older version of Gradle Wrapper,
+// since the J2ObjC plugin only supports up-to Gradle 2.8
+// See: https://github.com/j2objc-contrib/j2objc-gradle/issues/613
+// and https://docs.gradle.org/current/userguide/gradle_wrapper.html
+// also can use override in ./gradle/gradle-wrapper.properties
+// see: https://github.com/j2objc-contrib/j2objc-gradle/issues/568#issuecomment-236069034
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.8'
+}
+
+buildscript {
+    // HACK: Allow android studio to support older versions of Gradle,
+    // since the J2ObjC plugin only supports up-to Gradle 2.8
+    // See: https://github.com/j2objc-contrib/j2objc-gradle/issues/613
+    // and https://github.com/j2objc-contrib/j2objc-gradle/issues/568#issuecomment-236069034
+    System.properties['com.android.build.gradle.overrideVersionCheck'] = 'true'
+
+    dependencies {
+        classpath files('../../misc/j2objc-gradle-0.6.3-modified-alpha-SNAPSHOT.jar')
+    }
+}
+apply plugin: 'java'
+apply plugin: 'com.github.j2objccontrib.j2objcgradle'
+
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    swagger_annotations_version = "1.5.8"
+    gson_version = "2.7"
+    junit_version = "4.12"
+    rx_java_version = "1.1.3"
+    jodatime_version = "2.9.3"
+    jodaconvert_version = "1.8.1"
+    guava_version = "19.0"
+}
+
+dependencies {
+//    compile project(':petstore.data')
+//    compile project(':petstore.domain')
+
+    // Any libraries Shared Core depend on, like Guava or JUnit
+    compile "com.google.guava:guava:$guava_version"
+    compile "com.google.code.gson:gson:$gson_version"
+    compile "io.swagger:swagger-annotations:$swagger_annotations_version"
+    compile "org.joda:joda-convert:$jodaconvert_version"
+    compile "joda-time:joda-time:$jodatime_version"
+    compile "io.reactivex:rxjava:$rx_java_version"
+    testCompile "junit:junit:$junit_version"
+}
+
+dependencies {
+
+    testCompile 'junit:junit:4.11'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['petstore/data/src/main/java', 'petstore/domain/src/main/java']
+            excludes = ["src/**"]
+        }
+    }
+}
+
+// Plugin settings; put these at the bottom of the file.
+j2objcConfig {
+    // Support current versions of J2ObjC
+    // see: https://github.com/j2objc-contrib/j2objc-gradle/issues/621
+    j2objcVersion "1.1"
+
+    // Sets up libraries you depend on
+    autoConfigureDeps true
+
+    // Add Prefix to Transpiled code
+    translateArgs '--prefixes', 'j2objcprefixes.properties'
+
+    // Use ARC
+    translateArgs '-use-arc'
+    extraObjcCompilerArgs '-fobjc-arc'
+
+
+
+    // Omit these two lines if you don't configure your Xcode project with CocoaPods
+    //xcodeProjectDir '../../ios'  //  suggested directory name
+    //xcodeTargetsIos 'IOS-APP', 'IOS-APPTests'  // replace with your iOS targets
+
+    finalConfigure()          // Must be last call to configuration
+}
