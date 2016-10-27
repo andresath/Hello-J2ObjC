@@ -1,0 +1,9 @@
+include 'shared'
+include 'drivers'
+include 'shared:petstore'
+include 'shared:petstore:data'
+include 'shared:petstore:domain'
+
+rootProject.name = 'core'
+findProject(':shared:petstore')?.name = 'core.shared.petstore'
+

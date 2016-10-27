@@ -33,11 +33,11 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.IOException;
-import com.pets.core.petstore.data.store.ApiRequest;
-import com.pets.core.petstore.data.store.ApiResponse;
-import com.pets.core.petstore.data.store.ApiException;
-import com.pets.core.petstore.data.store.HttpClient;
-import com.pets.core.petstore.data.store.HttpClientUtils;
+import com.pets.core.shared.petstore.data.store.ApiRequest;
+import com.pets.core.shared.petstore.data.store.ApiResponse;
+import com.pets.core.shared.petstore.data.store.ApiException;
+import com.pets.core.shared.petstore.data.store.HttpClient;
+import com.pets.core.shared.petstore.data.store.HttpClientUtils;
 
 /**
 * Observable Generic HTTP Client.

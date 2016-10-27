@@ -1,12 +1,12 @@
 package com.pets.core.drivers;
 
-import com.pets.core.petstore.data.store.ApiClient;
-import com.pets.core.petstore.data.store.HttpClient;
+import com.pets.core.shared.petstore.data.store.ApiClient;
+import com.pets.core.shared.petstore.data.store.HttpClient;
 import com.pets.core.drivers.OkHttpServiceClient;
-import com.pets.core.petstore.data.store.auth.ApiKeyAuth;
-import com.pets.core.petstore.domain.models.OrderConfirmationModel;
-import com.pets.core.petstore.domain.models.PetModel;
-import com.pets.core.petstore.domain.store.PetstoreStore;
+import com.pets.core.shared.petstore.data.store.auth.ApiKeyAuth;
+import com.pets.core.shared.petstore.domain.models.OrderConfirmationModel;
+import com.pets.core.shared.petstore.domain.models.PetModel;
+import com.pets.core.shared.petstore.domain.store.PetstoreStore;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
