@@ -90,7 +90,7 @@ j2objcConfig {
 
     // Use ARC
     translateArgs '-use-arc'
-    extraObjcCompilerArgs '-fobjc-arc'
+    extraObjcCompilerArgs '-fobjc-arc', '-Wno-deprecated-declarations'
 
 
 

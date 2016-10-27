@@ -12,17 +12,15 @@ Uses [J2ObjC](http://j2objc.org/), [Swagger](http://swagger.io/),
 
 TODO
 --------
-* Stop using ```--build-closure``` in transpilation process
-    We should transpile a separate framework for every dependency in ```deps```
-    The source jars should be in the transpile commands' classpath
-    When generating the ```data`` or ```domain``` Libraries, the individual ```deps``` libraries should be pointed at via linker
-        Currently the swagger-annotations library is holding this up. It won't compile to a library after transpilation
+* Finish setting up gradle J2ObjC forked plugin (in favor of currently un-Make-ish Makefiles)
 * Create Example iOS Project
 * Create Example Android Project
 * Create ```scripts/``` for adding swagger auto-generation to build process
 * Finish Domain contrived example
-
-
+* Joda Time or update to J2ObjC 1.2?
+    * The timezone resource files need to be copied to the app's main bundle, with the same relative path as in joda-time.jar ("org/joda/tz/data/*"). If you cd to joda-time/ and run "mvn install", those resource files are all in target/classes/org/joda/tz/data/.
+    * https://groups.google.com/forum/#!topic/j2objc-discuss/W7zj4o2t-Gg
+    * https://github.com/google/j2objc/issues/93#issuecomment-165514634
 Project Structure
 --------
 * ```core``` - the bulk of our app logic
@@ -122,12 +120,7 @@ mvn clean package
 3 Generate Code
 Then you can use the new generator via the following command:
 ```
-java -DuseRxJava=true,generateDefaultHttpClient=false \
--jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar \
-generate -i http://petstore.swagger.io/v2/swagger.json -l java \
--o Hello-J2ObjC/core/petstore/data --library=rx-abstract-httpclient-gson \
---model-package com.pets.core.petstore.data.models \
---api-package com.pets.core.petstore.data.store.api
+java -DuseRxJava=true,generateDefaultHttpClient=false -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i http://petstore.swagger.io/v2/swagger.json -l java -o ~/Hello-J2ObjC/core/shared/petstore/data --library=rx-abstract-httpclient-gson --model-package com.pets.core.shared.petstore.data.models --api-package com.pets.core.shared.petstore.data.store.api --artifact-id data --group-id com.pets.core.shared
 
 ```
 
@@ -158,8 +151,8 @@ and modify to suit your needs. Then use the ```-t``` option in Swagger Codegen t
 java -jar modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate \
 -i http://petstore.swagger.io/v2/swagger.json -l java \
 -o ../swagger-retro --library=rx-abstract-httpclient-gson \
---model-package com.pets.core.petstore.data.models \
---api-package com.pets.core.petstore.data.store.api \
+--model-package com.pets.core.shared.petstore.data.models \
+--api-package com.pets.core.shared.petstore.data.store.api \
 -DuseRxJava=true -DgenerateDefaultHttpClient=true \
 -t /Users/kamartin/Desktop/Spikes/j2Objc/Hello-J2ObjC/core/templates/abstract-rx-swagger
 ```
@@ -175,7 +168,7 @@ Transpiling with J2ObjC
 --------
 The philosophy here is to create an ObjC STATIC LIBRARY from Java source code.
 Then AFTER the J2ObjC transpilation works, import the created library into Xcode.
---model-package com.pets.core.petstore.data.models --api-package com.pets.core.petstore.data.store.api
+--model-package com.pets.core.shared.petstore.data.models --api-package com.pets.core.shared.petstore.data.store.api
 (There are many other ways to work with J2ObjC, you can, for example, have Xcode build your
 Java files on the fly, or have your Java project create a Cocoapod via j2objc-gradle,
 but for a clear understanding and clean path this project favors the static library approach.)
@@ -226,6 +219,23 @@ Setup Xcode and Include Static Library
 The second part is to use the static library you created in Xcode with an iOS project.
 
 See the [ios/README.md](./ios/README.md).
+
+Third-Party Dependency Customization
+-------
+*RxJava*
+RxJava has some issues (TODO Document)
+
+There is a subtree fork of 1.1.6 in this project, which allows it to be compiled with j2ObjC,
+
+To create a subtree in your own project:
+````
+cd core
+mkdir core/shared-thirdparty
+git remote add -f rxjava-upstream https://github.com/ReactiveX/RxJava.git
+git subtree add --prefix core/shared-thirdparty/rxjava-sources rxjava-upstream 1.1.6 --squash
+
+
+git https://github.com/ReactiveX/RxJava.git
 
 
 Further Technical Documentation
