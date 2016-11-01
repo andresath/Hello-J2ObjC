@@ -46,6 +46,7 @@ ext {
     jodatime_version = "2.9.3"
     jodaconvert_version = "1.8.1"
     guava_version = "19.0"
+    mockito_version = "1.9.5"
 }
 
 dependencies {
@@ -59,13 +60,8 @@ dependencies {
     compile "io.swagger:swagger-annotations:$swagger_annotations_version"
     compile "org.joda:joda-convert:$jodaconvert_version"
     compile "joda-time:joda-time:$jodatime_version"
-    //compile "io.reactivex:rxjava:$rx_java_version"
     testCompile "junit:junit:$junit_version"
-}
-
-dependencies {
-
-    testCompile 'junit:junit:4.11'
+    testCompile "org.mockito:mockito-core:$mockito_version"
 }
 
 sourceSets {
@@ -83,15 +79,24 @@ j2objcConfig {
     // see: https://github.com/j2objc-contrib/j2objc-gradle/issues/621
     j2objcVersion "1.1"
 
+    // Don't fail if we don't Unit Test. NOTE: This won't last long... :)
+    testMinExpectedTests 0
+
     // Sets up libraries you depend on
     autoConfigureDeps true
 
     // Add Prefix to Transpiled code
     translateArgs '--prefixes', 'j2objcprefixes.properties'
+    translateArgs '--swift-friendly'
+    translateArgs '--nullability'
+    translateArgs '--doc-comments'
 
     // Use ARC
     translateArgs '-use-arc'
     extraObjcCompilerArgs '-fobjc-arc', '-Wno-deprecated-declarations'
+    // This is to avoid tons of nullability issues with guava 19.0
+    // see also: https://groups.google.com/forum/#!msg/j2objc-discuss/vxawRT_zzWE/T6SXFwvrCgAJ
+    extraObjcCompilerArgs '-Wno-nullability', '-Wno-nullability-completeness'
 
 
 

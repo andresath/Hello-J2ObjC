@@ -19,6 +19,5 @@ ext {
 
 dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
-    compile "io.reactivex:rxjava:$rx_java_version"
     testCompile "junit:junit:$junit_version"
 }

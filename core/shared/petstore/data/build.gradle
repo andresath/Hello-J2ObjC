@@ -107,6 +107,5 @@ dependencies {
     compile "com.google.code.gson:gson:$gson_version"
     compile "joda-time:joda-time:$jodatime_version"
     compile "joda-convert:joda-convert:$jodaconvert_version"
-    compile "io.reactivex:rxjava:$rx_java_version"
     testCompile "junit:junit:$junit_version"
 }

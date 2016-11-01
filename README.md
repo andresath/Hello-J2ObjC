@@ -233,9 +233,24 @@ cd core
 mkdir core/shared-thirdparty
 git remote add -f rxjava-upstream https://github.com/ReactiveX/RxJava.git
 git subtree add --prefix core/shared-thirdparty/rxjava-sources rxjava-upstream v1.1.6 --squash
+```
 
+Debugging Crashing Tests
+--------
+You can debug transpiled unit tests that fail with crashes
+(rather than the normal assertion errors) via ````lldb```
+```
+cd core/shared/thirdparty/rxjava/build/j2objcTest/Debug
+lldb ./testJ2objc
+#  in lldb execution environment
+> run org.junit.runner.JUnitCore rx.SingleTest
+# wait for crash...
+# then display last N (in this case 25) lines of back trace
+> bt 25
+```
 
-git https://github.com/ReactiveX/RxJava.git
+You can also step through code, set break points, etc.
+[http://lldb.llvm.org/lldb-gdb.html](More Info on using lldb can be found here)
 
 
 Further Technical Documentation
