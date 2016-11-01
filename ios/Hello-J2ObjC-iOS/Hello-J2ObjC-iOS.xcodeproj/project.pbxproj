@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28305EFD0730B9A0D9B47F0A /* libPods-Hello-J2ObjC-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89590A2FAC2A1E5C3C214BD9 /* libPods-Hello-J2ObjC-iOS.a */; };
 		67FC65CE1DC95EA700665474 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC65CD1DC95EA700665474 /* AppDelegate.swift */; };
 		67FC65D01DC95EA700665474 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC65CF1DC95EA700665474 /* MasterViewController.swift */; };
 		67FC65D21DC95EA700665474 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC65D11DC95EA700665474 /* DetailViewController.swift */; };
@@ -15,6 +16,7 @@
 		67FC65DA1DC95EA700665474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67FC65D81DC95EA700665474 /* LaunchScreen.storyboard */; };
 		67FC65E51DC95EA700665474 /* Hello_J2ObjC_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC65E41DC95EA700665474 /* Hello_J2ObjC_iOSTests.swift */; };
 		67FC65F01DC95EA700665474 /* Hello_J2ObjC_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC65EF1DC95EA700665474 /* Hello_J2ObjC_iOSUITests.swift */; };
+		87849D1FCB8C79B5E254D28C /* libPods-Hello-J2ObjC-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A280D057B7D1465590C27E6 /* libPods-Hello-J2ObjC-iOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		541C9E7A9D2AFCA5704B9F83 /* Pods-Hello-J2ObjC-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hello-J2ObjC-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hello-J2ObjC-iOSTests/Pods-Hello-J2ObjC-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		67FC65CA1DC95EA700665474 /* Hello-J2ObjC-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hello-J2ObjC-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67FC65CD1DC95EA700665474 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67FC65CF1DC95EA700665474 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +52,11 @@
 		67FC65EB1DC95EA700665474 /* Hello-J2ObjC-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hello-J2ObjC-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67FC65EF1DC95EA700665474 /* Hello_J2ObjC_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hello_J2ObjC_iOSUITests.swift; sourceTree = "<group>"; };
 		67FC65F11DC95EA700665474 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7DED926C85A3B12E16CF2BE8 /* Pods-Hello-J2ObjC-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hello-J2ObjC-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hello-J2ObjC-iOS/Pods-Hello-J2ObjC-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		89590A2FAC2A1E5C3C214BD9 /* libPods-Hello-J2ObjC-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hello-J2ObjC-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A280D057B7D1465590C27E6 /* libPods-Hello-J2ObjC-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hello-J2ObjC-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E817D1AFB3D9C8FACE1C08C /* Pods-Hello-J2ObjC-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hello-J2ObjC-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hello-J2ObjC-iOS/Pods-Hello-J2ObjC-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		C5C9DE146C7F9ACFE8107A88 /* Pods-Hello-J2ObjC-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hello-J2ObjC-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hello-J2ObjC-iOSTests/Pods-Hello-J2ObjC-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28305EFD0730B9A0D9B47F0A /* libPods-Hello-J2ObjC-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87849D1FCB8C79B5E254D28C /* libPods-Hello-J2ObjC-iOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +93,8 @@
 				67FC65E31DC95EA700665474 /* Hello-J2ObjC-iOSTests */,
 				67FC65EE1DC95EA700665474 /* Hello-J2ObjC-iOSUITests */,
 				67FC65CB1DC95EA700665474 /* Products */,
+				953EB0C48B1F10158059D481 /* Pods */,
+				DAA4B993C4D3DCC6F2453769 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +140,26 @@
 			path = "Hello-J2ObjC-iOSUITests";
 			sourceTree = "<group>";
 		};
+		953EB0C48B1F10158059D481 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7DED926C85A3B12E16CF2BE8 /* Pods-Hello-J2ObjC-iOS.debug.xcconfig */,
+				9E817D1AFB3D9C8FACE1C08C /* Pods-Hello-J2ObjC-iOS.release.xcconfig */,
+				C5C9DE146C7F9ACFE8107A88 /* Pods-Hello-J2ObjC-iOSTests.debug.xcconfig */,
+				541C9E7A9D2AFCA5704B9F83 /* Pods-Hello-J2ObjC-iOSTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DAA4B993C4D3DCC6F2453769 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				89590A2FAC2A1E5C3C214BD9 /* libPods-Hello-J2ObjC-iOS.a */,
+				8A280D057B7D1465590C27E6 /* libPods-Hello-J2ObjC-iOSTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +167,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 67FC65F41DC95EA700665474 /* Build configuration list for PBXNativeTarget "Hello-J2ObjC-iOS" */;
 			buildPhases = (
+				BF6E7EF0E567CC6DDC2F19AA /* Check Pods Manifest.lock */,
 				67FC65C61DC95EA700665474 /* Sources */,
 				67FC65C71DC95EA700665474 /* Frameworks */,
 				67FC65C81DC95EA700665474 /* Resources */,
+				D0D8B5E230D74356BB9F3C7C /* Embed Pods Frameworks */,
+				9FBA33A95958ABA88C1AE95D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -152,9 +187,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 67FC65F71DC95EA700665474 /* Build configuration list for PBXNativeTarget "Hello-J2ObjC-iOSTests" */;
 			buildPhases = (
+				DF4C283868688373439FC85C /* Check Pods Manifest.lock */,
 				67FC65DC1DC95EA700665474 /* Sources */,
 				67FC65DD1DC95EA700665474 /* Frameworks */,
 				67FC65DE1DC95EA700665474 /* Resources */,
+				813F7D1B3C119BA2FD1A9619 /* Embed Pods Frameworks */,
+				077C8883AE29FBBAE42741C0 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -253,6 +291,99 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		077C8883AE29FBBAE42741C0 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hello-J2ObjC-iOSTests/Pods-Hello-J2ObjC-iOSTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		813F7D1B3C119BA2FD1A9619 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hello-J2ObjC-iOSTests/Pods-Hello-J2ObjC-iOSTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9FBA33A95958ABA88C1AE95D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hello-J2ObjC-iOS/Pods-Hello-J2ObjC-iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BF6E7EF0E567CC6DDC2F19AA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D0D8B5E230D74356BB9F3C7C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hello-J2ObjC-iOS/Pods-Hello-J2ObjC-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF4C283868688373439FC85C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		67FC65C61DC95EA700665474 /* Sources */ = {
@@ -401,6 +532,7 @@
 		};
 		67FC65F51DC95EA700665474 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7DED926C85A3B12E16CF2BE8 /* Pods-Hello-J2ObjC-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Hello-J2ObjC-iOS/Info.plist";
@@ -412,6 +544,7 @@
 		};
 		67FC65F61DC95EA700665474 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E817D1AFB3D9C8FACE1C08C /* Pods-Hello-J2ObjC-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Hello-J2ObjC-iOS/Info.plist";
@@ -423,6 +556,7 @@
 		};
 		67FC65F81DC95EA700665474 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C5C9DE146C7F9ACFE8107A88 /* Pods-Hello-J2ObjC-iOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Hello-J2ObjC-iOSTests/Info.plist";
@@ -435,6 +569,7 @@
 		};
 		67FC65F91DC95EA700665474 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 541C9E7A9D2AFCA5704B9F83 /* Pods-Hello-J2ObjC-iOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Hello-J2ObjC-iOSTests/Info.plist";
@@ -488,6 +623,7 @@
 				67FC65F61DC95EA700665474 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		67FC65F71DC95EA700665474 /* Build configuration list for PBXNativeTarget "Hello-J2ObjC-iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +632,7 @@
 				67FC65F91DC95EA700665474 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		67FC65FA1DC95EA700665474 /* Build configuration list for PBXNativeTarget "Hello-J2ObjC-iOSUITests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +641,7 @@
 				67FC65FC1DC95EA700665474 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
