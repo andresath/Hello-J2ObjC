@@ -1,0 +1,34 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '8.0'
+# Uncomment this line if you're using Swift
+# use_frameworks!
+
+
+# J2ObjC Gradle Plugin - PodMethods - DO NOT MODIFY START - can be moved as a block
+def j2objc_shared
+    pod 'j2objc-shared-debug', :configuration => ['Debug'], :path => '../../core/shared/build/j2objcOutputs'
+    pod 'j2objc-shared-release', :configuration => ['Release'], :path => '../../core/shared/build/j2objcOutputs'
+end
+def j2objc_rxjava
+    pod 'j2objc-rxjava-debug', :configuration => ['Debug'], :path => '../../core/shared/thirdparty/rxjava/build/j2objcOutputs'
+    pod 'j2objc-rxjava-release', :configuration => ['Release'], :path => '../../core/shared/thirdparty/rxjava/build/j2objcOutputs'
+end
+# J2ObjC Gradle Plugin - PodMethods - DO NOT MODIFY END
+
+target 'Hello-J2ObjC-iOS' do
+    platform :ios, '8.3'
+    j2objc_shared
+    j2objc_rxjava
+
+end
+
+target 'Hello-J2ObjC-iOSTests' do
+    platform :ios, '8.3'
+    j2objc_shared
+    j2objc_rxjava
+
+end
+
+target 'Hello-J2ObjC-iOSUITests' do
+
+end
