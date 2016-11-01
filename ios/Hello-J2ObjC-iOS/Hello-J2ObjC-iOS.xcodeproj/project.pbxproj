@@ -1,0 +1,511 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		67FC65CE1DC95EA700665474 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC65CD1DC95EA700665474 /* AppDelegate.swift */; };
+		67FC65D01DC95EA700665474 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC65CF1DC95EA700665474 /* MasterViewController.swift */; };
+		67FC65D21DC95EA700665474 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC65D11DC95EA700665474 /* DetailViewController.swift */; };
+		67FC65D51DC95EA700665474 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67FC65D31DC95EA700665474 /* Main.storyboard */; };
+		67FC65D71DC95EA700665474 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67FC65D61DC95EA700665474 /* Assets.xcassets */; };
+		67FC65DA1DC95EA700665474 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67FC65D81DC95EA700665474 /* LaunchScreen.storyboard */; };
+		67FC65E51DC95EA700665474 /* Hello_J2ObjC_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC65E41DC95EA700665474 /* Hello_J2ObjC_iOSTests.swift */; };
+		67FC65F01DC95EA700665474 /* Hello_J2ObjC_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC65EF1DC95EA700665474 /* Hello_J2ObjC_iOSUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		67FC65E11DC95EA700665474 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67FC65C21DC95EA700665474 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67FC65C91DC95EA700665474;
+			remoteInfo = "Hello-J2ObjC-iOS";
+		};
+		67FC65EC1DC95EA700665474 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67FC65C21DC95EA700665474 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67FC65C91DC95EA700665474;
+			remoteInfo = "Hello-J2ObjC-iOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		67FC65CA1DC95EA700665474 /* Hello-J2ObjC-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hello-J2ObjC-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		67FC65CD1DC95EA700665474 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		67FC65CF1DC95EA700665474 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		67FC65D11DC95EA700665474 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		67FC65D41DC95EA700665474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		67FC65D61DC95EA700665474 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		67FC65D91DC95EA700665474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		67FC65DB1DC95EA700665474 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67FC65E01DC95EA700665474 /* Hello-J2ObjC-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hello-J2ObjC-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		67FC65E41DC95EA700665474 /* Hello_J2ObjC_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hello_J2ObjC_iOSTests.swift; sourceTree = "<group>"; };
+		67FC65E61DC95EA700665474 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67FC65EB1DC95EA700665474 /* Hello-J2ObjC-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hello-J2ObjC-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		67FC65EF1DC95EA700665474 /* Hello_J2ObjC_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hello_J2ObjC_iOSUITests.swift; sourceTree = "<group>"; };
+		67FC65F11DC95EA700665474 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		67FC65C71DC95EA700665474 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67FC65DD1DC95EA700665474 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67FC65E81DC95EA700665474 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		67FC65C11DC95EA700665474 = {
+			isa = PBXGroup;
+			children = (
+				67FC65CC1DC95EA700665474 /* Hello-J2ObjC-iOS */,
+				67FC65E31DC95EA700665474 /* Hello-J2ObjC-iOSTests */,
+				67FC65EE1DC95EA700665474 /* Hello-J2ObjC-iOSUITests */,
+				67FC65CB1DC95EA700665474 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		67FC65CB1DC95EA700665474 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				67FC65CA1DC95EA700665474 /* Hello-J2ObjC-iOS.app */,
+				67FC65E01DC95EA700665474 /* Hello-J2ObjC-iOSTests.xctest */,
+				67FC65EB1DC95EA700665474 /* Hello-J2ObjC-iOSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		67FC65CC1DC95EA700665474 /* Hello-J2ObjC-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				67FC65CD1DC95EA700665474 /* AppDelegate.swift */,
+				67FC65CF1DC95EA700665474 /* MasterViewController.swift */,
+				67FC65D11DC95EA700665474 /* DetailViewController.swift */,
+				67FC65D31DC95EA700665474 /* Main.storyboard */,
+				67FC65D61DC95EA700665474 /* Assets.xcassets */,
+				67FC65D81DC95EA700665474 /* LaunchScreen.storyboard */,
+				67FC65DB1DC95EA700665474 /* Info.plist */,
+			);
+			path = "Hello-J2ObjC-iOS";
+			sourceTree = "<group>";
+		};
+		67FC65E31DC95EA700665474 /* Hello-J2ObjC-iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				67FC65E41DC95EA700665474 /* Hello_J2ObjC_iOSTests.swift */,
+				67FC65E61DC95EA700665474 /* Info.plist */,
+			);
+			path = "Hello-J2ObjC-iOSTests";
+			sourceTree = "<group>";
+		};
+		67FC65EE1DC95EA700665474 /* Hello-J2ObjC-iOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				67FC65EF1DC95EA700665474 /* Hello_J2ObjC_iOSUITests.swift */,
+				67FC65F11DC95EA700665474 /* Info.plist */,
+			);
+			path = "Hello-J2ObjC-iOSUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		67FC65C91DC95EA700665474 /* Hello-J2ObjC-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67FC65F41DC95EA700665474 /* Build configuration list for PBXNativeTarget "Hello-J2ObjC-iOS" */;
+			buildPhases = (
+				67FC65C61DC95EA700665474 /* Sources */,
+				67FC65C71DC95EA700665474 /* Frameworks */,
+				67FC65C81DC95EA700665474 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Hello-J2ObjC-iOS";
+			productName = "Hello-J2ObjC-iOS";
+			productReference = 67FC65CA1DC95EA700665474 /* Hello-J2ObjC-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		67FC65DF1DC95EA700665474 /* Hello-J2ObjC-iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67FC65F71DC95EA700665474 /* Build configuration list for PBXNativeTarget "Hello-J2ObjC-iOSTests" */;
+			buildPhases = (
+				67FC65DC1DC95EA700665474 /* Sources */,
+				67FC65DD1DC95EA700665474 /* Frameworks */,
+				67FC65DE1DC95EA700665474 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				67FC65E21DC95EA700665474 /* PBXTargetDependency */,
+			);
+			name = "Hello-J2ObjC-iOSTests";
+			productName = "Hello-J2ObjC-iOSTests";
+			productReference = 67FC65E01DC95EA700665474 /* Hello-J2ObjC-iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		67FC65EA1DC95EA700665474 /* Hello-J2ObjC-iOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67FC65FA1DC95EA700665474 /* Build configuration list for PBXNativeTarget "Hello-J2ObjC-iOSUITests" */;
+			buildPhases = (
+				67FC65E71DC95EA700665474 /* Sources */,
+				67FC65E81DC95EA700665474 /* Frameworks */,
+				67FC65E91DC95EA700665474 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				67FC65ED1DC95EA700665474 /* PBXTargetDependency */,
+			);
+			name = "Hello-J2ObjC-iOSUITests";
+			productName = "Hello-J2ObjC-iOSUITests";
+			productReference = 67FC65EB1DC95EA700665474 /* Hello-J2ObjC-iOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		67FC65C21DC95EA700665474 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Hinz, Kayla";
+				TargetAttributes = {
+					67FC65C91DC95EA700665474 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					67FC65DF1DC95EA700665474 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 67FC65C91DC95EA700665474;
+					};
+					67FC65EA1DC95EA700665474 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 67FC65C91DC95EA700665474;
+					};
+				};
+			};
+			buildConfigurationList = 67FC65C51DC95EA700665474 /* Build configuration list for PBXProject "Hello-J2ObjC-iOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 67FC65C11DC95EA700665474;
+			productRefGroup = 67FC65CB1DC95EA700665474 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				67FC65C91DC95EA700665474 /* Hello-J2ObjC-iOS */,
+				67FC65DF1DC95EA700665474 /* Hello-J2ObjC-iOSTests */,
+				67FC65EA1DC95EA700665474 /* Hello-J2ObjC-iOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		67FC65C81DC95EA700665474 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67FC65DA1DC95EA700665474 /* LaunchScreen.storyboard in Resources */,
+				67FC65D71DC95EA700665474 /* Assets.xcassets in Resources */,
+				67FC65D51DC95EA700665474 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67FC65DE1DC95EA700665474 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67FC65E91DC95EA700665474 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		67FC65C61DC95EA700665474 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67FC65D21DC95EA700665474 /* DetailViewController.swift in Sources */,
+				67FC65D01DC95EA700665474 /* MasterViewController.swift in Sources */,
+				67FC65CE1DC95EA700665474 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67FC65DC1DC95EA700665474 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67FC65E51DC95EA700665474 /* Hello_J2ObjC_iOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67FC65E71DC95EA700665474 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67FC65F01DC95EA700665474 /* Hello_J2ObjC_iOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		67FC65E21DC95EA700665474 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 67FC65C91DC95EA700665474 /* Hello-J2ObjC-iOS */;
+			targetProxy = 67FC65E11DC95EA700665474 /* PBXContainerItemProxy */;
+		};
+		67FC65ED1DC95EA700665474 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 67FC65C91DC95EA700665474 /* Hello-J2ObjC-iOS */;
+			targetProxy = 67FC65EC1DC95EA700665474 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		67FC65D31DC95EA700665474 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				67FC65D41DC95EA700665474 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		67FC65D81DC95EA700665474 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				67FC65D91DC95EA700665474 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		67FC65F21DC95EA700665474 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		67FC65F31DC95EA700665474 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		67FC65F51DC95EA700665474 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Hello-J2ObjC-iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pets.Hello-J2ObjC-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		67FC65F61DC95EA700665474 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Hello-J2ObjC-iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pets.Hello-J2ObjC-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		67FC65F81DC95EA700665474 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Hello-J2ObjC-iOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pets.Hello-J2ObjC-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hello-J2ObjC-iOS.app/Hello-J2ObjC-iOS";
+			};
+			name = Debug;
+		};
+		67FC65F91DC95EA700665474 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Hello-J2ObjC-iOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pets.Hello-J2ObjC-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hello-J2ObjC-iOS.app/Hello-J2ObjC-iOS";
+			};
+			name = Release;
+		};
+		67FC65FB1DC95EA700665474 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Hello-J2ObjC-iOSUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pets.Hello-J2ObjC-iOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Hello-J2ObjC-iOS";
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		67FC65FC1DC95EA700665474 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Hello-J2ObjC-iOSUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pets.Hello-J2ObjC-iOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Hello-J2ObjC-iOS";
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		67FC65C51DC95EA700665474 /* Build configuration list for PBXProject "Hello-J2ObjC-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67FC65F21DC95EA700665474 /* Debug */,
+				67FC65F31DC95EA700665474 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67FC65F41DC95EA700665474 /* Build configuration list for PBXNativeTarget "Hello-J2ObjC-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67FC65F51DC95EA700665474 /* Debug */,
+				67FC65F61DC95EA700665474 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		67FC65F71DC95EA700665474 /* Build configuration list for PBXNativeTarget "Hello-J2ObjC-iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67FC65F81DC95EA700665474 /* Debug */,
+				67FC65F91DC95EA700665474 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		67FC65FA1DC95EA700665474 /* Build configuration list for PBXNativeTarget "Hello-J2ObjC-iOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67FC65FB1DC95EA700665474 /* Debug */,
+				67FC65FC1DC95EA700665474 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 67FC65C21DC95EA700665474 /* Project object */;
+}
