@@ -232,7 +232,7 @@ To create a subtree in your own project:
 cd core
 mkdir core/shared-thirdparty
 git remote add -f rxjava-upstream https://github.com/ReactiveX/RxJava.git
-git subtree add --prefix core/shared-thirdparty/rxjava-sources rxjava-upstream 1.1.6 --squash
+git subtree add --prefix core/shared-thirdparty/rxjava-sources rxjava-upstream v1.1.6 --squash
 
 
 git https://github.com/ReactiveX/RxJava.git

@@ -1,4 +1,4 @@
 rootProject.name = 'shared'
-include ":petstore.data", ":petstore.domain"
+include ":petstore:data", ":petstore:domain", ":thirdparty:rxjava"
 
 
