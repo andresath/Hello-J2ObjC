@@ -12,7 +12,9 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
-
+    var httpClient = ComPetsCoreSharedPetstoreDataStoreHttpClient?
+    var apiClient = ComPetsCoreSharedPetstoreDataStoreApiClient?
+    var petstore = ComPetsCoreSharedPetstoreDomainStorePetstoreStore?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -20,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self
+        
+        httpClient = ComPetsCoreSharedPetstoreDataStoreHttpClient();
+        apiClient = ComPetsCoreSharedPetstoreDataStoreApiClient(httpClient);
+        petstore = ComPetsCoreSharedPetstoreDomainStorePetstoreStore(apiClient);
         return true
     }
 

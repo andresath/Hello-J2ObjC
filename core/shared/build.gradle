@@ -39,6 +39,43 @@ repositories {
 }
 
 ext {
+    j2ObjcBridgingHeaderFile = "Hello-J2ObjC-iOS-Bridging-Header.h"
+    j2ObjcBridgingHeaderDef = "Hello_J2ObjC_Bridging_Header_h"
+    j2ObjcBridgingHeaderPath = project.buildDir.toString() + "/j2objcOutputs/src/main/objc/"
+}
+
+task j2ObjcBridgingHeader << {
+    File headerFile = new File("$j2ObjcBridgingHeaderPath" + "$j2ObjcBridgingHeaderFile")
+    String content = "////--- Auto-Generated. Copy this to your bridging header ---////" + System.getProperty("line.separator")
+    content += "#ifndef $j2ObjcBridgingHeaderDef" + System.getProperty("line.separator")
+    content += "#define $j2ObjcBridgingHeaderDef" + System.getProperty("line.separator") + System.getProperty("line.separator")
+    allprojects.each { project ->
+
+        println project.buildDir.toString() + '/j2objcOutputs/src/main/objc'
+        FileTree headers = fileTree(dir: project.buildDir.toString() + '/j2objcOutputs/src/main/objc', include: '**/*.h', exclude: "**/$j2ObjcBridgingHeaderFile")
+        headers = headers.matching {
+            include '**/*.h'
+        }
+        if (!headers.isEmpty()) {
+            content += "////--- Shared $project.name Headers. Auto-Generated. Copy this to your bridging header. ---///" + System.getProperty("line.separator")
+            headers.visit {element ->
+                if (!element.isDirectory()) {
+                    content += /#import "$element.relativePath"/ + System.getProperty("line.separator")
+                }
+            }
+            content += "////--- End $project.name Shared Headers. Auto-Generated. Copy this to your bridging header. ---///" + System.getProperty("line.separator")
+            content += System.getProperty("line.separator")
+        }
+    }
+    content += System.getProperty("line.separator")
+    content += "#endif /* $j2ObjcBridgingHeaderDef */" + System.getProperty("line.separator")
+    content += "////--- End Auto-Generated. Copy this to your bridging header. ---///" + System.getProperty("line.separator")
+    println content
+    headerFile.write(content)
+}
+j2ObjcBridgingHeader.shouldRunAfter j2objcXcode
+
+ext {
     swagger_annotations_version = "1.5.8"
     gson_version = "2.7"
     junit_version = "4.12"

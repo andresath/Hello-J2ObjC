@@ -1,0 +1,29 @@
+PODS:
+  - j2objc-rxjava-debug (1.0)
+  - j2objc-rxjava-release (1.0)
+  - j2objc-shared-debug (1.0)
+  - j2objc-shared-release (1.0)
+
+DEPENDENCIES:
+  - j2objc-rxjava-debug (from `../../core/shared/thirdparty/rxjava/build/j2objcOutputs`)
+  - j2objc-rxjava-release (from `../../core/shared/thirdparty/rxjava/build/j2objcOutputs`)
+  - j2objc-shared-debug (from `../../core/shared/build/j2objcOutputs`)
+  - j2objc-shared-release (from `../../core/shared/build/j2objcOutputs`)
+
+EXTERNAL SOURCES:
+  j2objc-rxjava-debug:
+    :path: "../../core/shared/thirdparty/rxjava/build/j2objcOutputs"
+  j2objc-rxjava-release:
+    :path: "../../core/shared/thirdparty/rxjava/build/j2objcOutputs"
+  j2objc-shared-debug:
+    :path: "../../core/shared/build/j2objcOutputs"
+  j2objc-shared-release:
+    :path: "../../core/shared/build/j2objcOutputs"
+
+SPEC CHECKSUMS:
+  j2objc-rxjava-debug: ed631c3083a0deafa892f46552e5530f791af177
+  j2objc-rxjava-release: 4cef9ee071d7d2fadaece34cf7b9b6fd7b94d105
+  j2objc-shared-debug: f87d07dfe30bdb8ef177c9e725d9989d4fa7b773
+  j2objc-shared-release: 9e2063918a81c3270a428ba05ec1ca02f38cae89
+
+COCOAPODS: 0.39.0

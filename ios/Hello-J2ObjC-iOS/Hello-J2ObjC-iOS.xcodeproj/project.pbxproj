@@ -52,6 +52,7 @@
 		67FC65EB1DC95EA700665474 /* Hello-J2ObjC-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hello-J2ObjC-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67FC65EF1DC95EA700665474 /* Hello_J2ObjC_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hello_J2ObjC_iOSUITests.swift; sourceTree = "<group>"; };
 		67FC65F11DC95EA700665474 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67FC66021DCAC10F00665474 /* Hello-J2ObjC-iOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Hello-J2ObjC-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		7DED926C85A3B12E16CF2BE8 /* Pods-Hello-J2ObjC-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hello-J2ObjC-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hello-J2ObjC-iOS/Pods-Hello-J2ObjC-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		89590A2FAC2A1E5C3C214BD9 /* libPods-Hello-J2ObjC-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hello-J2ObjC-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A280D057B7D1465590C27E6 /* libPods-Hello-J2ObjC-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hello-J2ObjC-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +112,7 @@
 		67FC65CC1DC95EA700665474 /* Hello-J2ObjC-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				67FC66021DCAC10F00665474 /* Hello-J2ObjC-iOS-Bridging-Header.h */,
 				67FC65CD1DC95EA700665474 /* AppDelegate.swift */,
 				67FC65CF1DC95EA700665474 /* MasterViewController.swift */,
 				67FC65D11DC95EA700665474 /* DetailViewController.swift */,
@@ -539,6 +541,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pets.Hello-J2ObjC-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -551,6 +554,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pets.Hello-J2ObjC-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 			};
 			name = Release;
 		};

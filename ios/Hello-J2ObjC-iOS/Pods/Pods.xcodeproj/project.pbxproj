@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1399B3B9DB4E3BF936F96E217664B670 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		352262680A09AA32E5EF6538D1AC68C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		97259DF6A9441E255A9A7D909B46E62F /* Pods-Hello-J2ObjC-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B57636FA9B99A67BAEBD403EA0234B75 /* Pods-Hello-J2ObjC-iOS-dummy.m */; };
+		9D75E275B7960DCAB3F42D283CCDBAC0 /* Pods-Hello-J2ObjC-iOSTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8923C0C3E0E3FDC2BA3582C6B27DC4D2 /* Pods-Hello-J2ObjC-iOSTests-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		02B487E0EB1B094093A67FD768D71BC3 /* Pods-Hello-J2ObjC-iOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Hello-J2ObjC-iOS-frameworks.sh"; sourceTree = "<group>"; };
+		104435225D57A6967AC3D796709AA54D /* libshared-j2objc.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "libshared-j2objc.a"; path = "lib/iosRelease/libshared-j2objc.a"; sourceTree = "<group>"; };
+		1AAA83564FC639F9926EC4B8AA1D82AD /* libPods-Hello-J2ObjC-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hello-J2ObjC-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BF2E9D01D6CAA48FD0E56D716635AEC /* Pods-Hello-J2ObjC-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Hello-J2ObjC-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1F9B8073F3E2289F29FD79CC6F132AEC /* Pods-Hello-J2ObjC-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Hello-J2ObjC-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		3590508AC8EB49868FA09FA634464894 /* Pods-Hello-J2ObjC-iOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Hello-J2ObjC-iOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		47ACDB43CFFE01B78CE8C61E3EA4037D /* Pods-Hello-J2ObjC-iOSTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Hello-J2ObjC-iOSTests-resources.sh"; sourceTree = "<group>"; };
+		5EAEB800EA59B2A51314382AFB523991 /* librxjava-j2objc.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "librxjava-j2objc.a"; path = "lib/iosRelease/librxjava-j2objc.a"; sourceTree = "<group>"; };
+		6A421CEC3D121771966AEC59C45F5802 /* Pods-Hello-J2ObjC-iOSTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Hello-J2ObjC-iOSTests-frameworks.sh"; sourceTree = "<group>"; };
+		6B7FFCAEEE5D5D74ACBB6352729F433E /* libPods-Hello-J2ObjC-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hello-J2ObjC-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E65CB8921F871729AFC7E5A3E1D73D1 /* Pods-Hello-J2ObjC-iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Hello-J2ObjC-iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		6F83B3A7CCF596E18FA91D8D575E5D37 /* Pods-Hello-J2ObjC-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Hello-J2ObjC-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		70C772FE5E96E8CC67BDFC1C41D424F4 /* librxjava-j2objc.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "librxjava-j2objc.a"; path = "lib/iosDebug/librxjava-j2objc.a"; sourceTree = "<group>"; };
+		8452443FF783A9FF028FDFD8F1B0CFD6 /* libshared-j2objc.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "libshared-j2objc.a"; path = "lib/iosDebug/libshared-j2objc.a"; sourceTree = "<group>"; };
+		8923C0C3E0E3FDC2BA3582C6B27DC4D2 /* Pods-Hello-J2ObjC-iOSTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Hello-J2ObjC-iOSTests-dummy.m"; sourceTree = "<group>"; };
+		8A644E953CFBCF11BBF765DCF73E9A26 /* Pods-Hello-J2ObjC-iOSTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Hello-J2ObjC-iOSTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		9D2D279C19852071C1E530690A7F5B2A /* Pods-Hello-J2ObjC-iOS-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Hello-J2ObjC-iOS-resources.sh"; sourceTree = "<group>"; };
+		AC5148FE6E0A83B1EFC004F259104A77 /* Pods-Hello-J2ObjC-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Hello-J2ObjC-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		AF5B2AFB8472D9943B689EAFF39BD530 /* Pods-Hello-J2ObjC-iOSTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Hello-J2ObjC-iOSTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		B57636FA9B99A67BAEBD403EA0234B75 /* Pods-Hello-J2ObjC-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Hello-J2ObjC-iOS-dummy.m"; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C7FC88E0806DAD4582D2939F11BDA2CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1399B3B9DB4E3BF936F96E217664B670 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB50BB2B84F4B54D722C7EDA854C7FF6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				352262680A09AA32E5EF6538D1AC68C2 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18E5B7A5F53D2ADF21AB37419B5E94D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				70C772FE5E96E8CC67BDFC1C41D424F4 /* librxjava-j2objc.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1CE3175421DE389BF1E574F977E31A2E /* Pods-Hello-J2ObjC-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6E65CB8921F871729AFC7E5A3E1D73D1 /* Pods-Hello-J2ObjC-iOS-acknowledgements.markdown */,
+				3590508AC8EB49868FA09FA634464894 /* Pods-Hello-J2ObjC-iOS-acknowledgements.plist */,
+				B57636FA9B99A67BAEBD403EA0234B75 /* Pods-Hello-J2ObjC-iOS-dummy.m */,
+				02B487E0EB1B094093A67FD768D71BC3 /* Pods-Hello-J2ObjC-iOS-frameworks.sh */,
+				9D2D279C19852071C1E530690A7F5B2A /* Pods-Hello-J2ObjC-iOS-resources.sh */,
+				AC5148FE6E0A83B1EFC004F259104A77 /* Pods-Hello-J2ObjC-iOS.debug.xcconfig */,
+				6F83B3A7CCF596E18FA91D8D575E5D37 /* Pods-Hello-J2ObjC-iOS.release.xcconfig */,
+			);
+			name = "Pods-Hello-J2ObjC-iOS";
+			path = "Target Support Files/Pods-Hello-J2ObjC-iOS";
+			sourceTree = "<group>";
+		};
+		226E45B301AB3C993DF4996C4FA21B7F /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7C1E22B2657F0144DB6638FFCCCF1247 /* j2objc-rxjava-debug */,
+				696967B2B0369FC9C7FD29F0824587F3 /* j2objc-rxjava-release */,
+				5AB3E2E88EA49F1FBFA899B66B171FFF /* j2objc-shared-debug */,
+				38604E3747B3164A05D0E43E3D974600 /* j2objc-shared-release */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		266021A7E9E23822A94B198DE4ED246A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				104435225D57A6967AC3D796709AA54D /* libshared-j2objc.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		32068C5E0985407EFBEF53C4551A444D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8452443FF783A9FF028FDFD8F1B0CFD6 /* libshared-j2objc.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		38604E3747B3164A05D0E43E3D974600 /* j2objc-shared-release */ = {
+			isa = PBXGroup;
+			children = (
+				266021A7E9E23822A94B198DE4ED246A /* Frameworks */,
+			);
+			name = "j2objc-shared-release";
+			path = ../../../core/shared/build/j2objcOutputs;
+			sourceTree = "<group>";
+		};
+		5AB3E2E88EA49F1FBFA899B66B171FFF /* j2objc-shared-debug */ = {
+			isa = PBXGroup;
+			children = (
+				32068C5E0985407EFBEF53C4551A444D /* Frameworks */,
+			);
+			name = "j2objc-shared-debug";
+			path = ../../../core/shared/build/j2objcOutputs;
+			sourceTree = "<group>";
+		};
+		696967B2B0369FC9C7FD29F0824587F3 /* j2objc-rxjava-release */ = {
+			isa = PBXGroup;
+			children = (
+				B52FEF3DC300A0A681B108D69B5FCD32 /* Frameworks */,
+			);
+			name = "j2objc-rxjava-release";
+			path = ../../../core/shared/thirdparty/rxjava/build/j2objcOutputs;
+			sourceTree = "<group>";
+		};
+		7C1E22B2657F0144DB6638FFCCCF1247 /* j2objc-rxjava-debug */ = {
+			isa = PBXGroup;
+			children = (
+				18E5B7A5F53D2ADF21AB37419B5E94D6 /* Frameworks */,
+			);
+			name = "j2objc-rxjava-debug";
+			path = ../../../core/shared/thirdparty/rxjava/build/j2objcOutputs;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				226E45B301AB3C993DF4996C4FA21B7F /* Development Pods */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				B1EA438F4A0CC2B40350C34A0C8CA758 /* Products */,
+				A670BD1718F40417C45F1E03FC167F09 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		859F69E9A3898E38B8CA3D4A24161DFF /* Pods-Hello-J2ObjC-iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				AF5B2AFB8472D9943B689EAFF39BD530 /* Pods-Hello-J2ObjC-iOSTests-acknowledgements.markdown */,
+				8A644E953CFBCF11BBF765DCF73E9A26 /* Pods-Hello-J2ObjC-iOSTests-acknowledgements.plist */,
+				8923C0C3E0E3FDC2BA3582C6B27DC4D2 /* Pods-Hello-J2ObjC-iOSTests-dummy.m */,
+				6A421CEC3D121771966AEC59C45F5802 /* Pods-Hello-J2ObjC-iOSTests-frameworks.sh */,
+				47ACDB43CFFE01B78CE8C61E3EA4037D /* Pods-Hello-J2ObjC-iOSTests-resources.sh */,
+				1BF2E9D01D6CAA48FD0E56D716635AEC /* Pods-Hello-J2ObjC-iOSTests.debug.xcconfig */,
+				1F9B8073F3E2289F29FD79CC6F132AEC /* Pods-Hello-J2ObjC-iOSTests.release.xcconfig */,
+			);
+			name = "Pods-Hello-J2ObjC-iOSTests";
+			path = "Target Support Files/Pods-Hello-J2ObjC-iOSTests";
+			sourceTree = "<group>";
+		};
+		A670BD1718F40417C45F1E03FC167F09 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1CE3175421DE389BF1E574F977E31A2E /* Pods-Hello-J2ObjC-iOS */,
+				859F69E9A3898E38B8CA3D4A24161DFF /* Pods-Hello-J2ObjC-iOSTests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		B1EA438F4A0CC2B40350C34A0C8CA758 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6B7FFCAEEE5D5D74ACBB6352729F433E /* libPods-Hello-J2ObjC-iOS.a */,
+				1AAA83564FC639F9926EC4B8AA1D82AD /* libPods-Hello-J2ObjC-iOSTests.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B52FEF3DC300A0A681B108D69B5FCD32 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5EAEB800EA59B2A51314382AFB523991 /* librxjava-j2objc.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4B4BC7C15A33EE16E4569336ACDA5E45 /* Pods-Hello-J2ObjC-iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3E89B4D06F39E912443BD53D5BE23D2F /* Build configuration list for PBXNativeTarget "Pods-Hello-J2ObjC-iOSTests" */;
+			buildPhases = (
+				A0495C0B2068B94A5E7656353668AA5F /* Sources */,
+				DB50BB2B84F4B54D722C7EDA854C7FF6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-Hello-J2ObjC-iOSTests";
+			productName = "Pods-Hello-J2ObjC-iOSTests";
+			productReference = 1AAA83564FC639F9926EC4B8AA1D82AD /* libPods-Hello-J2ObjC-iOSTests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		818372442982860593CB6EB26FB74746 /* Pods-Hello-J2ObjC-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC1F4C0915219C95A6E5911CC2EA2D9F /* Build configuration list for PBXNativeTarget "Pods-Hello-J2ObjC-iOS" */;
+			buildPhases = (
+				E18A54109908F874F61065F684AF5110 /* Sources */,
+				C7FC88E0806DAD4582D2939F11BDA2CC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-Hello-J2ObjC-iOS";
+			productName = "Pods-Hello-J2ObjC-iOS";
+			productReference = 6B7FFCAEEE5D5D74ACBB6352729F433E /* libPods-Hello-J2ObjC-iOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = B1EA438F4A0CC2B40350C34A0C8CA758 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				818372442982860593CB6EB26FB74746 /* Pods-Hello-J2ObjC-iOS */,
+				4B4BC7C15A33EE16E4569336ACDA5E45 /* Pods-Hello-J2ObjC-iOSTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A0495C0B2068B94A5E7656353668AA5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D75E275B7960DCAB3F42D283CCDBAC0 /* Pods-Hello-J2ObjC-iOSTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E18A54109908F874F61065F684AF5110 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97259DF6A9441E255A9A7D909B46E62F /* Pods-Hello-J2ObjC-iOS-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		10DE1947DAC0ED28F6C0A9F9BD75D546 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2959B44005E3B364D33DD7B19422351E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F83B3A7CCF596E18FA91D8D575E5D37 /* Pods-Hello-J2ObjC-iOS.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		3F72877984915C52E88BC3BAF8E206A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BF2E9D01D6CAA48FD0E56D716635AEC /* Pods-Hello-J2ObjC-iOSTests.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		552D02D5BA751AC2E8790D2811D496CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		8C179AA0B1EA3140609EF99A4627D981 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F9B8073F3E2289F29FD79CC6F132AEC /* Pods-Hello-J2ObjC-iOSTests.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		D7919D494DC522819487AD12A9631F25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC5148FE6E0A83B1EFC004F259104A77 /* Pods-Hello-J2ObjC-iOS.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				552D02D5BA751AC2E8790D2811D496CA /* Debug */,
+				10DE1947DAC0ED28F6C0A9F9BD75D546 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3E89B4D06F39E912443BD53D5BE23D2F /* Build configuration list for PBXNativeTarget "Pods-Hello-J2ObjC-iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F72877984915C52E88BC3BAF8E206A5 /* Debug */,
+				8C179AA0B1EA3140609EF99A4627D981 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC1F4C0915219C95A6E5911CC2EA2D9F /* Build configuration list for PBXNativeTarget "Pods-Hello-J2ObjC-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7919D494DC522819487AD12A9631F25 /* Debug */,
+				2959B44005E3B364D33DD7B19422351E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

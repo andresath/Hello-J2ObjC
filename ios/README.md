@@ -5,9 +5,6 @@ See notes in the top level Java [../README.md](../README.md) (if you didn't star
 
 For this Hello World example, this project favors importing code compiled with J2ObjC as a Podfile. This is due to multiple transitive dependencies and a multi-project gradle setup for shared code. If you have a simple project/module setup, you can also directly link against a fat static library binary. (See instructions below).
 
-This iOS project ASSUMES you have already succeeded in transpiling
-*HelloWorld.java* into *libHello-J2ObjC-j2objc.a* (the static library) from the top level project (../).
-
 RECOMMENDED: Setup XCode w. Cocoapods
 -----------
 * Make sure your Project is initialized with Cocoapods
@@ -17,13 +14,83 @@ RECOMMENDED: Setup XCode w. Cocoapods
   pod install
   ```
 * Update the settings in ```core/shared/build.gradle```
-```
+    ```
     xcodeProjectDir '../../ios/Hello-J2ObjC-iOS'
     xcodeTargetsIos 'Hello-J2ObjC-iOS', 'Hello-J2ObjC-iOSTests'  // replace with your iOS targets
-```
+    ```
+    * and also the Bridging header settings if you are using Swift
+            ```
+            ext {
+                j2ObjcBridgingHeaderFile = "Hello-J2ObjC-iOS-Bridging-Header.h"
+                j2ObjcBridgingHeaderDef = "Hello_J2ObjC_Bridging_iOS_Header_h"
+                j2ObjcBridgingHeaderPath = project.buildDir.toString() + "/j2objcOutputs/src/main/objc/"
+            }
+            ```
+            * In the J2Objc root level project, ensure you add this information if you would like to generate a bridging header.
+                * Then update the :core:shared ```build gradle``` with:
+                    ```
+                    ext {
+                        j2ObjcBridgingHeaderFile = "Hello-J2ObjC-iOS-Bridging-Header.h"
+                        j2ObjcBridgingHeaderDef = "Hello_J2ObjC_Bridging_Header_h"
+                        j2ObjcBridgingHeaderPath = project.buildDir.toString() + "/j2objcOutputs/src/main/objc/"
+                    }
+
+                    task j2ObjcBridgingHeader << {
+                        File headerFile = new File("$j2ObjcBridgingHeaderPath" + "$j2ObjcBridgingHeaderFile")
+                        String content = "////--- Auto-Generated. Copy this to your bridging header ---////" + System.getProperty("line.separator")
+                        content += "#ifndef $j2ObjcBridgingHeaderDef" + System.getProperty("line.separator")
+                        content += "#define $j2ObjcBridgingHeaderDef" + System.getProperty("line.separator") + System.getProperty("line.separator")
+                        allprojects.each { project ->
+
+                            println project.buildDir.toString() + '/j2objcOutputs/src/main/objc'
+                            FileTree headers = fileTree(dir: project.buildDir.toString() + '/j2objcOutputs/src/main/objc', include: '**/*.h', exclude: "**/$j2ObjcBridgingHeaderFile")
+                            headers = headers.matching {
+                                include '**/*.h'
+                            }
+                            if (!headers.isEmpty()) {
+                                content += "////--- Shared $project.name Headers. Auto-Generated. Copy this to your bridging header. ---///" + System.getProperty("line.separator")
+                                headers.visit {element ->
+                                    if (!element.isDirectory()) {
+                                        content += /#import "$element.relativePath"/ + System.getProperty("line.separator")
+                                    }
+                                }
+                                content += "////--- End $project.name Shared Headers. Auto-Generated. Copy this to your bridging header. ---///" + System.getProperty("line.separator")
+                                content += System.getProperty("line.separator")
+                            }
+                        }
+                        content += System.getProperty("line.separator")
+                        content += "#endif /* $j2ObjcBridgingHeaderDef */" + System.getProperty("line.separator")
+                        content += "////--- End Auto-Generated. Copy this to your bridging header. ---///" + System.getProperty("line.separator")
+                        println content
+                        headerFile.write(content)
+                    }
+                    j2ObjcBridgingHeader.shouldRunAfter j2objcXcode
+                    ```
+* If shared project has *NOT* already been transpiled you will need to build it to create static shared libraries.
+   ```
+   cd core
+   ./gradlew shared:build --info
+   ```
+   * If shared project *HAS* already been transpiled and you just want to update XCode Project to point at shared lib:
+       ```
+       cd core
+       ./gradlew shared:j2objcXcode --info
+       ```
+
+* Re-Run Pod Install to link your transpiled libraries to your iOS Projec
+  ```
+  cd ../../ios/Hello-J2ObjC-iOS
+  pod install
+  ```
+* If you already have a [https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html](bridging header file), please create an empty one first.
+    * Otherwise please create a new one or import the one from ./core/shared/build/j2objcOutputs/src/main/objc/Hello-J2ObjC-iOS-Bridging-Header.h to your XCode project.
+* If using Swift and already have a Bridging Header: Copy bridging header content in ```shared/build/j2objcOutputs/src/main/objc``` to your bridging header file
+* In your XCode Project Settings or XCConfig, Ensure ```SWIFT_OBJC_BRIDGING_HEADER```  is set to: ```$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h ```
 
 ALTERNATIVE FOR SIMPLE PROJECTS: Setup XCode w. Fat Static Library
 -----------
+This iOS project ASSUMES you have already succeeded in transpiling
+*HelloWorld.java* into *libHello-J2ObjC-j2objc.a* (the static library) from the top level project (../).
 
 * Make sure that *java/build/packedBinaries/libHello-J2ObjC-j2objc.a* exists.
 * Open the iOS project in Xcode: File->Open, browse to "iOS" folder of this project and open.
