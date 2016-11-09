@@ -1,4 +1,4 @@
 rootProject.name = 'petstore'
-include ":petstore:data", ":petstore:domain"
+//include ":petstore:data", ":petstore:domain"
 
 

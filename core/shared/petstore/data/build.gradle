@@ -1,9 +1,6 @@
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 
-group = 'com.pets'
-version = '1.0.0'
-
 buildscript {
     repositories {
         jcenter()
@@ -83,7 +80,7 @@ if(hasProperty('target') && target == 'android') {
 
     install {
         repositories.mavenInstaller {
-            pom.artifactId = 'core.shared.petstore.data'
+            pom.artifactId = 'shared:petstore:data'
         }
     }
 

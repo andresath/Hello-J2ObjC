@@ -213,9 +213,9 @@ Examine the transpiled Objective-C files at *build/j2objcOutputs/src/main/objc*.
 Original Java source is at *src/main/java*.
 
 
-Setup Xcode and Include Static Library
+Setup Xcode and Include Shared Library
 ---------------------------------------
-* TODO *
+* IN PROGRESS *
 The second part is to use the static library you created in Xcode with an iOS project.
 
 See the [ios/README.md](./ios/README.md).

@@ -7,6 +7,11 @@ For this Hello World example, this project favors importing code compiled with J
 
 RECOMMENDED: Setup XCode w. Cocoapods
 -----------
+* Install latest version of Cocoapods
+```
+gem install cocoapods --pre
+# I ran into this issue: https://github.com/CocoaPods/CocoaPods/issues/6095 with 1.1.1 Latest Release of Cocoapods
+```
 * Make sure your Project is initialized with Cocoapods
   ```
   cd ../../ios/Hello-J2ObjC-iOS

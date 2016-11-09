@@ -87,8 +87,7 @@ ext {
 }
 
 dependencies {
-//    compile project(':petstore.data')
-//    compile project(':petstore.domain')
+
     compile project(':shared:thirdparty:rxjava')
 
     // Any libraries Shared Core depend on, like Guava or JUnit
@@ -97,6 +96,10 @@ dependencies {
     compile "io.swagger:swagger-annotations:$swagger_annotations_version"
     compile "org.joda:joda-convert:$jodaconvert_version"
     compile "joda-time:joda-time:$jodatime_version"
+
+    //compile project(':shared:petstore:data')
+    //compile project(':shared:petstore:domain')
+
     testCompile "junit:junit:$junit_version"
     testCompile "org.mockito:mockito-core:$mockito_version"
 }
@@ -108,6 +111,11 @@ sourceSets {
             excludes = ["src/**"]
         }
     }
+//    test {
+//        java {
+//            srcDirs = ['petstore/data/src/test/java']
+//        }
+//    }
 }
 
 // Plugin settings; put these at the bottom of the file.
@@ -134,7 +142,7 @@ j2objcConfig {
     // This is to avoid tons of nullability issues with guava 19.0
     // see also: https://groups.google.com/forum/#!msg/j2objc-discuss/vxawRT_zzWE/T6SXFwvrCgAJ
     extraObjcCompilerArgs '-Wno-nullability', '-Wno-nullability-completeness'
-
+    extraObjcCompilerArgs '-I/Applications/j2objc-1.1/incl‌​ude/guava'
 
 
     // Omit these two lines if you don't configure your Xcode project with CocoaPods

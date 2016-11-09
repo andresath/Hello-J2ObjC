@@ -6,5 +6,3 @@ include 'shared:petstore:domain'
 include 'shared:thirdparty:rxjava'
 
 rootProject.name = 'core'
-findProject(':shared:petstore')?.name = 'core.shared.petstore'
-

@@ -1,10 +1,12 @@
 PODS:
+  - Alamofire (3.5.1)
   - j2objc-rxjava-debug (1.0)
   - j2objc-rxjava-release (1.0)
   - j2objc-shared-debug (1.0)
   - j2objc-shared-release (1.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 3.5.1)
   - j2objc-rxjava-debug (from `../../core/shared/thirdparty/rxjava/build/j2objcOutputs`)
   - j2objc-rxjava-release (from `../../core/shared/thirdparty/rxjava/build/j2objcOutputs`)
   - j2objc-shared-debug (from `../../core/shared/build/j2objcOutputs`)
@@ -21,9 +23,12 @@ EXTERNAL SOURCES:
     :path: "../../core/shared/build/j2objcOutputs"
 
 SPEC CHECKSUMS:
-  j2objc-rxjava-debug: ed631c3083a0deafa892f46552e5530f791af177
-  j2objc-rxjava-release: 4cef9ee071d7d2fadaece34cf7b9b6fd7b94d105
-  j2objc-shared-debug: f87d07dfe30bdb8ef177c9e725d9989d4fa7b773
-  j2objc-shared-release: 9e2063918a81c3270a428ba05ec1ca02f38cae89
+  Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
+  j2objc-rxjava-debug: a5ad605fd5004134aa256591ad933d83800af0f5
+  j2objc-rxjava-release: 79900dd95b8c110d583b9ff901de0983c04bb195
+  j2objc-shared-debug: d43d8b22a6f765df2a15b3a661c95a2d48aa0290
+  j2objc-shared-release: 53e42c15ef53a876efbbe3af656ca596e7b6b4de
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 5cf25b94e32157fa292d737db35afe0f22ed43c0
+
+COCOAPODS: 1.2.0.beta.1

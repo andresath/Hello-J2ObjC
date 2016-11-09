@@ -13,3 +13,4 @@ core/shared/common/.gradle
 core/shared/petstore/.gradle
 core/shared/petstore/data/.gradle
 core/shared/petstore/domain/.gradle
+ios/Hello-J2ObjC-iOS/Pods

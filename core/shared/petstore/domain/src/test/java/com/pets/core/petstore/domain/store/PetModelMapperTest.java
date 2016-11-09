@@ -1,4 +1,4 @@
-package com.pets.core.shared.petstore.domain.store;
+package com.pets.core.petstore.domain.store;
 
 import com.pets.core.shared.petstore.data.models.Pet;
 import com.pets.core.shared.petstore.data.models.Category;
