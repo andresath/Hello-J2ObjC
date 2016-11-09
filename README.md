@@ -12,7 +12,6 @@ Uses [J2ObjC](http://j2objc.org/), [Swagger](http://swagger.io/),
 
 TODO
 --------
-* Finish setting up gradle J2ObjC forked plugin (in favor of currently un-Make-ish Makefiles)
 * Create Example iOS Project
 * Create Example Android Project
 * Create ```scripts/``` for adding swagger auto-generation to build process
@@ -21,6 +20,8 @@ TODO
     * The timezone resource files need to be copied to the app's main bundle, with the same relative path as in joda-time.jar ("org/joda/tz/data/*"). If you cd to joda-time/ and run "mvn install", those resource files are all in target/classes/org/joda/tz/data/.
     * https://groups.google.com/forum/#!topic/j2objc-discuss/W7zj4o2t-Gg
     * https://github.com/google/j2objc/issues/93#issuecomment-165514634
+* Use Doppl instead?
+
 Project Structure
 --------
 * ```core``` - the bulk of our app logic
@@ -174,25 +175,6 @@ Java files on the fly, or have your Java project create a Cocoapod via j2objc-gr
 but for a clear understanding and clean path this project favors the static library approach.)
 
 
-Using Make to Transpile Dependencies
---------
-The following will transpile any *-sources directory in ./deps/libs/local_src into Objective C, and then into a Static Library in the ./deps/build directory.
-```
-cd ./deps
-make
-```
-To download new dependency sources jars, you can run:
-Reccomended to download the *-sources.jar from maven via: ```mvn dependency:sources``` and grab the jar from M2_HOME.
-Paste into raw_src_jars/ and then unzip into a folder with the same name in local_src.
-NOTE: Originally this was scripted, but because we should not be adding dependencies often, the overhead of scripting a stable/flexible solution was not worth it.
-
-Using Make to Transpile Core Code
---------
-```
-cd ./core/petstore/data
-make
-```
-
 Setup JAVA Project and run J2ObjC
 ----------------------------------
 * IN PROGRESS *
@@ -204,13 +186,17 @@ The first part is to get a plain Java project with J2ObjC support working (no XC
 * Clone this repo.
 * Import this project into IDEA (the main project is plain Java), import EXTERNAL MODEL -> GRADLE.
 * Edit local.properties and set j2objc.home to the correct path (your local install).
-* Once you have the Hello-J2OBJC project in IDEA, and local.properties, run ```gradle build```!
+* Once you have the Hello-J2OBJC project in IDEA, and local.properties, run:
+    ```
+    cd core/
+    ./gradlew shared:build --info
+    ```!
 
-This should succeed and create *build/j2objcOutputs* and *build/binaries* and *build/packedBinaries*, etc.
+This should succeed and create *core/shared/build/j2objcOutputs* and *core/shared/build/binaries* and *core/shared/build/packedBinaries*, etc.
 
-Examine the transpiled Objective-C files at *build/j2objcOutputs/src/main/objc*.
+Examine the transpiled Objective-C files at *core/shared/build/j2objcOutputs/src/main/objc*.
 
-Original Java source is at *src/main/java*.
+Original Java source is at *src/main/java* in the various modules.
 
 
 Setup Xcode and Include Shared Library
